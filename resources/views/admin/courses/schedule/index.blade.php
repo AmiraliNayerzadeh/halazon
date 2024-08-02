@@ -66,6 +66,15 @@
                                                 <label class="form-label" for="title">عنوان زمان بندی:</label>
                                                 <input class="form-control" type="title" name="title" id="title" value="{{old('title')}}" placeholder="زمان بندی 1">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="day">روز های برگذاری:</label>
+                                                @foreach($days as $day)
+                                                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                    <input type="checkbox" class="btn-check" id="{{$day['id']}}" autocomplete="off" name="days[]" value="جمعه">
+                                                    <label class="btn btn-outline-primary" for="{{$day['id']}}">{{$day['day_farsi']}}</label>
+                                                </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

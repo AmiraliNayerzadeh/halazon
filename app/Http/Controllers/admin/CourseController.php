@@ -215,11 +215,11 @@ class CourseController extends Controller
         $request['course_id'] = $course->id ;
 
         PartTime::create($request->all());
-        Alert::success("زمان بندی جدید برای دوره   $course->title با موفقیت ایجاد شد. ");
+        Alert::success("زمان بندی جدید برای دوره $course->title با موفقیت ایجاد شد. ");
         return back();
     }
-    
-    
+
+
 
 
 
