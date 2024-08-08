@@ -2,7 +2,7 @@
     <div class="container mx-auto">
         <section class='flex  items-center justify-between  py-3 px-2 sm:px-10 min-h-[75px] '>
 
-            <a href="javascript:void(0)" class=""><img src="/assets/logo.png" alt="logo" class='w-[120px]'/></a>
+            <a href="{{route('home')}}" class=""><img src="/assets/logo.png" alt="logo" class='w-[120px]'/></a>
 
             <div class="flex px-4 w-1/3  rounded-3xl border-2  max-lg:hidden">
                 <input type="text" placeholder="جستجو میان دوره های حلزون..."

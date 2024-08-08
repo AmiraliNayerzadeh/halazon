@@ -9,7 +9,17 @@ Route::get('/' ,[\App\Http\Controllers\home\HomeController::class , 'home'])->na
 
 Route::get('/terms', [\App\Http\Controllers\home\HomeController::class , 'terms'])->name('terms');
 
-Route::get('/category/{category}', [\App\Http\Controllers\home\CategoryController::class , 'main'])->name('category');
+Route::get('/category/{category:slug}', [\App\Http\Controllers\home\CategoryController::class , 'main'])->name('category');
+
+
+Route::get('/course/{course:slug}', [\App\Http\Controllers\home\CourseController::class , 'show'])->name('course.show');
+
+/*Add teacher Route*/
+Route::get('/teacher/', [\App\Http\Controllers\home\TeacherController::class , 'index'])->name('teacher.index');
+Route::get('teacher/{user:slug}', [\App\Http\Controllers\home\TeacherController::class , 'show'])->name('teacher.show');
+Route::post('teacher/{user:slug}/fallow', [\App\Http\Controllers\home\TeacherController::class , 'fallow'])->name('teacher.fallow');
+Route::post('teacher/{user:slug}/unfollow', [\App\Http\Controllers\home\TeacherController::class, 'unfollow'])->name('teacher.unfollow');
+
 
 
 

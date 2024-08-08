@@ -45,4 +45,9 @@ class Course extends Model
         return $this->hasMany(PartTime::class);
     }
 
+    public function headlines()
+    {
+        return $this->hasMany(Headline::class);
+    }
+
 }

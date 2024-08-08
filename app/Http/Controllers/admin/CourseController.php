@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCourseRequest;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseSchedule;
+use App\Models\Day;
+use App\Models\Headline;
 use App\Models\PartTime;
 use Artesaos\SEOTools\Traits\SEOTools;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Morilog\Jalali\Jalalian;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CourseController extends Controller
@@ -57,15 +62,15 @@ class CourseController extends Controller
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'homework' => 'nullable|string',
             'is_draft' => 'required|boolean',
-            'category' => ['required_if:is_draft,0' , 'exists:categories,id'],
-            'slug' => ['nullable' , 'string'],
-            'meta_title' => ['nullable' , 'string'],
-            'meta_keywords' => ['nullable' , 'string'],
-            'meta_description' => ['nullable' , 'string'],
+            'category' => ['required_if:is_draft,0', 'exists:categories,id'],
+            'slug' => ['nullable', 'string'],
+            'meta_title' => ['nullable', 'string'],
+            'meta_keywords' => ['nullable', 'string'],
+            'meta_description' => ['nullable', 'string'],
         ]);
 
         if ($valid->fails()) {
-            alert()->error('Error', $valid->messages()->all()[0]);
+            alert()->error('خطا', $valid->messages()->all()[0]);
             return back()->withInput();
         }
 
@@ -86,12 +91,11 @@ class CourseController extends Controller
         }
 
 
-
         $course = Course::create($request->all());
 
         try {
             $course->categories()->sync($request['category']);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
             return back()->withInput();
         }
@@ -115,7 +119,7 @@ class CourseController extends Controller
     public function edit(Course $course)
     {
         $this->seo()->setTitle("ویرایش دوره $course->title");
-            return view('admin.courses.edit', compact('course') );
+        return view('admin.courses.edit', compact('course'));
     }
 
     /**
@@ -139,15 +143,15 @@ class CourseController extends Controller
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'homework' => 'nullable|string',
             'is_draft' => 'required|boolean',
-            'category' => ['required_if:is_draft,0' , 'exists:categories,id'],
-            'slug' => ['required' , 'string'],
-            'meta_title' => ['nullable' , 'string'],
-            'meta_keywords' => ['nullable' , 'string'],
-            'meta_description' => ['nullable' , 'string'],
+            'category' => ['required_if:is_draft,0', 'exists:categories,id'],
+            'slug' => ['required', 'string'],
+            'meta_title' => ['nullable', 'string'],
+            'meta_keywords' => ['nullable', 'string'],
+            'meta_description' => ['nullable', 'string'],
         ]);
 
         if ($valid->fails()) {
-            alert()->error('Error', $valid->messages()->all()[0]);
+            alert()->error('خطا', $valid->messages()->all()[0]);
             return back()->withInput();
         }
 
@@ -156,12 +160,11 @@ class CourseController extends Controller
         }
 
 
-
         $course->update($request->all());
 
         try {
             $course->categories()->sync($request['category']);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
             return back()->withInput();
         }
@@ -171,25 +174,126 @@ class CourseController extends Controller
     }
 
 
-
     public function schedule(Course $course)
     {
-
-        $days = [
-            ["id" => 1, "day_farsi" => "شنبه", "day_english" => "Saturday"],
-            ["id" => 2, "day_farsi" => "یک‌شنبه", "day_english" => "Sunday"],
-            ["id" => 3, "day_farsi" => "دوشنبه", "day_english" => "Monday"],
-            ["id" => 4, "day_farsi" => "سه‌شنبه", "day_english" => "Tuesday"],
-            ["id" => 5, "day_farsi" => "چهارشنبه", "day_english" => "Wednesday"],
-            ["id" => 6, "day_farsi" => "پنج‌شنبه", "day_english" => "Thursday"],
-            ["id" => 7, "day_farsi" => "جمعه", "day_english" => "Friday"]
-        ];
-
         $this->seo()->setTitle("زمان بندی دوره $course->title");
-        return view('admin.courses.schedule.index' , compact('course' , 'days'));
+        return view('admin.courses.schedule.index', compact('course'));
 
     }
 
+
+    public function scheduleStore(Request $request, Course $course)
+    {
+
+        $valid = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'start_course' => 'required',
+            'time_course' => 'required|date_format:H:i',
+            'days' => 'required|array|min:1|exists:days,id',
+        ]);
+
+        if ($valid->fails()) {
+            alert()->error('خطا', $valid->messages()->all()[0]);
+            return back()->withInput();
+        }
+
+        // اعتبارسنجی تعداد روزهای انتخاب شده
+        if (count($request->days) != $course->weeks) {
+            alert()->error('خطا', 'تعداد روزهای انتخاب شده با توجه به انتخاب شما باید  ' . $course->weeks . ' روز باشد.');
+            return back()->withInput();
+        }
+
+
+
+        if (!is_null($request->start_course)) {
+            list($year, $month, $day) = explode('/', $request->start_course);
+            $start = Jalalian::fromFormat('Y/m/d', "$year/$month/$day")->toCarbon()->format('Y-m-d');
+        } else {
+            alert()->error('خطا', 'فیلد تاریخ شروع به درستی وارد نشده است. اصلاح کنید.');
+            return back()->withInput();
+        }
+
+        $startDate = Carbon::createFromFormat('Y-m-d', $start);
+
+
+
+        foreach ($request->days as $day) {
+            $DayItem = Day::find($day);
+            $days[] = ['id'=>$DayItem->id , 'day' =>$DayItem['day_english'] ];
+        }
+
+
+        if (!in_array($startDate->format('l'), array_column($days, 'day'))) {
+            alert()->error('خطا', 'تاریخ شروع باید برابر با یکی از روزهای انتخاب شده باشد.');
+            return back()->withInput();
+        }
+
+
+        $part = PartTime::create([
+            'title' => $request['title'] ,
+            'course_id' => $course->id,
+            'status' => 1,
+        ]);
+
+
+        $remainingClasses = $course->class_duration;
+        $currentDate = $startDate ;
+        $items = [];
+
+
+        // پیدا کردن اولین تاریخ مناسب
+        $found = false;
+        foreach ($days as $day) {
+            if ($currentDate->format('l') == $day['day']) {
+                $found = true;
+                break;
+            }
+        }
+        if (!$found) {
+            foreach ($days as $day) {
+                if ($currentDate->format('l') != $day['day']) {
+                    $currentDate = Carbon::parse($currentDate)->next($day['day']);
+                    break;
+                }
+            }
+        }
+
+        while ($remainingClasses > 0) {
+            foreach ($days as $day) {
+                if ($remainingClasses <= 0) {
+                    break;
+                }
+
+                // برای اولین بار از تاریخ فعلی استفاده کنید
+                if ($remainingClasses == $course->class_duration) {
+                    $scheduleDate = $currentDate;
+                } else {
+                    $scheduleDate = Carbon::parse($currentDate)->next($day['day']);
+                }
+
+                CourseSchedule::create([
+                    'course_id' => $course->id,
+                    'schedule_id' => $part->id,
+                    'teacher_id' => $course->teacher_id,
+                    'day_id' => $day['id'],
+                    'start_time' => $request['time_course'],
+                    'start_date' => $scheduleDate->format('Y-m-d'),
+                ]) ;
+
+
+                $remainingClasses--;
+                $currentDate = $scheduleDate;
+            }
+
+            // اضافه کردن روزهای باقیمانده هفته به تاریخ فعلی
+            $currentDate = Carbon::parse($currentDate)->addDays(1);
+        }
+
+
+        Alert::success("زمان بندی برای   $course->title با موفقیت ایجاد شد. ");
+        return back();
+
+    }
 
 
     /**
@@ -200,19 +304,19 @@ class CourseController extends Controller
         //
     }
 
-    public function time(Request $request , Course $course)
+    public function time(Request $request, Course $course)
     {
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
         ]);
 
         if ($valid->fails()) {
-            alert()->error('Error', $valid->messages()->all()[0]);
+            alert()->error('خطا', $valid->messages()->all()[0]);
             return back()->withInput();
         }
 
-        $request['status'] = 1 ;
-        $request['course_id'] = $course->id ;
+        $request['status'] = 1;
+        $request['course_id'] = $course->id;
 
         PartTime::create($request->all());
         Alert::success("زمان بندی جدید برای دوره $course->title با موفقیت ایجاد شد. ");
@@ -220,7 +324,73 @@ class CourseController extends Controller
     }
 
 
+    public function headline(Course $course)
+    {
+        $this->seo()->setTitle("سرفصل های $course->title");
+        return view('admin.courses.headlines.index', compact('course'));
+    }
 
+    public function headlineStore(Request $request , Course $course)
+    {
+        $valid = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'video' => 'nullable|string|max:255',
+        ]);
+
+        if ($valid->fails()) {
+            alert()->error('خطا', $valid->messages()->all()[0]);
+            return back()->withInput();
+        }
+
+        if ($course->type == 'offline') {
+            if (is_null($request->video)){
+                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
+                return back()->withInput();
+            }
+        }
+
+        $request['priority'] = count($course->headlines) + 1 ;
+
+        $request['course_id'] = $course->id ;
+
+        Headline::create($request->all());
+
+        Alert::success("سر فصل جدید برای دوره $course->title با موفقیت ایجاد شد. ");
+        return back();
+
+    }
+
+
+    public function headlineUpdate(Request $request , Headline $headline)
+    {
+        $valid = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'video' => 'nullable|string|max:255',
+        ]);
+
+        if ($valid->fails()) {
+            alert()->error('خطا', $valid->messages()->all()[0]);
+            return back()->withInput();
+        }
+
+
+
+        if ($headline->course->type == 'offline') {
+            if (is_null($request->video)){
+                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
+                return back()->withInput();
+            }
+        }
+
+
+        $headline->update($request->all());
+
+        Alert::success("سر فصل با موفقیت بروز رسانی شد");
+        return back();
+
+    }
 
 
 }

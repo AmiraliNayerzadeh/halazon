@@ -6,7 +6,8 @@
                     <h6>ایجاد کاربر جدید</h6>
 
                     <ol class="breadcrumb  mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5" href="{{route('admin.users.index')}}">کاربران</a></li>
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5" href="{{route('admin.users.index')}}">کاربران</a>
+                        </li>
                         <li class="breadcrumb-item text-sm active" aria-current="page">ایجاد</li>
                     </ol>
                 </div>
@@ -21,7 +22,8 @@
                                     <div class="my-2">
                                         <label class="form-label" for="name">نام:</label>
                                         <input class="form-control" type="text" name="name" id="name"
-                                               placeholder="نام را وارد کنید." value="{{old('name')}}" autocomplete="off">
+                                               placeholder="نام را وارد کنید." value="{{old('name')}}"
+                                               autocomplete="off">
                                     </div>
                                 </div>
 
@@ -54,14 +56,17 @@
                                     <div class="my-2">
                                         <label class="form-label" for="phone">شماره تلفن:</label>
                                         <input class="form-control" type="number" name="phone" id="phone"
-                                               placeholder=".شماره تلفن معتبر کاربر را وارد کنید" value="{{old('phone')}}">
+                                               placeholder=".شماره تلفن معتبر کاربر را وارد کنید"
+                                               value="{{old('phone')}}">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="email">ایمیل:</label>
-                                        <input class="form-control" type="email" name="email" id="email" placeholder=".ایمیل را وارد کنید" value="{{old('email')}}" autocomplete="off">
+                                        <input class="form-control" type="email" name="email" id="email"
+                                               placeholder=".ایمیل را وارد کنید" value="{{old('email')}}"
+                                               autocomplete="off">
                                     </div>
                                 </div>
 
@@ -69,7 +74,8 @@
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="birthday">تاریخ تولد:</label>
-                                        <input data-jdp type="text" class="form-control" id="birthday" name="birthday" value="{{old('birthday')}}">
+                                        <input data-jdp type="text" class="form-control" id="birthday" name="birthday"
+                                               value="{{old('birthday')}}">
                                     </div>
                                 </div>
 
@@ -77,14 +83,16 @@
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="nationalCode">کُد ملی:</label>
-                                        <input name="nationalCode" type="number" id="nationalCode" class="form-control" value="{{old('nationalCode')}}">
+                                        <input name="nationalCode" type="number" id="nationalCode" class="form-control"
+                                               value="{{old('nationalCode')}}">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="address">آدرس:</label>
-                                        <input type="text" name="address" id="address" class="form-control" value="{{old('address')}}">
+                                        <input type="text" name="address" id="address" class="form-control"
+                                               value="{{old('address')}}">
                                     </div>
                                 </div>
 
@@ -92,7 +100,8 @@
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="postalCode">کد پُستی:</label>
-                                        <input name="postalCode" type="number" id="postalCode" class="form-control" value="{{old('postalCode')}}">
+                                        <input name="postalCode" type="number" id="postalCode" class="form-control"
+                                               value="{{old('postalCode')}}">
                                     </div>
                                 </div>
 
@@ -100,7 +109,7 @@
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="password">رمز عبور:</label>
-                                        <input name="password" type="password" id="password" class="form-control"  value="{{old('password')}}">
+                                        <input name="password" type="password" id="password" class="form-control" value="{{old('password')}}">
                                     </div>
                                 </div>
 
@@ -110,7 +119,8 @@
 
                                         <div class="input-group">
                                            <span class="input-group-btn">
-                                             <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                             <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                                class="btn btn-primary">
                                                <i class="fa fa-picture-o"></i>
                                                  انتخاب
                                              </a>
@@ -121,13 +131,43 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-4">
+                                    <div class="my-2">
+                                        <label class="form-label" for="password">ویدیو:</label>
+
+                                        <div class="input-group">
+                                           <span class="input-group-btn">
+                                             <a id="lfm-video" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                               <i class="fa fa-video-camera"></i>
+                                                 انتخاب
+                                             </a>
+                                           </span>
+                                            <input id="thumbnail" class="form-control" type="text" name="video">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-2">
+                                    <div class="my-2">
+                                        <label class="form-label" for="is_verify">وضعیت: (فقط برای معلمین اجباری است)</label>
+                                        <select class="form-control" name="is_verify" id="is_verify">
+                                            <option>نامشخص</option>
+                                            <option {{old('is_verify') == '0' ? 'selected' : ''}} value="0">تایید نشده</option>
+                                            <option {{old('is_verify') == '1' ? 'selected' : ''}} value="1">تایید شده</option>
+                                        </select>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-lg-2">
                                     <div class="my-2">
                                         <label class="form-label" for="is_teacher">نوع:</label>
                                         <select class="form-control" name="is_teacher" id="is_teacher">
-                                            <option {{old('is_teacher') == '0' ? 'selected' : ''}} value="0">کاربر</option>
-                                            <option {{old('is_teacher') == '1' ? 'selected' : ''}} value="1">دبیر</option>
+                                            <option {{old('is_teacher') == '0' ? 'selected' : ''}} value="0">کاربر
+                                            </option>
+                                            <option {{old('is_teacher') == '1' ? 'selected' : ''}} value="1">دبیر
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -137,10 +177,27 @@
                                     <div class="my-2">
                                         <label class="form-label" for="is_admin">دسترسی ادمین:</label>
                                         <select class="form-control" name="is_admin" id="is_admin">
-                                            <option {{old('is_admin') == '0' ? 'selected' : ''}} value="0">ندارد</option>
+                                            <option {{old('is_admin') == '0' ? 'selected' : ''}} value="0">ندارد
+                                            </option>
                                             <option {{old('is_admin') == '1' ? 'selected' : ''}} value="1">دارد</option>
                                         </select>
                                     </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="my-2">
+                                        <label class="form-label" for="categories">دسته بندی:</label>
+                                        <select class="form-control select2" name="categories[]" id="categories" multiple>
+                                            @foreach(\App\Models\Category::where('parent_id' , null)->get() as $category)
+                                                <option value="{{$category->id}}">{{$category->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <label class="form-label" for="description">توضیحات </label>
+                                    <textarea name="description" id="editor" cols="30" rows="10">{!! old('description') !!}</textarea>
                                 </div>
 
 
@@ -163,8 +220,16 @@
 
             <script>
                 $('#lfm').filemanager('image');
+                $('#lfm-video').filemanager('image');
             </script>
+            <script>
+                $(document).ready(function () {
 
+                    $('.select2').select2({
+                        theme: 'bootstrap-5'
+                    });
+                });
+            </script>
         @endsection
 
     @endsection

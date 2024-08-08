@@ -14,8 +14,13 @@ Route::resource('/categories' , \App\Http\Controllers\admin\CategoriesController
 
 Route::resource('/courses' , \App\Http\Controllers\admin\CourseController::class);
 
-Route::post('/courses/time/{course}', [\App\Http\Controllers\admin\CourseController::class , 'time'])->name('time.store');
 Route::get('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseController::class , 'schedule'])->name('schedules.index');
+Route::post('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseController::class , 'scheduleStore'])->name('schedules.store');
+
+
+Route::get('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headline'])->name('headline.index');
+Route::post('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headlineStore'])->name('headline.store');
+Route::put('/courses/headlines/{headline}', [\App\Http\Controllers\admin\CourseController::class , 'headlineUpdate'])->name('headline.update');
 
 
 

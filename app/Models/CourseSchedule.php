@@ -9,15 +9,22 @@ class CourseSchedule extends Model
 {
     protected $fillable = [
         'course_id',
-        'day',
+        'schedule_id',
+        'teacher_id',
+        'day_id',
         'start_time',
-        'end_time',
+        'start_date',
     ];
 
 
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function day()
+    {
+        return $this->belongsTo(Day::class);
     }
 
 }

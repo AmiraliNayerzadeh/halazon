@@ -21,7 +21,7 @@
                             <a class="nav-link " href="{{route('admin.schedules.index', $course)}}">زمان بندی کلاس</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  " href="#">سرفصل ها</a>
+                            <a class="nav-link  " href="{{route('admin.headline.index', $course)}}">سرفصل ها</a>
                         </li>
                     </ul>
                 </div>
@@ -141,9 +141,9 @@
                             <div class="col-lg-12 d-flex align-items-center mt-4">
                                 <span class="mx-2">این کلاس در </span>
                                 <input type="number" name="class_duration" id="class_duration" class="form-control w-auto" placeholder="تعداد جلسات " value="{{old('class_duration') ? old('class_duration') : $course->class_duration }}">
-                                <span class="mx-2"> جلسه و در </span>
+                                <span class="mx-2"> جلسه و در هفته </span>
                                 <input type="number" name="weeks" id="weeks" class="form-control w-auto" placeholder="تعداد هفته" value="{{old('weeks') ? old('weeks') : $course->weeks }}">
-                                <span class="mx-2">هفته برگذار میشود که مدّت هر جلسه  </span>
+                                <span class="mx-2">بار برگذار میشود که مدّت هر جلسه  </span>
                                 <input type="number" name="minutes" id="minutes" class="form-control w-auto" placeholder="مثال 30 " value="{{old('minutes') ? old('minutes') : $course->minutes }}">
                                 <span class="mx-2"> دقیقه میباشد.  </span>
                             </div>

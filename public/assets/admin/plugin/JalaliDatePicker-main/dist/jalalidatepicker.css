@@ -197,7 +197,7 @@ jdp-container .jdp-day:not(.disabled-day) {
 jdp-container .jdp-day:not(.disabled-day):hover {
   background: rgba(0, 0, 0, 0.1);
   transform: scale(1.15);
-  z-index: 1;
+  z-index: 999999999;
 }
 jdp-container .jdp-day-name {
   border-radius: 0;

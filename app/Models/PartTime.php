@@ -20,7 +20,7 @@ class PartTime extends Model
 
     public function schedules()
     {
-        return $this->belongsTo(CourseSchedule::class , 'schedule_id');
+        return $this->hasMany(CourseSchedule::class , 'schedule_id');
     }
 
 }

@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between">
                 <div>
@@ -15,22 +15,59 @@
                     </button>
                 </div>
             </div>
-            <form action="{{route('admin.time.store', $course)}}" method="post">
-                @csrf
+            <form action="{{route('admin.schedules.store', $course)}}" method="post">
                 @method('POST')
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="form-label" for="title">عنوان</label>
-                        <input class="form-control" value="{{old('title')}}" type="text" name="title" id="title" placeholder="مثال: روز های زوج یا زمان بندی اول">
+                @csrf
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-label" for="title">عنوان زمان بندی:</label>
+                                <input class="form-control" type="title" name="title" id="title"
+                                       value="{{old('title')}}" placeholder="زمان بندی 1">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-label" for="title">تاریخ شروع:</label>
+                                <input data-jdp type="text" class="form-control" id="start_course"
+                                       name="start_course" value="{{old('start_course')}}"
+                                       autocomplete="off">
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-label" for="title">تاریخ شروع:</label>
+                                <input type="time" class="form-control" id="time_course"
+                                       name="time_course" value="{{old('time_course')}}"
+                                       autocomplete="off">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="day">روز های برگذاری:</label>
+                            @foreach(\App\Models\Day::all() as $day)
+                                <div class="btn-group" role="group"
+                                     aria-label="Basic checkbox toggle button group">
+                                    <input type="checkbox" class="btn-check" id="{{$day['id']}}"
+                                           autocomplete="off" name="days[]"
+                                           value="{{$day['id']}}" {{ in_array($day->id, old('days', [])) ? 'checked' : '' }} >
+                                    <label class="btn btn-outline-primary"
+                                           for="{{$day['id']}}">{{$day['day_farsi']}}</label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn bg-gradient-secondary"
-                            data-bs-dismiss="modal">بستن
-                    </button>
-                    <button type="submit" class="btn bg-gradient-primary">ذخیره</button>
+                <div class="card-footer border d-flex justify-content-end">
+                    <button class="btn btn-success" type="submit">ثبت</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

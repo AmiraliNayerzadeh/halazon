@@ -18,7 +18,10 @@ class CategoryController extends Controller
             $this->seo()->setTitle("$category->title");
         }
 
-        return view('home.categories.main' , compact('category'));
+        $courses = $category->courses()->paginate(12);
+
+
+        return view('home.categories.main' , compact('category' , 'courses'));
 
     }
 }

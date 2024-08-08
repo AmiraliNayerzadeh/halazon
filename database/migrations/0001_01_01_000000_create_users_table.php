@@ -24,9 +24,13 @@ return new class extends Migration
             $table->longText('address')->nullable();
             $table->integer('postalCode')->nullable();
             $table->text('avatar')->nullable();
+            $table->text('video')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->boolean('is_admin')->default(0);
+            $table->boolean('is_verify')->nullable();
+            $table->string('slug');
             $table->rememberToken();
             $table->timestamps();
         });

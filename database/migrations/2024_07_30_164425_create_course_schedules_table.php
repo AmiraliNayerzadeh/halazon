@@ -20,11 +20,15 @@ return new class extends Migration
             $table->unsignedBigInteger('schedule_id');
             $table->foreign('schedule_id')->references('id')->on('course_schedules')->onDelete('cascade');
 
-            $table->string('day'); //
+            $table->unsignedBigInteger('teacher_id');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('day_id');
+            $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
+
 
             $table->time('start_time');
-
-            $table->time('end_time');
+            $table->date('start_date');
 
             $table->timestamps();
         });

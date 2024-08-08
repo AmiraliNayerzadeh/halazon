@@ -64,10 +64,7 @@
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="email">ایمیل:</label>
-                                        <input class="form-control" type="email" name="email" id="email"
-                                               placeholder=".ایمیل را وارد کنید"
-                                               value="{{old('email') ? old('email') : $user->email }}"
-                                               autocomplete="off">
+                                        <input class="form-control" type="email" name="email" id="email" placeholder="ایمیل را وارد کنید" value="{{old('email') ? old('email') : $user->email }}" autocomplete="new-main">
                                     </div>
                                 </div>
 
@@ -133,10 +130,36 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-4">
+                                    <div class="my-2">
+                                        <label class="form-label" for="password">ویدیو:</label>
+
+                                        <div class="input-group">
+                                           <span class="input-group-btn">
+                                             <a id="lfm-video" data-input="video" data-preview="holder" class="btn btn-primary">
+                                               <i class="fa fa-video-camera"></i>
+                                                 انتخاب
+                                             </a>
+                                           </span>
+                                            <input id="video" class="form-control" type="text" name="video" value="{{old('video') ? old('video') : $user->video }}">
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-2">
                                     <div class="my-2">
-                                        <label class="form-label" for="type">نوع:</label>
+                                        <label class="form-label" for="is_verify">نوع: (فقط برای معلمین اجباری است)</label>
+                                        <select class="form-control" name="is_verify" id="is_verify">
+                                            <option>نامشخص</option>
+                                            <option {{ old('is_verify', $user->is_verify) == '0' ? 'selected' : '' }} value="0">تایید نشده</option>
+                                            <option {{ old('is_verify', $user->is_verify) == '1' ? 'selected' : '' }} value="1">تایید شده</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="my-2">
+                                        <label class="form-label" for="type">وضعیت:</label>
                                         <select class="form-control" name="is_teacher" id="type">
                                             <option {{ old('is_teacher', $user->is_teacher) == '0' ? 'selected' : '' }} value="0">کاربر</option>
                                             <option {{ old('is_teacher', $user->is_teacher) == '1' ? 'selected' : '' }} value="1">دبیر</option>
@@ -156,6 +179,23 @@
                                             </option>
                                         </select>
                                     </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="my-2">
+                                        <label class="form-label" for="categories">دسته بندی:</label>
+                                        <select class="form-control select2" name="categories[]" id="categories" multiple>
+                                            @foreach(\App\Models\Category::where('parent_id' , null)->get() as $category)
+                                                <option {{in_array($category->id , $user->categories->pluck('id')->toArray()) ? 'selected ' : ''}} value="{{$category->id}}">{{$category->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <label class="form-label" for="description">توضیحات </label>
+                                    <textarea name="description" id="editor" cols="30" rows="10">{{old('description') ? old('description') : $user->description }}</textarea>
                                 </div>
 
 
@@ -178,6 +218,17 @@
 
             <script>
                 $('#lfm').filemanager('image');
+                $('#lfm-video').filemanager('image');
+
+            </script>
+
+            <script>
+                $(document).ready(function () {
+
+                    $('.select2').select2({
+                        theme: 'bootstrap-5'
+                    });
+                });
             </script>
 
         @endsection

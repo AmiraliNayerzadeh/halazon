@@ -27,8 +27,13 @@ class User extends Authenticatable
         'address',
         'postalCode',
         'avatar',
+        'video',
+        'description',
+        'description',
+        'is_verify',
         'is_admin',
         'is_teacher',
+        'slug',
         'password',
     ];
 
@@ -60,10 +65,39 @@ class User extends Authenticatable
         return $this->is_admin ;
     }
 
+    public function isTeacher()
+    {
+        return $this->is_teacher == 1;
+    }
+
     public function tokens()
     {
         return $this->hasMany(Token::class);
     }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class , 'teacher_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+    // کاربران دنبال‌کننده
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'teacher_id', 'user_id');
+    }
+
+    // معلمانی که کاربر دنبال می‌کند
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'teacher_id');
+    }
+
+
 
 
 }

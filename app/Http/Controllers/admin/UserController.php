@@ -54,9 +54,13 @@ class UserController extends Controller
             'address' => ['nullable'],
             'postalCode' => ['nullable', 'numeric'],
             'avatar' => ['nullable'],
+            'video' => ['nullable'],
+            'description' => ['nullable'],
             'password' => ['required'],
             'is_teacher' => ['required' , 'in:0,1'],
-            'is_admin' => ['required' , 'in:1,0']
+            'is_admin' => ['required' , 'in:1,0'],
+            'is_verify' => ['required_if:is_teacher,1' , 'in:0,1'],
+
         ]);
 
         if ($valid->fails()) {
@@ -71,11 +75,10 @@ class UserController extends Controller
             $birthdayTime = $request->deadline;
             $birthday = Jalalian::fromFormat('Y/m/d H:i:s', $birthdayTime)->toCarbon()->toDateTimeString();
         }
+        $fullName = $request['name'].' '.$request['family'];
+        $slug=$request['slug'] = str_replace(' ' , '-' ,$fullName);
 
-
-
-
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'family' => $request->family,
             'gender' => $request->gender,
@@ -86,10 +89,16 @@ class UserController extends Controller
             'address' => $request->address,
             'postalCode' => $request->postalCode,
             'avatar' => $request->avatar,
+            'video' => $request->video,
+            'description' => $request->description,
             'password' => Hash::make($request->password),
             'is_teacher' => $request->is_teacher,
+            'is_verify' => $request->is_verify,
+            'slug' => $slug,
+
         ]);
 
+        $user->categories()->sync($request->categories);
 
         Alert::success("کاربر جدید با موفقیت ایجاد شد.");
         return back();
@@ -131,9 +140,13 @@ class UserController extends Controller
             'address' => ['nullable'],
             'postalCode' => ['nullable', 'numeric'],
             'avatar' => ['nullable'],
+            'video' => ['nullable'],
+            'description' => ['nullable'],
             'password' => ['nullable'],
             'is_teacher' => ['required' , 'in:0,1'],
             'is_admin' => ['required' , 'in:1,0'],
+            'is_verify' => ['required_if:is_teacher,1' , 'in:0,1'],
+            'categories' => ['nullable' , 'exists:categories,id' , 'array'],
         ]);
 
         if ($valid->fails()) {
@@ -147,7 +160,8 @@ class UserController extends Controller
             $birthday = Jalalian::fromFormat('Y/m/d', "$year/$month/$day")->toCarbon()->format('Y-m-d');
         }
 
-
+        $fullName = $request['name'].' '.$request['family'];
+        $slug=$request['slug'] = str_replace(' ' , '-' ,$fullName);
 
         $user->update([
             'name' => $request->name,
@@ -160,11 +174,17 @@ class UserController extends Controller
             'address' => $request->address,
             'postalCode' => $request->postalCode,
             'avatar' => $request->avatar,
+            'video' => $request->video,
+            'description' => $request->description,
             'password' => Hash::make($request->password),
             'is_teacher' => $request->is_teacher,
             'is_admin' => $request->is_admin ,
-
+            'is_verify' => $request->is_verify,
+            'slug' => $slug,
         ]);
+
+        $user->categories()->sync($request->categories);
+
         Alert::success("کاربر $user->name $user->family  با موفقیت بروز رسانی شد.");
         return back();
     }

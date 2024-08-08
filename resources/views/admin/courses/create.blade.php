@@ -112,8 +112,7 @@
                                                              انتخاب
                                                          </a>
                                           </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="image"
-                                               value="{{old('image')}}">
+                                        <input id="thumbnail" class="form-control" type="text" name="image" value="{{old('image')}}">
                                     </div>
                                     <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                                 </div>
@@ -142,9 +141,9 @@
                             <div class="col-lg-12 d-flex align-items-center mt-4">
                                 <span class="mx-2">این کلاس در </span>
                                 <input type="number" name="class_duration" id="class_duration" class="form-control w-auto" placeholder="تعداد جلسات " value="{{old('class_duration')}}">
-                                <span class="mx-2"> جلسه و در </span>
+                                <span class="mx-2"> جلسه و در هفته</span>
                                 <input type="number" name="weeks" id="weeks" class="form-control w-auto" placeholder="تعداد هفته" value="{{old('weeks')}}">
-                                <span class="mx-2">هفته برگذار میشود که مدّت هر جلسه  </span>
+                                <span class="mx-2">بار برگذار میشود که مدّت هر جلسه  </span>
                                 <input type="number" name="minutes" id="minutes" class="form-control w-auto" placeholder="مثال 30 " value="{{old('minutes')}}">
                                 <span class="mx-2"> دقیقه میباشد.  </span>
                             </div>

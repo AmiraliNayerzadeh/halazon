@@ -78,10 +78,9 @@
 
 
     {{--Section 3--}}
-    <div class="my-10 container mx-auto">
+    <div class="my-12 container mx-auto">
         <h3 class="font-extrabold text-2xl sm:text-4xl text-center mb-6">کلاس ها و معلمان برای هر مقطعی</h3>
-        <div class="grid grid-cols-12">
-
+        <div class="grid grid-cols-12 mx-auto">
             <div class="col-span-6 sm:col-span-3 my-1">
                 <div class="sm:w-2/3 p-4">
                     <a href="#"><img class="w-full rounded-t-3xl " src="/assets/home/image/highSchool.png" alt="#"></a>

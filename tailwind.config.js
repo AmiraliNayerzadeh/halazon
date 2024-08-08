@@ -1,5 +1,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -23,8 +25,46 @@ export default {
             fontFamily: {
                 sans: ['Ravi FaNum'],
             },
+
+            typography: {
+                DEFAULT: {
+                    css: {
+                        a: {
+                            color: '#FB8931',
+                            '&:hover': {
+                                color: '#7855AF',
+                            },
+                        },
+                        h1: {
+                            fontSize: '2.25em', // 36px
+                            fontWeight: '800',
+                        },
+                        h2: {
+                            fontSize: '1.875em', // 30px
+                            fontWeight: '800',
+                        },
+                        h3: {
+                            fontSize: '1.5em', // 24px
+                            fontWeight: '800',
+                        },
+                        h4: {
+                            fontSize: '1.25em', // 20px
+                            fontWeight: '600',
+                        },
+                        h5: {
+                            fontSize: '1em', // 16px
+                            fontWeight: '600',
+                        },
+                        h6: {
+                            fontSize: '0.875em', // 14px
+                            fontWeight: '600',
+                        },
+                    },
+                },
+            },
+
         },
     },
 
-    plugins: [forms],
+    plugins: [forms ,typography],
 };
