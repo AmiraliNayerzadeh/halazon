@@ -36,6 +36,8 @@ Route::post('/comment/store', [\App\Http\Controllers\home\CommentController::cla
 Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/comments', [ProfileController::class, 'comment'])->name('profile.comment');
+    Route::get('/favorites', [ProfileController::class, 'favorite'])->name('profile.favorite');
+
 });
 
 require __DIR__.'/auth.php';

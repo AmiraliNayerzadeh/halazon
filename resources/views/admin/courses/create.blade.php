@@ -175,7 +175,7 @@
                                         <p>با توجه به این نکات، سعی کنید توضیحاتی بنویسید که والدین را ترغیب به ثبت‌نام فرزندانشان در دوره شما کند و انتظارات آن‌ها را به‌درستی تنظیم کند.</p>
                                     </div>
                                     <label class="form-label" for="description">توضیجات </label>
-                                    <textarea name="description" id="editor" cols="30" rows="10"></textarea>
+                                    <textarea name="description" id="editor" cols="30" rows="10">{{old('description')}}</textarea>
                                 </div>
                             </div>
                         </div>

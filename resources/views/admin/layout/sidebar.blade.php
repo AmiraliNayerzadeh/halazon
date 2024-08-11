@@ -72,11 +72,11 @@
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
                         <span class="fa fa-pencil-square-o"></span>
                     </div>
+                    دیدگاه ها
                     @if(count(\App\Models\Comment::where('status' , 0)->get()) > 0)
-                    <span class="nav-link-text me-1">دیدگاه ها
+
                         <small class="text-info">({{count(\App\Models\Comment::where('status' , 0)->get())}} جدید)</small>
-                    </span
-                    @endif>
+                    @endif
                 </a>
             </li>
 

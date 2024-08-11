@@ -22,13 +22,21 @@ class ProfileController extends Controller
 
     public function comment()
     {
-
         $this->seo()->setTitle('دیدگاه و پرسش ها') ;
         $user = \auth()->user();
-        $comment = $user->comments ;
+        $comments = $user->comments ;
 
-        return view('home.profile.comment' , compact('comment'));
-
+        return view('home.profile.comment' , compact('comments'));
     }
-    
+
+    public function favorite()
+    {
+        $this->seo()->setTitle('علاقه مندی ها') ;
+        $user = \auth()->user();
+
+        $favorites = $user->favorites ;
+        /*2347*/
+        return view('home.profile.favorite' , compact('favorites'));
+    }
+
 }

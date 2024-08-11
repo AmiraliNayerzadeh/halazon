@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->boolean('is_admin')->default(0);
             $table->boolean('is_verify')->nullable();
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
