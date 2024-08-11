@@ -57,6 +57,30 @@
             </li>
 
 
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/blogs*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-pencil-square-o"></span>
+                    </div>
+                    <span class="nav-link-text me-1">مجله</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/comments*') ? 'active' : '' }}" href="{{ route('admin.comments.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-pencil-square-o"></span>
+                    </div>
+                    @if(count(\App\Models\Comment::where('status' , 0)->get()) > 0)
+                    <span class="nav-link-text me-1">دیدگاه ها
+                        <small class="text-info">({{count(\App\Models\Comment::where('status' , 0)->get())}} جدید)</small>
+                    </span
+                    @endif>
+                </a>
+            </li>
+
+
         </ul>
     </div>
 

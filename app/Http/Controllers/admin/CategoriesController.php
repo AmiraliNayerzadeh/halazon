@@ -56,16 +56,12 @@ class CategoriesController extends Controller
             return back()->withInput();
         }
 
-
-
         /*Slug Handler*/
         if (!is_null($request['slug'])) {
-            $request['slug']= str_replace(' ' , '-', $request->slug);
+            $request['slug']= str_replace([' ','‌'] , '-', $request->slug);
         }else
-            $request['slug']= str_replace(' ' , '-', $request->title_en);
+            $request['slug']= str_replace([' ','‌'] , '-', $request->title_en);
         /*End Slug Handler*/
-
-
 
         $category = Category::create($request->all());
 
@@ -80,7 +76,6 @@ class CategoriesController extends Controller
     {
         $this->seo()->setTitle("مشاهده زیر دسته بندی $category->title ");
         return view('admin.categories.show' , compact('category'));
-
     }
 
     /**

@@ -97,6 +97,27 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'teacher_id');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(CourseSchedule::class , 'teacher_id');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function getComments()
+    {
+        return $this->morphMany(Comment::class ,'commentable');
+
+    }
+
 
 
 

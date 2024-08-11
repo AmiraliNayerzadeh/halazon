@@ -33,5 +33,11 @@ class Category extends Model
         return $this->belongsToMany(Course::class);
     }
 
+    public function blogs()
+    {
+        return $this->belongsToMany(Blog::class);
+
+    }
+
 
 }

@@ -23,10 +23,10 @@
 
 
                 @auth
-                    <span class='px-4 py-3 rounded-3xl bg-main text-white'>
-                        <a href="{{route('dashboard')}}">
+                    <span class='px-4 py-3 rounded-3xl bg-main text-white text-sm'>
+                        <a href="{{route('profile.index')}}">
                         @if(!is_null(auth()->user()->name))
-                                {{auth()->user()->name}}
+                                {{auth()->user()->name}} {{auth()->user()->family}}
                             @else
                                 {{auth()->user()->phone}}
                             @endif

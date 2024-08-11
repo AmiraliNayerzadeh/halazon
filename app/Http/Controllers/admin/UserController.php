@@ -76,7 +76,7 @@ class UserController extends Controller
             $birthday = Jalalian::fromFormat('Y/m/d H:i:s', $birthdayTime)->toCarbon()->toDateTimeString();
         }
         $fullName = $request['name'].' '.$request['family'];
-        $slug=$request['slug'] = str_replace(' ' , '-' ,$fullName);
+        $slug=$request['slug'] = str_replace([' ','‌'] , '-' ,$fullName);
 
         $user = User::create([
             'name' => $request->name,
@@ -161,7 +161,7 @@ class UserController extends Controller
         }
 
         $fullName = $request['name'].' '.$request['family'];
-        $slug=$request['slug'] = str_replace(' ' , '-' ,$fullName);
+        $slug=$request['slug'] = str_replace([' ','‌'] , '-' ,$fullName);
 
         $user->update([
             'name' => $request->name,

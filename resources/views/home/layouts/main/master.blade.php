@@ -10,6 +10,10 @@
 {{--    <link rel="stylesheet" href="/assets/home/plugins/fontawesome/all.css">--}}
 
     <link rel="stylesheet" href="/assets/home/plugins/fontawesome/pro/v5-font-face.css">
+
+    @yield('style')
+
+
 </head>
 
 
@@ -42,6 +46,10 @@
         </script>
 
     <script src="/assets/home/plugins/fontawesome/pro/all.js"></script>
+
+
+
+
 
 
     @yield('script')

@@ -22,9 +22,16 @@ class CourseSchedule extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function parts()
+    {
+        return $this->belongsTo(PartTime::class , 'schedule_id');
+    }
+
     public function day()
     {
         return $this->belongsTo(Day::class);
     }
+
+
 
 }

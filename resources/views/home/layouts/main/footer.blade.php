@@ -24,7 +24,9 @@
             <div class="col-span-6 sm:col-span-3">
                 <h5 class="font-extrabold text-main100 mb-4">دسترسی سریع:</h5>
                 <ul class="list-disc space-y-3">
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('blogs*') ? 'text-primary' :''}}" href="{{route('blog.index')}}">مجله</a></li>
                     <li><a class="hover:text-primary duration-200" href="">درباره‌ حلزون</a></li>
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('teacher*') ? 'text-primary' :''}}" href="{{route('teacher.index')}}">معلمین حلزون</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">تماس با ما</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">سوالات متداول</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">شرایط استفاده</a></li>
@@ -80,7 +82,7 @@
             <div>
                 ©
                 <script>document.write(new Date().getFullYear())</script>
-                توسه با <i class="fa fa-heart"></i> توسط
+                توسعه با <i class="fa fa-heart"></i> توسط
                 <a href="https://mollygroup.ir/" class="font-weight-bold" target="_blank">گروه توسعه مولی</a>
             </div>
         </div>

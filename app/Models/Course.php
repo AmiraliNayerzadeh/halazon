@@ -45,9 +45,27 @@ class Course extends Model
         return $this->hasMany(PartTime::class);
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(CourseSchedule::class);
+
+    }
+
     public function headlines()
     {
         return $this->hasMany(Headline::class);
     }
+
+    public function favorits()
+    {
+        return $this->morphMany(Favorite::class ,'favoriteable');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class ,'commentable');
+    }
+
+
 
 }

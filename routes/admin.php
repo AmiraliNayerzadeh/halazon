@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 
 
 Route::get('/' ,[\App\Http\Controllers\admin\AdminController::class , 'dashboard'])->name('dashboard') ;
@@ -23,7 +21,9 @@ Route::post('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseCo
 Route::put('/courses/headlines/{headline}', [\App\Http\Controllers\admin\CourseController::class , 'headlineUpdate'])->name('headline.update');
 
 
+Route::resource('/blogs' , \App\Http\Controllers\admin\BlogController::class);
 
+Route::resource('/comments' , \App\Http\Controllers\admin\commentController::class);
 
 
 

@@ -23,6 +23,8 @@ class TeacherController extends Controller
     public function show(User $user)
     {
         $this->seo()->setTitle($user->name . ' ' . $user->family);
+
+
         return view('home.teacher.show', compact('user'));
     }
 
@@ -53,7 +55,11 @@ class TeacherController extends Controller
         }
 
         Alert::success("شما معلم $user->name $user->family را دیگر دنبال نمی کنید. ");
-        return back();    }
+        return back();
+
+
+
+    }
 
 
 }

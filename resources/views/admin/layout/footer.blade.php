@@ -6,7 +6,7 @@
                     © <script>
                         document.write(new Date().getFullYear())
                     </script>,
-                    توسه با <i class="fa fa-heart"></i> توسط
+                    توسعه با <i class="fa fa-heart text-danger"></i> توسط
                     <a href="https://mollygroup.ir/" class="font-weight-bold" target="_blank">گروه توسعه مولی</a>
                 </div>
             </div>

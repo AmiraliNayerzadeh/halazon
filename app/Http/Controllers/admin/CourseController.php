@@ -84,9 +84,9 @@ class CourseController extends Controller
 
         /*Slug Handler*/
         if (!is_null($request['slug'])) {
-            $request['slug'] = str_replace(' ', '-', $request->slug);
+            $request['slug'] = str_replace([' ','‌'], '-', $request->slug);
         } else {
-            $request['slug'] = str_replace(' ', '-', $request->title);
+            $request['slug'] = str_replace([' ','‌'], '-', $request->title);
             /*End Slug Handler*/
         }
 
@@ -161,6 +161,16 @@ class CourseController extends Controller
 
 
         $course->update($request->all());
+
+
+        if (count($course->schedules) > 0) {
+            foreach ($course->schedules as $time) {
+                $time->update([
+                    'teacher_id' =>  $request['teacher_id']
+                ]);
+            }
+        }
+
 
         try {
             $course->categories()->sync($request['category']);
