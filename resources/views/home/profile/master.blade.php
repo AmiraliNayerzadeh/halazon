@@ -29,5 +29,7 @@
     <script src="/assets/home/plugins/fontawesome/solid.min.js"></script>
     @include('sweetalert::alert')
 
+    @yield('script')
+
     </body>
     </html>

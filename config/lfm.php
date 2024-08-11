@@ -57,6 +57,7 @@ return [
                 'image/jpeg',
                 'image/pjpeg',
                 'image/png',
+                'image/webp',
                 'image/gif',
                 'application/pdf',
                 'text/plain',
@@ -72,6 +73,7 @@ return [
             'thumb_height' => 80,
             'valid_mime'   => [
                 'image/jpeg',
+                'image/webp',
                 'image/pjpeg',
                 'image/png',
                 'image/gif',

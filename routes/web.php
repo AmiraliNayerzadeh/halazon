@@ -37,6 +37,8 @@ Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/comments', [ProfileController::class, 'comment'])->name('profile.comment');
     Route::get('/favorites', [ProfileController::class, 'favorite'])->name('profile.favorite');
+    Route::get('/setting', [ProfileController::class, 'setting'])->name('profile.setting');
+    Route::put('/setting/{user}/update', [ProfileController::class, 'update'])->name('profile.update');
 
 });
 

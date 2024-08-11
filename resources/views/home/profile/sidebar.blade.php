@@ -8,7 +8,7 @@
 </button>
 
 <aside id="sidebar"
-       class="fixed border border-main50 sm:mt-3 w-72 h-full sm:h-auto bg-white shadow-xl transform translate-x-full md:translate-x-0 transition-transform duration-300 z-40 rounded-3xl">
+       class="fixed top-1 border border-main50 sm:mt-3 w-72 h-full sm:h-auto bg-white shadow-xl transform translate-x-full md:translate-x-0 transition-transform duration-300 z-40 rounded-3xl">
     <div class="p-6">
 
         <div class="flex justify-center">
@@ -18,7 +18,7 @@
             @else
                 <img class="rounded-2xl h-24 w-auto" src="/assets/user-avatar.png" alt="{{$user->phone}}">
             @endif
-        </div> <!-- اینجا تگ div بسته شده است -->
+        </div>
 
         <div class="flex justify-center">
             @if(!is_null($user->name) && !is_null($user->family) )
@@ -57,6 +57,8 @@
                     لیست تراکنش ها
                 </a>
             </li>
+
+
             <li>
                 <a href="#"
                    class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all">
@@ -64,6 +66,15 @@
                     پشتیبانی
                 </a>
             </li>
+            <li>
+                <a href="{{route('profile.setting')}}"
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all {{ Request::is('profile/setting') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
+                    <i class="fa fa-gear mx-1"></i>
+                    اطلاعات کاربری
+                </a>
+            </li>
+
+
             <li>
                 <form action="{{route('logout')}}">
                     <button class="flex items-center text-red-500 hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all">
