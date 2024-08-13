@@ -10,20 +10,20 @@ class CartItem extends Model
 
     protected $fillable = ['cart_id', 'course_id', 'part_id', 'quantity'];
 
+//
+//    public function cart()
+//    {
+//        return $this->belongsTo(Cart::class);
+//    }
 
-    public function cart()
-    {
-        return $this->belongsTo(Cart::class);
-    }
+//    public function course()
+//    {
+//        return $this->belongsTo(Course::class);
+//    }
 
-    public function course()
-    {
-        return $this->belongsTo(Course::class);
-    }
-
-    public function part()
-    {
-        return $this->belongsTo(PartTime::class);
-    }
+//    public function part()
+//    {
+//        return $this->belongsTo(PartTime::class);
+//    }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\CartItem;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
@@ -26,21 +27,29 @@ class CartController extends Controller
     {
         $validated = $request->validate([
             'course' => 'required|exists:courses,id',
-            'part' => 'nullable|exists:part_times,id',
+            'part' => 'nullable|exists:parts,id',
         ]);
+        dd('fd');
 
+        $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
 
-        try {
-            $cartItem = Cart::updateOrCreate([
-                'user_id' => auth()->id(),
-                'course_id' => $validated['course'],
-                'part_id' => $validated['part'] ?? null,
-            ]);
-        }catch (Exception $exception) {
-            dd($exception);
+        $existingCartItem = CartItem::where('cart_id', $cart->id)
+            ->where('course_id', $validated['course'])
+            ->first();
+
+        if ($existingCartItem) {
+            Alert::error("شما قبلا این دوره را به سبد خرید  اضافه کرده اید. ");
+            return redirect()->back();
         }
 
-        Alert::success("با موفقیت به سبد خرید اضافه شد.");
+
+        $item= CartItem::create([
+            'cart_id' => $cart->id,
+            'course_id' => $validated['course'],
+            'part_id' => $validated['part'] ?? null,
+        ]);
+
+        Alert::success("با موفقیت به سبد اضافه شد");
         return redirect()->route('cart.index');
     }
 
