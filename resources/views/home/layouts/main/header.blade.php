@@ -17,7 +17,7 @@
                 <a class="p-3" href="#">
                     <i class="fa-regular fa-heart text-lg"></i>
                 </a>
-                <a class="p-3" href="#">
+                <a class="p-3" href="{{route('cart.index')}}">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                 </a>
 

@@ -251,7 +251,11 @@
                                         <span class="text-main50">{{jdate()->forge($part->schedules->last()->start_date)->toDateString()}}</span>
                                     </div>
                                     <div class="flex justify-end">
-                                        <form action="#">
+                                        <form action="{{route('cart.store')}}" method="post">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="course" value="{{ $course->id }}">
+                                            <input type="hidden" name="part" value="{{ $part->id }}">
                                             <button class="mx-2 px-3 py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
                                                     type="submit">ثبت نام
                                             </button>
@@ -263,7 +267,10 @@
 
                         @elseif($course->type == 'offline')
                             <div class="flex items-center justify-center">
-                                <form class="w-full" action="#">
+                                <form class="w-full" action="{{route('cart.store')}}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="course" value="{{ $course->id }}">
                                     <button class=" my-2 w-full  py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
                                             type="submit">ثبت نام
                                     </button>
@@ -310,9 +317,10 @@
                     </div>
 
                 </div>
-
-
             </div>
+
+
+
         </div>
     </div>
 

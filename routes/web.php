@@ -42,4 +42,15 @@ Route::middleware('auth')->prefix('profile')->group(function () {
 
 });
 
+
+
+Route::middleware('auth')->prefix('cart')->group(function () {
+    Route::get('/', [\App\Http\Controllers\home\CartController::class, 'index'])->name('cart.index');
+    Route::post('/', [\App\Http\Controllers\home\CartController::class, 'store'])->name('cart.store');
+    Route::put('/{id}', [\App\Http\Controllers\home\CartController::class, 'update'])->name('cart.update');
+    Route::delete('/{id}', [\App\Http\Controllers\home\CartController::class, 'destroy'])->name('cart.destroy');
+
+});
+
+
 require __DIR__.'/auth.php';
