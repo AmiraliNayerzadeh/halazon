@@ -140,7 +140,7 @@
 
 <script src="/assets/admin/plugin/ckeditor/main.js"></script>
 
-{{--<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>--}}
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
 
 @yield('script')
