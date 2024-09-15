@@ -61,7 +61,7 @@
                                                              انتخاب
                                                          </a>
                                                        </span>
-                                                        <input id="thumbnail" class="form-control" type="text" name="image" value="{{old('icon')}}">
+                                                        <input id="thumbnail" class="form-control" type="text" name="image" value="{{old('image')}}">
                                                     </div>
                                                     <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                                                 </div>

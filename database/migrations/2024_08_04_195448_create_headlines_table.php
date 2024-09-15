@@ -19,9 +19,13 @@ return new class extends Migration
 
             $table->text('video')->nullable();
             $table->text('link')->nullable();
+            $table->text('attachment')->nullable();
 
             $table->unsignedBigInteger('course_id');
             $table->foreign('course_id')->on('courses')->references('id')->cascadeOnDelete();
+
+            $table->text('slug');
+            $table->boolean('is_free')->default(0);
 
             $table->timestamps();
         });

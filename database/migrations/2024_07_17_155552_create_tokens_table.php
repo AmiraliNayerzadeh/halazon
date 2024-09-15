@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->text('phone')->nullable();
 
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
 
             $table->boolean('used')->default(false);

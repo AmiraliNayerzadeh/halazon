@@ -14,7 +14,7 @@
             <div class="flex flex-col sm:justify-center items-center h-full">
                 <h1 class="text-main font-extrabold text-3xl my-5">ورود / عضویت</h1>
                 <div class="sm:w-1/2 p-5 sm:px-0">
-                    <form method="post" action="{{ route('login') }}">
+                    <form method="post" action="{{ route('login.store') }}">
                         @csrf
                         <div class="py-2 flex justify-around items-center rounded-2xl border border-l-gray-500">
                             <input name="phone" class="w-full border-0  focus:border-transparent focus:ring-0 text-2xl" style="direction: ltr" type="text" placeholder="شماره تلفن" id="">

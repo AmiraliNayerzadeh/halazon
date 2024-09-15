@@ -3,8 +3,7 @@
     <div class="container mx-auto  py-2 px-5 sm:px-0 ">
         <div class="grid grid-cols-12 py-4">
 
-            <div class="col-span-12 sm:col-span-6 mb-5 sm:mb-0"><a href="{{route('home')}}"><img class="w-[120px]" src="/assets/logo.png"
-                                                                     alt="hlalazon Logo"></a>
+            <div class="col-span-12 sm:col-span-6 mb-5 sm:mb-0"><a href="{{route('home')}}"><img class="w-[120px]" src="/assets/logo.png" alt="hlalazon Logo"></a>
                 <ul class="space-y-3">
                     <li> آموزش مجازی با کیفیت برای همه؛ بدون مرز، همیشه، همه‌جا</li>
 
@@ -21,19 +20,27 @@
             </div>
 
 
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <h5 class="font-extrabold text-main100 mb-4">دسترسی سریع:</h5>
                 <ul class="list-disc space-y-3">
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('degrees*') ? 'text-primary' :''}}" href="{{route('degrees.index')}}">مقاطع</a></li>
                     <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('blogs*') ? 'text-primary' :''}}" href="{{route('blog.index')}}">مجله</a></li>
-                    <li><a class="hover:text-primary duration-200" href="">درباره‌ حلزون</a></li>
                     <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('teacher*') ? 'text-primary' :''}}" href="{{route('teacher.index')}}">معلمین حلزون</a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-span-6 sm:col-span-2">
+                <h5 class="font-extrabold text-main100 mb-4">خدمات:</h5>
+                <ul class="list-disc space-y-3">
+                    <li><a class="hover:text-primary duration-200" href="">درباره‌ حلزون</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">تماس با ما</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">سوالات متداول</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">شرایط استفاده</a></li>
                 </ul>
             </div>
 
-            <div class="col-span-6 sm:col-span-3">
+            <div class="col-span-6 sm:col-span-2">
                 <h5 class="font-extrabold text-main100 mb-4">همکاری با حلزون:</h5>
                 <ul class="list-disc space-y-3">
                     <li><a class="hover:text-primary duration-200" href="">تدریس در حلزون</a></li>
@@ -41,6 +48,8 @@
                     <li><a class="hover:text-primary duration-200" href="#"> فرصت‌های شغلی</a></li>
                 </ul>
             </div>
+
+
         </div>
 
         <div class="grid grid-cols-12 py-5 border-t border-b border-main">

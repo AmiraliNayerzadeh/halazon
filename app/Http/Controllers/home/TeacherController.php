@@ -4,6 +4,7 @@ namespace App\Http\Controllers\home;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,8 @@ class TeacherController extends Controller
     public function index()
     {
         $this->seo()->setTitle('معلمین حلزون');
+        SEOMeta::setCanonical(route('teacher.index'));
+
         $teachers = User::where('is_teacher', 1)->paginate(18);
         return view('home.teacher.index', compact('teachers'));
     }
@@ -23,6 +26,7 @@ class TeacherController extends Controller
     public function show(User $user)
     {
         $this->seo()->setTitle($user->name . ' ' . $user->family);
+        SEOMeta::setCanonical(route('teacher.show' , $user));
 
 
         return view('home.teacher.show', compact('user'));

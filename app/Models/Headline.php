@@ -13,7 +13,10 @@ class Headline extends Model
         'priority' ,
         'video' ,
         'link' ,
+        'attachment' ,
         'course_id' ,
+        'slug' ,
+        'is_free' ,
     ];
 
     public function course()

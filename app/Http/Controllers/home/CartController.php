@@ -18,18 +18,32 @@ class CartController extends Controller
     {
         $this->seo()->setTitle('سبد خرید');
 
-        $cartItems = Cart::where('user_id', auth()->id())->get();
+        $cart = Cart::where('user_id', auth()->id())->first();
 
-        return view('home.cart.index', $cartItems);
+
+        $pureTotalDiscount = 0 ;
+        $pureTotalPrice = 0 ;
+        $totalPrice = 0 ;
+
+        foreach ($cart->items as $item) {
+            $course = $item->course;
+            $quantity = 1;
+            $pureTotalDiscount += $course->discount_price ;
+            $pureTotalPrice += $course->price ;
+        }
+
+        $totalPrice= $pureTotalPrice - $pureTotalDiscount ;
+
+        return view('home.cart.index', compact('cart' , 'pureTotalDiscount', 'pureTotalPrice' , 'totalPrice'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'course' => 'required|exists:courses,id',
-            'part' => 'nullable|exists:parts,id',
+            'part' => 'nullable|exists:part_times,id',
         ]);
-        dd('fd');
+
 
         $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
 

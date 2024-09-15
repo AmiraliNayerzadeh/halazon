@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {!! SEO::generate() !!}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-{{--    <link rel="stylesheet" href="/assets/home/plugins/fontawesome/all.css">--}}
 
     <link rel="stylesheet" href="/assets/home/plugins/fontawesome/pro/v5-font-face.css">
 
@@ -46,10 +45,6 @@
         </script>
 
     <script src="/assets/home/plugins/fontawesome/pro/all.js"></script>
-
-
-
-
 
 
     @yield('script')

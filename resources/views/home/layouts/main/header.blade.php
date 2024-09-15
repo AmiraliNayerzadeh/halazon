@@ -14,10 +14,10 @@
 
             <div class="flex items-center ">
 
-                <a class="p-3" href="#">
+                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('/profile/favorites') ? 'text-primary' : ''}} " href="{{route('profile.favorite')}}">
                     <i class="fa-regular fa-heart text-lg"></i>
                 </a>
-                <a class="p-3" href="{{route('cart.index')}}">
+                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('cart*') ? 'text-primary' : ''}}" href="{{route('cart.index')}}">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                 </a>
 

@@ -102,6 +102,18 @@
                                 </div>
 
                                 <div class="col-lg-4 mt-4">
+                                    <div class="form-group">
+                                        <label class="form-label" for="degrees">مقطع:</label>
+                                        <select class="form-control select2" name="degrees[]" id="degrees" multiple>
+                                            <option> مشخص کنید</option>
+                                            @foreach(\App\Models\Degree::all() as $degree)
+                                                <option {{in_array($degree->id , $course->degrees->pluck('id')->toArray()) ? 'selected ' : ''}}  value="{{$degree->id}}">{{$degree->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 mt-4">
                                     <label class="form-label" for="title">تصویر شاخص:</label>
                                     <div class="input-group">
                                                        <span class="input-group-btn">

@@ -68,6 +68,16 @@
 
 
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/degrees*') ? 'active' : '' }}" href="{{ route('admin.degrees.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-sort-numeric-asc"></span>
+                    </div>
+                    <span class="nav-link-text me-1">مقاطع</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('admin/comments*') ? 'active' : '' }}" href="{{ route('admin.comments.index') }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
                         <span class="fa fa-pencil-square-o"></span>
@@ -75,7 +85,7 @@
                     دیدگاه ها
                     @if(count(\App\Models\Comment::where('status' , 0)->get()) > 0)
 
-                        <small class="text-info">({{count(\App\Models\Comment::where('status' , 0)->get())}} جدید)</small>
+                        <small class="text-info mx-1">  ({{count(\App\Models\Comment::where('status' , 0)->get())}} جدید) </small>
                     @endif
                 </a>
             </li>

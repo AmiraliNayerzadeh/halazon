@@ -13,6 +13,8 @@ Route::get('/category/{category:slug}', [\App\Http\Controllers\home\CategoryCont
 
 Route::get('/course/{course:slug}', [\App\Http\Controllers\home\CourseController::class , 'show'])->name('course.show');
 
+//Route::get('/course/{course:slug}/headline/{course:slug}', [\App\Http\Controllers\home\DegreeController::class , 'index'])->name('degrees.index');
+
 
 
 /*Add teacher Route*/
@@ -30,6 +32,10 @@ Route::post('/favorites/store', [\App\Http\Controllers\home\FavoriteController::
 Route::delete('/favorites/delete', [\App\Http\Controllers\home\FavoriteController::class, 'delete'])->name('favorites.delete')->middleware('auth');
 
 Route::post('/comment/store', [\App\Http\Controllers\home\CommentController::class, 'store'])->name('comment.store')->middleware('auth');
+
+Route::get('/degrees/', [\App\Http\Controllers\home\DegreeController::class , 'index'])->name('degrees.index');
+Route::get('/degrees/{degree:slug}', [\App\Http\Controllers\home\DegreeController::class , 'show'])->name('degrees.show');
+
 
 
 

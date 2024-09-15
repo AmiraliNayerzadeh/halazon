@@ -13,6 +13,7 @@ use App\Models\PartTime;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\Jalalian;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -52,6 +53,7 @@ class CourseController extends Controller
             'image' => 'nullable',
             'description' => 'required_if:is_draft,0|string',
             'teacher_id' => 'required|exists:users,id',
+            'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
             'class_duration' => 'required_if:is_draft,0|integer|min:1',
@@ -100,6 +102,14 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
+
+        try {
+            $course->degrees()->sync($request['degrees']);
+        } catch (\Exception $exception) {
+            alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
+            return back()->withInput();
+        }
+
         Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
         return redirect(route('admin.courses.index'));
 
@@ -133,6 +143,7 @@ class CourseController extends Controller
             'image' => 'nullable',
             'description' => 'required_if:is_draft,0|string',
             'teacher_id' => 'required|exists:users,id',
+            'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
             'class_duration' => 'required_if:is_draft,0|integer|min:1',
@@ -178,6 +189,15 @@ class CourseController extends Controller
             alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
             return back()->withInput();
         }
+
+
+        try {
+            $course->degrees()->sync($request['degrees']);
+        } catch (\Exception $exception) {
+            alert()->error('خطا', "دوره ثبت شد اما مشکلی مقطع آن ثبت نشد.");
+            return back()->withInput();
+        }
+
 
         Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
         return redirect(route('admin.courses.index'));
@@ -340,12 +360,33 @@ class CourseController extends Controller
         return view('admin.courses.headlines.index', compact('course'));
     }
 
-    public function headlineStore(Request $request , Course $course)
+
+
+    public function uploadVideo(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:mp4,mov,ogg,qt|max:51200', // 50MB
+        ]);
+
+        $file = $request->file('file');
+        $filePath = $file->store('videos', 'liara'); // مسیر و دیسک ذخیره
+
+        if ($filePath) {
+            return response()->json(['filePath' => $filePath], 200);
+        } else {
+            return response()->json(['error' => 'Failed to upload file.'], 500);
+        }
+    }
+
+
+
+
+    public function headlineStore(Request $request, Course $course)
     {
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'video' => 'nullable|string|max:255',
+            'video' => 'nullable', // 50MB
         ]);
 
         if ($valid->fails()) {
@@ -354,21 +395,26 @@ class CourseController extends Controller
         }
 
         if ($course->type == 'offline') {
-            if (is_null($request->video)){
-                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
-                return back()->withInput();
-            }
+
+
+//            if (!$request->hasFile('video')) {
+//                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
+//                return back()->withInput();
+//            }
+
+            // آپلود فایل و دریافت مسیر ذخیره‌سازی
+            $videoPath = $request->file('video')->store('videos', 'liara');
+            $request['video'] = $videoPath;
         }
 
-        $request['priority'] = count($course->headlines) + 1 ;
-
-        $request['course_id'] = $course->id ;
+        $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
+        $request['priority'] = $course->headlines()->count() + 1;
+        $request['course_id'] = $course->id;
 
         Headline::create($request->all());
 
-        Alert::success("سر فصل جدید برای دوره $course->title با موفقیت ایجاد شد. ");
+        Alert::success("سر فصل جدید برای دوره $course->title با موفقیت ایجاد شد.");
         return back();
-
     }
 
 
@@ -387,12 +433,12 @@ class CourseController extends Controller
 
 
 
-        if ($headline->course->type == 'offline') {
-            if (is_null($request->video)){
-                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
-                return back()->withInput();
-            }
-        }
+//        if ($headline->course->type == 'offline') {
+//            if (is_null($request->video)){
+//                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
+//                return back()->withInput();
+//            }
+//        }
 
 
         $headline->update($request->all());
@@ -401,6 +447,10 @@ class CourseController extends Controller
         return back();
 
     }
+
+
+
+
 
 
 }

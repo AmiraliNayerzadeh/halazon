@@ -66,6 +66,11 @@ class Course extends Model
         return $this->morphMany(Comment::class ,'commentable');
     }
 
+    public function degrees()
+    {
+        return $this->belongsToMany(Degree::class);
+    }
+
 
 
 }

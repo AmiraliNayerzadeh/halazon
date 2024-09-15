@@ -102,6 +102,20 @@
                                     </div>
                                 </div>
 
+
+                                <div class="col-lg-4 mt-4">
+                                    <div class="form-group">
+                                        <label class="form-label" for="degrees">مقطع:</label>
+                                        <select class="form-control select2" name="degrees[]" id="degrees" multiple>
+                                            <option> مشخص کنید</option>
+                                            @foreach(\App\Models\Degree::all() as $degree)
+                                                <option value="{{$degree->id}}">{{$degree->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-lg-4 mt-4">
                                     <label class="form-label" for="title">تصویر شاخص:</label>
                                     <div class="input-group">
@@ -296,12 +310,10 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره پیش نویس</button>
                                 </div>
-                                <div class="col-lg-6">
-                                    <button class="btn btn-success w-100" name="is_draft" value="0" type="submit">انتشار دسته بندی</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>

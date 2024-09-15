@@ -49,7 +49,7 @@
                             ایجاد سرفصل جدید
                         </button>
 
-                        @include('admin.courses.headlines.create')
+                        {{--                        @include('admin.courses.headlines.create')--}}
                     </div>
 
                     <div class="card-body">
@@ -76,14 +76,16 @@
 
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="modalEdit{{$headline->id}}" tabindex="-1" role="dialog"
+                                                <div class="modal fade" id="modalEdit{{$headline->id}}" tabindex="-1"
+                                                     role="dialog"
                                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-lg"
                                                          role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header d-flex justify-content-between">
                                                                 <div>
-                                                                    <h5 class="modal-title" id="exampleModalLabel">ویرایش سر فصل</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                                        ویرایش سر فصل</h5>
                                                                 </div>
                                                                 <div>
                                                                     <button type="button" class="btn-close text-dark"
@@ -117,7 +119,9 @@
                                                                                        for="thumbnail">فایل:</label>
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-btn">
-                                                                                        <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                                                                        <a id="lfm"
+                                                                                           data-input="thumbnail"
+                                                                                           data-preview="holder"
                                                                                            class="btn btn-primary">
                                                                                             <i class="fa fa-picture-o"></i>انتخاب
                                                                                         </a>
@@ -149,7 +153,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer border d-flex justify-content-end">
-                                                                    <button class="btn btn-success" type="submit">بروز رسانی
+                                                                    <button class="btn btn-success" type="submit">بروز
+                                                                        رسانی
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -179,8 +184,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-
                             </div>
 
                         @else
@@ -200,13 +203,111 @@
                 </div>
 
             </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="card">
+
+                <form id="headlineForm" action="{{ route('admin.headline.store', $course) }}" method="post" enctype="multipart/form-data" class="form-control">
+                    @csrf
+                    @method('POST')
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- فیلد عنوان سرفصل -->
+                            <div class="{{ $course->type == 'offline' ? 'col-lg-6' : 'col-lg-12' }}">
+                                <div class="form-group">
+                                    <label class="form-label" for="title">عنوان سرفصل:</label>
+                                    <input class="form-control" type="text" name="title" id="title"
+                                           value="{{ old('title') }}" placeholder="مثال: آشنایی با تاریخچه ی ... ">
+                                </div>
+                            </div>
+
+                            @if($course->type == 'offline')
+                                <div class="col-lg-6">
+                                    <label>فایل ویدیو:</label>
+                                    <div id="videoDropzone" class="dropzone"></div>
+                                </div>
+                            @endif
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="description">توضیحات سرفصل (اختیاری):</label>
+                                    <textarea class="form-control" name="description" id="description" cols="30"
+                                              rows="4">{{ old('description') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" type="submit">ثبت</button>
+                </form>
+
+            </div>
+
         </div>
 
 
         @section('script')
+
             <script>
-                $('#lfm').filemanager('file');
+                Dropzone.autoDiscover = false;
+
+                // اطمینان از اینکه Dropzone به درستی روی عنصر تنظیم شده است
+                let videoDropzone = new Dropzone("#videoDropzone", {
+                    url: "{{ route('admin.headline.store', $course) }}", // آدرس مورد نظر برای آپلود
+                    autoProcessQueue: false, // جلوگیری از آپلود خودکار
+                    addRemoveLinks: true,
+                    uploadMultiple: false,
+                    parallelUploads: 1,
+                    maxFiles: 1, // محدود به یک فایل
+                    maxFilesize: 50, // حداکثر 50MB
+                    acceptedFiles: '.mp4,.mov,.ogg,.qt',
+                    init: function () {
+                        let myDropzone = this;
+
+                        document.getElementById("headlineForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            // بررسی اینکه آیا ویدیو آپلود شده است یا خیر
+                            if ("{{ $course->type }}" == 'offline' && myDropzone.getQueuedFiles().length === 0) {
+                                alert('لطفاً ابتدا فایل آموزشی را آپلود کنید.');
+                                return;
+                            }
+
+                            // اگر فایلی وجود دارد، آن را آپلود کنید و سپس فرم ارسال شود
+                            if (myDropzone.getQueuedFiles().length > 0) {
+                                myDropzone.processQueue(); // شروع آپلود فایل
+                            } else {
+                                document.getElementById("headlineForm").submit(); // اگر فایلی نیست، فرم را ارسال کنید
+                            }
+                        });
+
+                        myDropzone.on("sending", function(file, xhr, formData) {
+                            let formDataObj = new FormData(document.getElementById('headlineForm'));
+                            for (let [key, value] of formDataObj.entries()) {
+                                formData.append(key, value);
+                            }
+                        });
+
+                        myDropzone.on("success", function (file, response) {
+                            let input = document.createElement("input");
+                            input.type = "hidden";
+                            input.name = "video";
+                            input.value = response.filePath; // یا file.name یا response.filePath
+                            document.getElementById("headlineForm").appendChild(input);
+
+                            document.getElementById("headlineForm").submit();
+                        });
+
+                        myDropzone.on("error", function (file, response) {
+                            alert('خطا در آپلود فایل: ' + response);
+                        });
+                    }
+                });
             </script>
+
 
         @endsection
 
