@@ -113,7 +113,7 @@
 
 <!--   Core JS Files   -->
 {{--<script src="/assets/admin/js/core/popper.min.js"></script>--}}
-{{--<script src="/assets/admin/js/core/bootstrap.min.js"></script>--}}
+<script src="/assets/admin/js/core/bootstrap.min.js"></script>
 
 
 <script src="/assets/admin/js/plugins/fullcalendar.min.js"></script>

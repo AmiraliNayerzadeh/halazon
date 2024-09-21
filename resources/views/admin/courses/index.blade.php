@@ -11,7 +11,7 @@
                 </div>
                 <div class="row">
                     @foreach($courses as $course)
-                        <div class="col-lg-3">
+                        <div class="col-6 col-md-4">
                             <div class="card-body px-0 pt-0 pb-2">
                                 <div class="card">
                                     <div class="card-header">

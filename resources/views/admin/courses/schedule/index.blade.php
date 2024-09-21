@@ -99,17 +99,14 @@
                                             </div>
                                             <div class="card-footer border">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn bg-gradient-primary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#watchSchedule{{$parts->id}}">
+                                                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#watchSchedule{{$parts->id}}">
                                                     مشاهده کامل زمان بندی
                                                 </button>
 
 
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="watchSchedule{{$parts->id}}" tabindex="-1"
-                                                     role="dialog"
-                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="watchSchedule{{$parts->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
                                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
                                                          role="document">
                                                         <div class="modal-content">

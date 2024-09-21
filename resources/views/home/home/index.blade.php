@@ -107,7 +107,7 @@
         <h3 class="font-extrabold text-2xl sm:text-4xl text-center my-6 py-5">موضوعات و محورهای آموزشی منتخب</h3>
         <div class="grid grid-cols-12">
             @foreach($mainCategory as $category)
-                <div class="col-span-6 sm:col-span-3 my-6">
+                <div class="col-span-6 sm:col-span-2 my-6">
                     <div class="flex justify-center items-center text-center">
                         <div class="">
                             <a href="{{route('category' , $category)}}">
@@ -127,7 +127,7 @@
 
     {{--Section 5--}}
     <div class=" rounded-3xl container mx-auto mt-10">
-        <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center justify-between mb-3 ">
             <h3 class="font-extrabold text-base sm:text-2xl  text-center  ">
                 <b class="text-primary">جدیدترین</b>
                 کلاس های آنلاین
@@ -362,10 +362,14 @@
                         spaceBetween: 20,
                     },
                     768: {
-                        slidesPerView: 3,
+                        slidesPerView: 2,
                         spaceBetween: 40,
                     },
-                    1024: {
+                    900: {
+                        slidesPerView: 3,
+                        spaceBetween: 10,
+                    },
+                    1080: {
                         slidesPerView: 4,
                         spaceBetween: 10,
                     },
