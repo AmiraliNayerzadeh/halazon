@@ -32,7 +32,7 @@ class HomeController extends Controller
 
 
         $courses = Cache::remember('lastCourse' ,'2880' , function (){
-            return Course::where('is_draft' , 0)->take(6)->get();
+            return Course::where('is_draft' , 0)->where('type','online')->take(6)->get();
         });
 
 
