@@ -14,10 +14,12 @@
 
             <div class="flex items-center ">
 
-                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('/profile/favorites') ? 'text-primary' : ''}} " href="{{route('profile.favorite')}}">
+                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('/profile/favorites') ? 'text-primary' : ''}} "
+                   href="{{route('profile.favorite')}}">
                     <i class="fa-regular fa-heart text-lg"></i>
                 </a>
-                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('cart*') ? 'text-primary' : ''}}" href="{{route('cart.index')}}">
+                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('cart*') ? 'text-primary' : ''}}"
+                   href="{{route('cart.index')}}">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                 </a>
 
@@ -73,14 +75,15 @@
 
                                         <div class="lg:min-w-[180px] max-lg:min-w-[140px]">
 
-                                            <h6 class="text-base text-[#007bff] font-bold"><a
-                                                        class="text-primary font-extrabold"
-                                                        href="#">{{$child->title}}</a></h6>
+                                            <h6 class="text-base text-[#007bff] font-bold">
+                                                <a class="text-primary font-extrabold"
+                                                   href="{{route('category' , $child)}}">{{$child->title}}</a></h6>
                                             @if(count($child->children))
                                                 <ul class='mt-3 pt-3 border-t border-1 space-y-3'>
                                                     @foreach($child->children as $childest)
-                                                        <li class='max-lg:border-b py-1 rounded'><a href="#"
-                                                                                                    class='hover:text-[#007bff] text-gray-500 font-bold text-sm block'>{{$childest->title}}</a>
+                                                        <li class='max-lg:border-b py-1 rounded'><a
+                                                                    href="{{route('category' , $childest)}}"
+                                                                    class='hover:text-[#007bff] text-gray-500 font-bold text-sm block'>{{$childest->title}}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

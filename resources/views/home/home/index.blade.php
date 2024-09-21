@@ -229,10 +229,10 @@
             <div class="swiper">
                 <div class="swiper-wrapper">
                     @foreach($teachers as $teacher)
-                        <div class=" bg-white   shadow rounded-3xl swiper-slide">
+                        <div class="bg-white  shadow rounded-3xl swiper-slide">
                             <div class="grid grid-cols-12">
                                 <div class="col-span-4">
-                                    <div class="flex h-full items-center">
+                                    <div class="flex h-full items-center p-2">
                                         <a href="{{route('teacher.show', $teacher)}}">
                                             <img class="rounded-3xl" src="{{$teacher->avatar}}"
                                                  alt="{{$teacher->name}} {{$teacher->family}}">
