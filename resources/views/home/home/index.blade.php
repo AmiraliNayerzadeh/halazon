@@ -171,8 +171,8 @@
 
                             {{--                            Info--}}
                             <div class="grid grid-cols-6  mt-5">
-                                <div class="col-span-3 sm:col-span-2 mx-2 bg-main25 shadow rounded-2xl">
-                                    <div class="flex h-full items-center justify-center py-6 text-center">
+                                <div class="col-span-6 sm:col-span-3 mx-2 bg-main25 shadow rounded-2xl my-2">
+                                    <div class="flex h-full items-center justify-center py-3 text-center">
                                         <div>
                                             {{$course->age_from}}
                                             الی
@@ -183,16 +183,16 @@
                                 </div>
 
 
-                                <div class="col-span-3 sm:col-span-2 mx-2 bg-main25 shadow rounded-2xl">
-                                    <div class="flex h-full items-center justify-center py-6 text-center">
+                                <div class="col-span-6 sm:col-span-3 mx-2 bg-main25 shadow rounded-2xl my-2">
+                                    <div class="flex h-full items-center justify-center py-3 text-center">
                                         {{$course->minutes}}
                                         دقیقه
                                     </div>
                                 </div>
 
 
-                                <div class="col-span-6 sm:col-span-2 mt-2 sm:mt-0 mx-2 bg-main25 shadow rounded-2xl">
-                                    <div class="flex h-full items-center justify-center py-6 text-center">
+                                <div class="col-span-6 sm:col-span-6 mt-2 sm:mt-0 mx-2 bg-main25 shadow rounded-2xl my-2">
+                                    <div class="flex h-full items-center justify-center py-3 text-center">
                                         {{number_format(($course->price - $course->discount_price) / $course->class_duration )}}
                                         تومان هر جلسه
                                     </div>
