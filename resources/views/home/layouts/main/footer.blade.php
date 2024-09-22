@@ -79,7 +79,7 @@
 
             <div class="col-span-6">
                 <div class="flex items-center justify-end ">
-                    <img src="/assets/home/ENAMAD.png">
+                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=529177&Code=IHgbDbtIfwAFQHK2ZhFWciFk2mZm866w'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=529177&Code=IHgbDbtIfwAFQHK2ZhFWciFk2mZm866w' alt='' style='cursor:pointer' code='IHgbDbtIfwAFQHK2ZhFWciFk2mZm866w'></a>
                 </div>
             </div>
         </div>
