@@ -46,7 +46,7 @@
 
         <div class='flex flex-wrap items-start gap-4 px-10 py-4 relative'>
 
-            <div id="collapseMenu"
+            <nav id="collapseMenu"
                  class='w-full max-lg:hidden lg:!block max-lg:fixed max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
                 <button id="toggleClose" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
                     <i class="fa fa-search w-4 fill-black"></i>
@@ -95,7 +95,7 @@
 
 
                 </ul>
-            </div>
+            </nav>
 
             <div class='flex ml-auto lg:hidden'>
                 <button id="toggleOpen">

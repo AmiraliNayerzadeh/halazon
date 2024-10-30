@@ -8,13 +8,17 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\User;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
+    use SEOTools ;
     public function home()
     {
+
+        $this->seo()->setTitle('پلتفرم آموزشی حلزون') ;
 
         $countTeacher = Cache::remember('countTeacher' , '720' , function () {
             return count(User::where('is_teacher' , 1)->where('is_verify' , 1)->take(6)->get()) ;
