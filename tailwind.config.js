@@ -10,7 +10,6 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         "./resources/**/*.blade.php",
-        "./node_modules/flowbite/**/*.js"
 
 
     ],
@@ -72,7 +71,5 @@ export default {
     plugins: [
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
-        require('flowbite/plugin')
-
     ],
 };
