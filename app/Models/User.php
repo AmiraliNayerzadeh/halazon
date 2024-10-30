@@ -85,13 +85,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Category::class);
     }
 
-    // کاربران دنبال‌کننده
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follows', 'teacher_id', 'user_id');
     }
 
-    // معلمانی که کاربر دنبال می‌کند
     public function following()
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'teacher_id');

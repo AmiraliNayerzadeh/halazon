@@ -10,6 +10,9 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         "./resources/**/*.blade.php",
+        "./node_modules/flowbite/**/*.js"
+
+
     ],
 
     theme: {
@@ -66,5 +69,10 @@ export default {
         },
     },
 
-    plugins: [forms ,typography],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
+        require('flowbite/plugin')
+
+    ],
 };
