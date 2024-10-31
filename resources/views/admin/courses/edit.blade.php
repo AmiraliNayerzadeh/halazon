@@ -132,7 +132,7 @@
                                     <label class="form-label" for="video">ویدیو معرفی کلاس:</label>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
-                                                         <a id="lfv" data-input="thumbnail" data-preview="holder"
+                                                         <a id="lfv" data-input="video" data-preview="holder"
                                                             class="btn btn-primary">
                                                            <i class="fa fa-file-video-o"></i>
                                                              انتخاب
