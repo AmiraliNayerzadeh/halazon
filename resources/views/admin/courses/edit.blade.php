@@ -138,7 +138,7 @@
                                                              انتخاب
                                                          </a>
                                           </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="video" value="{{old('video') ? old('video') : $course->video }}">
+                                        <input id="video" class="form-control" type="text" name="video" value="{{old('video') ? old('video') : $course->video }}">
                                     </div>
                                 </div>
 
