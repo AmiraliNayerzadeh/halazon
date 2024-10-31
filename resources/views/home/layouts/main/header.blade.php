@@ -65,7 +65,7 @@
 
                             </div>
                             @if(count($main->children))
-                                <div class='absolute w-full left-0 top-auto sm:top-64 lg:top-10  z-50 grid sm:flex shadow-lg bg-white rounded-lg max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-[700px] px-8 group-hover:pb-8 group-hover:pt-6 transition-all duration-500'>
+                                <div class='absolute w-full  z-50 grid sm:flex shadow-lg bg-white rounded-lg max-h-0 overflow-hidden  group-hover:max-h-[700px] px-8 group-hover:pb-8 group-hover:pt-6 transition-all duration-300 left-0 top-auto sm:top-64 lg:top-10 '>
                                     @foreach($main->children as $child)
 
                                         <div class="lg:min-w-[180px] max-lg:min-w-[140px]">
