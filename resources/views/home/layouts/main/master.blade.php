@@ -21,7 +21,7 @@
 <body class="bg-zinc-50 ">
 
     @include('.home.layouts.main.header')
-        <section class="mx-auto">
+        <section class="mx-auto px-3">
             @yield('content')
         </section>
 

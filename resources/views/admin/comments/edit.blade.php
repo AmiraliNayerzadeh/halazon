@@ -95,6 +95,20 @@
 
                                     </div>
                                 </div>
+
+                                @if(count($comment->childs))
+                                    @foreach($comment->childs as $child)
+                                    <div class="card bg-white my-5 border">
+                                        <div class="card-header bg-secondary"> پاسخ ثبت شده توسط: {{$child->user->name}} {{$child->user->family}}</div>
+
+                                        <div class="card-body">
+                                            متن نظر:
+                                            {{$child->comment}}
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                @endif
+
                             </div>
 
 

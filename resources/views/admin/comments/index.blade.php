@@ -12,13 +12,13 @@
                             <tr>
                                 <th>تصویر</th>
                                 <th>نظر دهنده</th>
-                                <th>نظر / پاسخ</th>
                                 <th>وضعیت</th>
                                 <th>نوع</th>
                                 <th>ایجاد شده در</th>
                                 <th>زمان ایجاد</th>
+                                <th>دارای پاسخ؟</th>
+
                                 <th>ویرایش</th>
-                                <th>مشاهده</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -36,7 +36,6 @@
 
                                     <td>{{$comment->user->name}} {{$comment->user->family}}</td>
 
-                                    <td>{{$comment->parent == null ? 'نظر' : 'پاسخ به نظر'}}</td>
 
                                     <td>
                                         @if($comment->status == 1)
@@ -75,13 +74,14 @@
 
                                     </td>
 
+                                    <td>{{count($comment->childs) ? 'بله' : 'بدون پاسخ'}}</td>
+
+
+
                                     <td>{{jdate($comment->created_at)}}</td>
                                     
                                     <td><a class="btn btn-warning" href="{{route('admin.comments.edit' , $comment)}}">ویرایش</a></td>
 
-                                    <td>
-                                            <a class="btn btn-primary" href="{{route('admin.comments.show' , $comment)}}">مشاهده</a>
-                                    </td>
 
 
                                 </tr>

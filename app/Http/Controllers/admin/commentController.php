@@ -18,7 +18,7 @@ class commentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::latest()->paginate(24);
+        $comments = Comment::where('parent' , null)->latest()->paginate(24);
         $this->seo()->setTitle('تمام نظرات');
         return view('admin.comments.index', compact('comments'));
     }
