@@ -117,7 +117,7 @@
 
 
                                 <div class="col-lg-4 mt-4">
-                                    <label class="form-label" for="title">تصویر شاخص:</label>
+                                    <label class="form-label" for="title">عکس پروفایل کلاس:</label>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -140,6 +140,10 @@
                     <div class="card my-3">
                         <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-sort-numeric-asc"></li>بازه سنی</h4></div>
                         <div class="card-body">
+                            <div class="text-warning">
+                                <i class="fa fa-warning"></i>
+                                در صورتی که این دوره تنها مختص یک سن خاص است، هر دو مقدار را با همان عدد تکمیل کنید.
+                            </div>
                             <div class="col-lg-12 d-flex align-items-center mt-4">
                                 <bdi>این کلاس مناسب بازه سنی </bdi>
                                 <input type="number" name="age_from" id="age_from" class="form-control w-auto mx-2" placeholder="بازه شروع" value="{{old('age_from')}}">
@@ -188,29 +192,18 @@
 
                                         <p>با توجه به این نکات، سعی کنید توضیحاتی بنویسید که والدین را ترغیب به ثبت‌نام فرزندانشان در دوره شما کند و انتظارات آن‌ها را به‌درستی تنظیم کند.</p>
                                     </div>
-                                    <label class="form-label" for="description">توضیجات </label>
-                                    <textarea name="description" id="editor" cols="30" rows="10">{{old('description')}}</textarea>
+                                    <label class="form-label" for="description">توضیحات </label>
+                                    <textarea name="description" id="editor">{{ old('description', "<h4> توضیحات کلاس:</h4><br><br><h4> هدف یادگیری:</h4><br><br><h4> ارزیابی پیشرفت دانش آموزان:</h4><br><br><h4> موارد مورد نیاز:</h4><br><br><h4> زمان لازم برای مطالعه:</h4><br><br><h4> تجربه تدریس و مهارت های معلم:</h4><br><br>") }}</textarea>
+
+                                    <script>
+                                        CKEDITOR.replace('editor');
+                                    </script>
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card my-3">
-                        <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-pen"></li>تکلیف</h4></div>
-                        <div class="card-body">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <div>
-                                        <p>
-                                            چه نوع تکالیفی به کودکان داده می‌شود؟ آیا آن‌ها پروژه‌ها را به صورت فردی یا گروهی انجام می‌دهند؟ تکالیف هر هفته چقدر زمان می‌برند؟ برای کلاسی که نیاز به مطالعه دارد، تقریباً چند صفحه از کودکان انتظار می‌رود که به طور مستقل بخوانند؟
-                                        </p>
-                                    </div>
-                                    <label class="form-label" for="homework">تکلیف (اختیاری) </label>
-                                    <textarea class="form-control" name="homework" id="editor" cols="30" rows="3">{{old('homework')}}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
 

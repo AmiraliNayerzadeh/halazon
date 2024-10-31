@@ -37,7 +37,7 @@
                 <div class="col-lg-9">
                     <div class="card">
                         <div class="card-header bg-light"><h4 class="text-primary">
-                                <li class="mx-2 fa fa-info"></li>مشخصات کلّی</h4></div>
+                                <i class="mx-2 fa fa-info"></i>مشخصات کلّی</h4></div>
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col-lg-4 mt-4">
@@ -114,7 +114,7 @@
                                 </div>
 
                                 <div class="col-lg-4 mt-4">
-                                    <label class="form-label" for="title">تصویر شاخص:</label>
+                                    <label class="form-label" for="title">عکس پروفایل کلاس:</label>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -137,6 +137,11 @@
                     <div class="card my-3">
                         <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-sort-numeric-asc"></li>بازه سنی</h4></div>
                         <div class="card-body">
+
+                            <div class="text-warning">
+                                <i class="fa fa-warning"></i>
+                                در صورتی که این دوره تنها مختص یک سن خاص است، هر دو مقدار را با همان عدد تکمیل کنید.
+                            </div>
                             <div class="col-lg-12 d-flex align-items-center mt-4">
                                 <bdi>این کلاس مناسب بازه سنی </bdi>
                                 <input type="number" name="age_from" id="age_from" class="form-control w-auto mx-2" placeholder="بازه شروع" value="{{old('age_from') ? old('age_from') : $course->age_from }}">
@@ -188,23 +193,6 @@
                                     </div>
                                     <label class="form-label" for="description">توضیجات </label>
                                     <textarea name="description" id="editor" cols="30" rows="10">{!! old('description') ? old('description') : $course->description !!}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card my-3">
-                        <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-pen"></li>تکلیف</h4></div>
-                        <div class="card-body">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <div>
-                                        <p>
-                                            چه نوع تکالیفی به کودکان داده می‌شود؟ آیا آن‌ها پروژه‌ها را به صورت فردی یا گروهی انجام می‌دهند؟ تکالیف هر هفته چقدر زمان می‌برند؟ برای کلاسی که نیاز به مطالعه دارد، تقریباً چند صفحه از کودکان انتظار می‌رود که به طور مستقل بخوانند؟
-                                        </p>
-                                    </div>
-                                    <label class="form-label" for="homework">تکلیف (اختیاری) </label>
-                                    <textarea class="form-control" name="homework" id="editor" cols="30" rows="3">{{old('homework') ? old('homework') : $course->homework}}</textarea>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-@extends('home.layouts.main.master')
+ @extends('home.layouts.main.master')
 
 @section('content')
     <div class="bg-[#e9e5ef]">
@@ -90,22 +90,6 @@
                     </div>
                 </div>
 
-                @if(!is_null($course->homework))
-                    <div class="w-full mt-7">
-                        <div class="accordion">
-                            <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
-                                <button class="accordion-header w-full text-right flex justify-between items-center p-4"
-                                        onclick="toggleAccordion(event)">
-                                    <h4 class="text-main font-extrabold">تکالیف</h4>
-                                    <i class="fas fa-chevron-down text-main"></i>
-                                </button>
-                                <div class="accordion-content bg-main25 rounded-b-2xl p-4 hidden">
-                                    {{$course->homework}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
 
 
                 <div class="w-full mt-7">
@@ -205,7 +189,11 @@
                             <div class="flex items-center">
                                 <i class="ml-1 fa-regular fa-user-group"></i>
                                 <b class="ml-1">رده سنی:</b>
-                                <span> {{$course->age_from}} الی  {{$course->age_to}} سال </span>
+                                @if($course->age_from == $course->age_to )
+                                    مختص {{$course->age_from}} سال
+                                @else
+                                    <span> {{$course->age_from}} الی  {{$course->age_to}} سال </span>
+                                @endif
                             </div>
                         </div>
 

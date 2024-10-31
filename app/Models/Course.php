@@ -21,7 +21,6 @@ class Course extends Model
         'capacity',
         'price',
         'discount_price',
-        'homework',
         'status',
         'is_draft',
         'slug',

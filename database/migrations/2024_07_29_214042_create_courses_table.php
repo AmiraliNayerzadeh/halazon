@@ -34,8 +34,6 @@ return new class extends Migration
             $table->unsignedBigInteger('price')->nullable();
             $table->unsignedBigInteger('discount_price')->nullable();
 
-            $table->longText('homework')->nullable();
-
 
             $table->string('status')->nullable();
             $table->boolean('is_draft') ;
