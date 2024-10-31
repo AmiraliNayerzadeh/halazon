@@ -50,7 +50,7 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
-                                        <label class="form-label" for="title">نوع دوره</label>
+                                        <label class="form-label" for="type">نوع دوره</label>
                                         <select class="form-control" name="type" id="type">
                                             <option {{$course->type == 'online' ? 'selected' : ''}} value="online">آنلاین</option>
                                             <option {{$course->type == 'offline' ? 'selected' : ''}} value="offline">آفلاین</option>
@@ -61,7 +61,7 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
-                                        <label class="form-label" for="title">دبیر دوره:</label>
+                                        <label class="form-label" for="teacher_id">دبیر دوره:</label>
                                         <select class="form-control select2" name="teacher_id" id="teacher_id">
                                             <option> مشخص کنید</option>
                                             @foreach(\App\Models\User::where('is_teacher' , 1)->get() as $teacher)
@@ -114,7 +114,7 @@
                                 </div>
 
                                 <div class="col-lg-4 mt-4">
-                                    <label class="form-label" for="title">عکس پروفایل کلاس:</label>
+                                    <label class="form-label" for="thumbnail">عکس پروفایل کلاس:</label>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -125,7 +125,21 @@
                                           </span>
                                         <input id="thumbnail" class="form-control" type="text" name="image" value="{{old('image') ? old('image') : $course->image }}">
                                     </div>
-                                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                                </div>
+
+
+                                <div class="col-lg-4 mt-4">
+                                    <label class="form-label" for="video">ویدیو معرفی کلاس:</label>
+                                    <div class="input-group">
+                                                       <span class="input-group-btn">
+                                                         <a id="lfv" data-input="thumbnail" data-preview="holder"
+                                                            class="btn btn-primary">
+                                                           <i class="fa fa-file-video-o"></i>
+                                                             انتخاب
+                                                         </a>
+                                          </span>
+                                        <input id="thumbnail" class="form-control" type="text" name="video" value="{{old('video') ? old('video') : $course->video }}">
+                                    </div>
                                 </div>
 
 
@@ -303,7 +317,7 @@
                                     <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره پیش نویس</button>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button class="btn btn-success w-100" name="is_draft" value="0" type="submit">انتشار دسته بندی</button>
+                                    <button class="btn btn-success w-100" name="is_draft" value="0" type="submit">انتشار دوره</button>
                                 </div>
                             </div>
                         </div>
@@ -319,6 +333,7 @@
 
             <script>
                 $('#lfm').filemanager('image');
+                $('#lfv').filemanager('video');
             </script>
 
             <script>

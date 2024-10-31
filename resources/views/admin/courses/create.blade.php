@@ -51,7 +51,7 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
-                                        <label class="form-label" for="title">نوع دوره</label>
+                                        <label class="form-label" for="type">نوع دوره</label>
                                         <select class="form-control" name="type" id="type">
                                             <option value="online">آنلاین</option>
                                             <option value="offline">آفلاین</option>
@@ -62,7 +62,7 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
-                                        <label class="form-label" for="title">دبیر دوره:</label>
+                                        <label class="form-label" for="teacher_id">دبیر دوره:</label>
                                         <select class="form-control select2" name="teacher_id" id="teacher_id">
                                             <option> مشخص کنید</option>
                                             @foreach(\App\Models\User::where('is_teacher' , 1)->get() as $teacher)
@@ -117,7 +117,7 @@
 
 
                                 <div class="col-lg-4 mt-4">
-                                    <label class="form-label" for="title">عکس پروفایل کلاس:</label>
+                                    <label class="form-label" for="thumbnail">عکس پروفایل کلاس:</label>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -129,6 +129,21 @@
                                         <input id="thumbnail" class="form-control" type="text" name="image" value="{{old('image')}}">
                                     </div>
                                     <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                                </div>
+
+
+                                <div class="col-lg-4 mt-4">
+                                    <label class="form-label" for="video">ویدیو معرفی کلاس:</label>
+                                    <div class="input-group">
+                                                       <span class="input-group-btn">
+                                                         <a id="lfv" data-input="video" data-preview="holder"
+                                                            class="btn btn-primary">
+                                                           <i class="fa fa-file-video-o"></i>
+                                                             انتخاب
+                                                         </a>
+                                          </span>
+                                        <input id="video" class="form-control" type="text" name="video" value="{{old('video')}}">
+                                    </div>
                                 </div>
 
 
@@ -321,6 +336,8 @@
 
             <script>
                 $('#lfm').filemanager('image');
+
+                $('#lfv').filemanager('video');
             </script>
 
             <script>
@@ -328,9 +345,7 @@
 
                 $(document).ready(function () {
                     $('.select2').select2({
-
                         theme: 'bootstrap-5'
-
                     });
                 });
             </script>

@@ -22,9 +22,15 @@
 
                 <div class="col-span-12 border sm:col-span-6  my-10">
                     <div class="flex align-items-center justify-center items-center">
-                        <img class="rounded-3xl w-auto max-h-72 "
-                             src="{{!is_null($course->image) ? $course->image : '/assets/default-image.jpg'}}"
-                             alt="{{$course->title}}">
+                        @if(is_null($course->video))
+                            <img class="rounded-3xl w-auto max-h-72 " src="{{!is_null($course->image) ? $course->image : '/assets/default-image.jpg'}}" alt="{{$course->title}}">
+                        @else
+                            <video  height="400" controls poster="{{$course->image}}" class="max-h-72 rounded-lg w-auto">
+                                <source src="{{$course->video}}" type="video/mp4">
+                                <source src="{{$course->video}}" type="video/ogg">
+                                Your browser does not support the video tag.
+                            </video>
+                        @endif
                     </div>
                 </div>
             </div>

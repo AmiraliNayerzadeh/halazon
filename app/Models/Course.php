@@ -11,6 +11,7 @@ class Course extends Model
         'title',
         'type',
         'image',
+        'video',
         'description',
         'teacher_id',
         'age_from',
