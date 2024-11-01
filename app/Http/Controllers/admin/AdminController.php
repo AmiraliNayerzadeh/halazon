@@ -14,6 +14,6 @@ class AdminController extends Controller
     {
         $this->seo()->setTitle('داشبورد');
 
-        return view('admin.layout.master');
+        return view('admin.dashboard');
     }
 }

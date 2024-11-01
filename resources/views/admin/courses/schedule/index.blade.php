@@ -198,7 +198,7 @@
 
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="form-label" for="title">تاریخ شروع:</label>
+                                                    <label class="form-label" for="title">زمان شروع:</label>
                                                     <input type="time" class="form-control" id="time_course"
                                                            name="time_course" value="{{old('time_course')}}"
                                                            autocomplete="off">
