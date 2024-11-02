@@ -387,7 +387,8 @@ class CourseController extends Controller
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
-            'video' => 'nullable', // 50MB
+            'video_url' => 'nullable', // 50MB
+            'is_free' => 'nullable',
         ]);
 
         if ($valid->fails()) {
@@ -395,28 +396,32 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
-        if ($course->type == 'offline') {
 
-
-//            if (!$request->hasFile('video')) {
-//                alert()->error('خطا', 'هنگامی که دوره به صورت آفلاین است، فایل آموزشی حتماً باید بارگذاری شود.');
-//                return back()->withInput();
-//            }
-
-            // آپلود فایل و دریافت مسیر ذخیره‌سازی
-            $videoPath = $request->file('video')->store('videos', 'liara');
-            $request['video'] = $videoPath;
-        }
 
         $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
         $request['priority'] = $course->headlines()->count() + 1;
         $request['course_id'] = $course->id;
 
-        Headline::create($request->all());
+        Headline::create([
+            'title' => $request['title'] ,
+            'description' => $request['description'] ,
+            'priority' => $request['priority'],
+            'video' => $request['video_url'],
+            'course_id' => $course->id ,
+            'is_free' =>  $request['is_free'],
+            'slug' =>  $request['slug'],
+
+        ]);
+
 
         Alert::success("سر فصل جدید برای دوره $course->title با موفقیت ایجاد شد.");
         return back();
+
+
     }
+
+
+
 
 
     public function headlineUpdate(Request $request , Headline $headline)

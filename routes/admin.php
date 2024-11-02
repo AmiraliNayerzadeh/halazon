@@ -15,6 +15,9 @@ Route::resource('/courses' , \App\Http\Controllers\admin\CourseController::class
 Route::get('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseController::class , 'schedule'])->name('schedules.index');
 Route::post('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseController::class , 'scheduleStore'])->name('schedules.store');
 
+Route::post('/upload-video/{course}', [\App\Http\Controllers\S3Controller::class, 'uploadVideo'])->name('video.upload');
+
+
 
 Route::get('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headline'])->name('headline.index');
 Route::post('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headlineStore'])->name('headline.store');
