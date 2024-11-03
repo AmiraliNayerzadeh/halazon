@@ -17,8 +17,6 @@ Route::post('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseCo
 
 Route::post('/upload-video/{course}', [\App\Http\Controllers\S3Controller::class, 'uploadVideo'])->name('video.upload');
 
-
-
 Route::get('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headline'])->name('headline.index');
 Route::post('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headlineStore'])->name('headline.store');
 Route::put('/courses/headlines/{headline}', [\App\Http\Controllers\admin\CourseController::class , 'headlineUpdate'])->name('headline.update');
@@ -27,12 +25,13 @@ Route::post('/courses/headline/upload-video', [\App\Http\Controllers\admin\Cours
 
 Route::resource('/blogs' , \App\Http\Controllers\admin\BlogController::class);
 
-
 Route::resource('/degrees' , \App\Http\Controllers\admin\DegreeController::class);
 
 Route::resource('/comments' , \App\Http\Controllers\admin\commentController::class);
 
 
+
+Route::resource('/orders' , \App\Http\Controllers\admin\OrderController::class) ;
 
 
 

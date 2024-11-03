@@ -61,27 +61,62 @@
                 <div class="w-full mt-7">
                     <div class="accordion">
                         <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
-                            <button class="accordion-header w-full text-right flex justify-between items-center p-4"
-                                    onclick="toggleAccordion(event)">
+                            <div class="accordion-header w-full text-right flex justify-between items-center p-4" >
                                 <h3 class="text-main font-extrabold">سر فصل های {{$course->title}}</h3>
                                 <i class="fas fa-chevron-down text-main"></i>
-                            </button>
-                            <div class="accordion-content bg-main25 rounded-b-2xl p-4 hidden">
+                            </div>
+                            <div class="accordion-content bg-main25 rounded-b-2xl p-1 sm:p-4 ">
 
                                 @foreach($course->headlines as $headline)
 
                                     <div class="w-full px-2 my-2">
                                         <div class="accordion">
                                             <div class="accordion-item bg-white shadow-md mb-4 border ">
-                                                <button class="accordion-header w-full text-right flex justify-between items-center p-4"
+                                                <button class="accordion-header w-full p-1 sm:p-4 text-sm sm:text-base"
                                                         onclick="toggleAccordion(event)">
-                                                    <h4 class="text-main font-extrabold">
-                                                        <span class="text-primary">{{$headline->priority}})</span>
-                                                        {{$headline->title}}
-                                                    </h4>
-                                                    <i class="fas fa-chevron-down text-main"></i>
+
+                                                    <div class="grid grid-cols-12 text-right">
+                                                        <div class="col-span-9">
+                                                            <div class="flex items-center">
+                                                                @if(!is_null($headline) && $headline->is_free == 1)
+                                                                    <div class="bg-green-700 p-1 h-8 w-8 rounded-full text-white text-center ">
+                                                                        <i class="fa fa-lock-open"></i>
+                                                                    </div>
+                                                                @else
+                                                                    <div class="bg-red-500 p-1 h-8 w-8 rounded-full text-white text-center ">
+                                                                        <i class="fa fa-lock"></i>
+                                                                    </div>
+                                                                @endif
+
+                                                                <h4 class="text-main font-extrabold mr-1 sm:mr-3 truncate">
+                                                                    <span class="text-primary">{{$headline->priority}})</span>
+                                                                    {{$headline->title}}
+                                                                </h4>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="col-span-3 text-end">
+                                                            <div class="flex items-center justify-end">
+                                                                <a class="bg-gray-400 p-1 sm:p-2 rounded text-white sm:mx-4" href="{{route('headline.show' , [$course , $headline])}}">مشاهده</a>
+                                                                <i class="fas fa-chevron-down text-main"></i>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+
                                                 </button>
                                                 <div class="accordion-content bg-gray-100 p-4 hidden">
+                                                    @if(!is_null($headline) && $headline->is_free == 1)
+                                                        <video width="100%" controls>
+                                                            <source src="{{ $headline->video }}" type="video/mp4">
+                                                            مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
+                                                        </video>
+
+                                                    @endif
+
                                                     {{$headline->description}}
                                                 </div>
                                             </div>

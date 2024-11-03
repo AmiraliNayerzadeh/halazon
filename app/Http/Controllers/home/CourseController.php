@@ -4,12 +4,30 @@ namespace App\Http\Controllers\home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Headline;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CourseController extends Controller
 {
     use SEOTools;
+
+
+    public function index()
+    {
+        $this->seo()->setTitle("دوره‌های آموزشی آنلاین و آفلاین برای کودکان، نوجوانان و جوانان | حلزون");
+        $this->seo()->setDescription("با دوره‌های آموزشی متنوع حلزون، یادگیری را برای کودکان، نوجوانان و جوانان به تجربه‌ای هیجان‌انگیز تبدیل کنید! آموزش‌های آنلاین و آفلاین شامل مهارت‌های هنری، علمی، ورزشی و رشد فردی، به صورت ویژه برای سنین مختلف طراحی شده‌اند. بهترین دوره‌ها برای رشد و پرورش استعدادها در حلزون!");
+
+            $courses = Cache::remember('all_courses' , 60*60 ,  function (){
+                return Course::where('status' , "منتشر شده")->paginate(16);
+            });
+
+
+        return view('home.courses.index' , compact('courses')) ;
+
+    }
+
 
     public function show(Course $course)
     {
@@ -18,12 +36,18 @@ class CourseController extends Controller
         } else {
             $this->seo()->setTitle($course->title);
         }
-
-
-
-
+        
         return view('home.courses.show' , compact('course')) ;
-
-
     }
+
+
+    public function headline(Course $course , Headline $headline)
+    {
+        $this->seo()->setTitle($headline->title);
+        return view('home.courses.headline' , compact('course' , 'headline')) ;
+    }
+
+
+
+    
 }

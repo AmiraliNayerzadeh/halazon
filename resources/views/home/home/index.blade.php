@@ -132,7 +132,7 @@
                 <b class="text-primary">جدیدترین</b>
                 کلاس های آنلاین
             </h3>
-            <a class="text-main" href="">مشاهده همه
+            <a class="text-main" href="{{route('course.index')}}">مشاهده همه
                 <i class="fa fa-angle-left"></i>
             </a>
         </div>
@@ -152,24 +152,24 @@
                             <h3 class="mt-4 font-extrabold text-2xl hover:text-main duration-500 truncate"><a
                                         href="{{route('course.show' , $course)}}">{{$course->title}}</a></h3>
 
-                            {{--                            Score--}}
+                            {{--Score--}}
                             <div class="mt-3">
                                 <li class="fa fa-star text-yellow-400"></li>
                                 <span>5</span>
                                 <small>(14 نفر)</small>
                             </div>
-                            {{--                            End Score--}}
+                            {{--End Score--}}
 
-                            {{--                            Teacher--}}
+                            {{--Teacher--}}
                             <div class="flex items-center mt-3 ">
-                                <a href="#"><img class="rounded-full h-14 w-14 border border-2 border-main "
+                                <a href="{{route('teacher.show' , $course->teacher)}}"><img class="rounded-full h-14 w-14 border border-2 border-main "
                                                  src="{{$course->teacher->avatar}}" alt=""></a>
                                 <h4 class="mr-2 text-main50">استاد: <a
-                                            href="#">{{$course->teacher->name}} {{$course->teacher->family}}</a></h4>
+                                            href="{{route('teacher.show' , $course->teacher)}}">{{$course->teacher->name}} {{$course->teacher->family}}</a></h4>
                             </div>
-                            {{--                            End Teacher--}}
+                            {{--  End Teacher--}}
 
-                            {{--                            Info--}}
+                            {{-- Info--}}
                             <div class="grid grid-cols-6  mt-5">
                                 <div class="col-span-6 sm:col-span-3 mx-2 bg-main25 shadow rounded-2xl my-2">
                                     <div class="flex h-full items-center justify-center py-3 text-center">

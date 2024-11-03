@@ -71,6 +71,11 @@ class Course extends Model
         return $this->belongsToMany(Degree::class);
     }
 
+    public function courseOrders()
+    {
+        return $this->hasMany(CourseOrder::class);
+    }
+
 
 
 }

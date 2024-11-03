@@ -68,4 +68,30 @@ class CartController extends Controller
     }
 
 
+    public function destroy(Request $request)
+    {
+
+
+        $validated = $request->validate([
+            'course' => 'required|exists:courses,id',
+            'part' => 'nullable|exists:part_times,id',
+        ]);
+
+
+        $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
+
+        $existingCartItem = CartItem::where('cart_id', $cart->id)
+            ->where('course_id', $validated['course'])
+            ->first();
+
+        if ($existingCartItem){
+            $existingCartItem->delete();
+        }
+        Alert::success("با موفقیت از سبد خرید حذف شد.");
+
+        return back();
+
+    }
+
+
 }

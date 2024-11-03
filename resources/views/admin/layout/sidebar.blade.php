@@ -91,6 +91,17 @@
             </li>
 
 
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/orders*') ? 'active' : '' }}" href="{{ route('admin.orders.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-shopping-basket"></span>
+                    </div>
+                    <span class="nav-link-text me-1">سفارش ها</span>
+                </a>
+            </li>
+
+
         </ul>
     </div>
 

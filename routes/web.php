@@ -11,7 +11,10 @@ Route::get('/terms', [\App\Http\Controllers\home\HomeController::class , 'terms'
 Route::get('/category/{category:slug}', [\App\Http\Controllers\home\CategoryController::class , 'main'])->name('category');
 
 
+Route::get('/course', [\App\Http\Controllers\home\CourseController::class , 'index'])->name('course.index');
 Route::get('/course/{course:slug}', [\App\Http\Controllers\home\CourseController::class , 'show'])->name('course.show');
+
+Route::get('/course/{course:slug}/{headline:slug}', [\App\Http\Controllers\home\CourseController::class , 'headline'])->name('headline.show');
 
 //Route::get('/course/{course:slug}/headline/{course:slug}', [\App\Http\Controllers\home\DegreeController::class , 'index'])->name('degrees.index');
 
@@ -55,6 +58,8 @@ Route::middleware('auth')->prefix('cart')->group(function () {
     Route::post('/', [\App\Http\Controllers\home\CartController::class, 'store'])->name('cart.store');
     Route::put('/{id}', [\App\Http\Controllers\home\CartController::class, 'update'])->name('cart.update');
     Route::delete('/{id}', [\App\Http\Controllers\home\CartController::class, 'destroy'])->name('cart.destroy');
+
+    Route::post('order/store/{cart}' , [\App\Http\Controllers\home\OrderController::class ,'store'])->name('order.store');
 
 });
 

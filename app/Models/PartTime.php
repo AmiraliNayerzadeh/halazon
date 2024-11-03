@@ -23,4 +23,9 @@ class PartTime extends Model
         return $this->hasMany(CourseSchedule::class , 'schedule_id');
     }
 
+    public function courseOrders()
+    {
+        return $this->hasMany(CourseOrder::class);
+    }
+
 }

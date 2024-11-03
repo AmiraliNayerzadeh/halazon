@@ -1,5 +1,6 @@
 @component('.admin.layout.master')
     @section('content')
+
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -9,55 +10,78 @@
                         ایجاد دوره جدید
                     </a>
                 </div>
-                <div class="row">
-                    @foreach($courses as $course)
-                        <div class="col-6 col-md-4">
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="text-primary">{{$course->title}}</h5>
-                                        <div class="d-flex align-items-center mt-3">
-                                            <img src="{{$course->teacher->avatar}}" alt="{{$course->teacher->name}}" class="avatar avatar-sm ms-2">
-                                            <a href="{{route('admin.users.show' , $course->teacher)}}">{{$course->teacher->name}} {{$course->teacher->family}}</a>
-                                        </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                            <tr>
+                                <th>تصویر</th>
+                                <th>عنوان</th>
+                                <th>نوع</th>
+                                <th>وضعیت</th>
+                                <th>معلم</th>
+                                <th>دسته بندی</th>
+                                <th>زمان ایجاد</th>
+                                <th>ویرایش</th>
+                                <th>مشاهده</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($courses as $course)
+                                <tr>
+                                    <td>
+                                        @if(!is_null($course->image))
+                                            <img src="{{$course->image}}" class="avatar avatar-md me-3"
+                                                 alt="{{$course->name}}">
+                                        @else
+                                            <img src="/assets/user-avatar.png" class="avatar avatar-md me-3"
+                                                 alt="{{$course->name}}">
+                                        @endif
+                                    </td>
 
-                                        <div class="my-3">
-                                            <li class="fa fa-network-wired"></li>
+                                    <td>{{$course->title}}</td>
+
+                                    <td>{{$course->type == "offline" ?  "آفلاین" : "آنلاین"}}</td>
+
+                                    <td>
+                                        @if($course->status == "پیش نویس")
+                                            <bdi class="bdi rounded bg-warning">پیش نویس</bdi>
+                                        @else
+                                            <bdi class="bdi rounded bg-success">منتشر شده</bdi>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        <a href="{{route('teacher.show', $course->teacher)}}">{{$course->teacher->name}} {{$course->teacher->family}}</a>
+                                    </td>
+
+                                    <td>
+                                        @if(count($course->categories))
                                             @foreach($course->categories as $category)
-                                                {{$category->title}} /
+                                                {{$category->title}},
                                             @endforeach
-                                        </div>
+                                        @else
+                                            ثبت نشده
+                                        @endif
+                                    </td>
 
-                                        <div class="my-2">
-                                            <b>وضعیت:</b>
-                                            <span class="{{$course->status == 'منتشر شده' ? 'text-success' :'text-secondary'}}  " >
-                                                {{$course->status}}
-                                            </span>
-                                            @if($course->is_draft == 1)
-                                            <bdi class="badge bg-warning">پیش نویس</bdi>
-                                            @endif
-                                        </div>
+                                    <td>{{jdate($course->created_at)->toDateString()}}</td>
 
-                                        <div class="my-2">
-                                            <b>تاریخ آخرین ویرایش:</b>
-                                            {{jdate($course->updated_at)}}
-                                        </div>
+                                    <td><a class="btn btn-warning" href="{{route('admin.courses.edit' , $course)}}">ویرایش</a>
+                                    </td>
+
+                                    <td>
+                                        @if($course->status == 1)
+                                            <a class="btn btn-primary" href="">مشاهده</a>
+                                        @endif
+                                    </td>
 
 
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-end">
-                                        <a class="btn btn-warning" href="{{route('admin.courses.edit' , $course)}}">
-                                            <li class="fa fa-pencil-square-o"></li>
-                                            ویرایش
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
