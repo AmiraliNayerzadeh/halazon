@@ -29,11 +29,7 @@ class ZarinPalGetWay extends Model
         $this->totalPrice = $totalPrice;
         $this->user = $user;
         $this->payment = $payment;
-
-        if (!is_null($order)) {
-            $this->callback = route('order.status' , $order);
-        }
-
+        $this->callback = $order ? route('order.status', $order) : null;
     }
 
 
@@ -150,8 +146,9 @@ class ZarinPalGetWay extends Model
 
                     }
 
+                    $payment = $order->payments()->latest()->first();
 
-                    $this->payment->update([
+                    $payment->update([
                         'code'  => $response->code ,
                         'card_number'  => $response->card_pan ,
                         'traceNumber'  => $response->ref_id,
