@@ -133,6 +133,14 @@ class OrderController extends Controller
         $zarinPal = new ZarinPalGetWay();
         $zarinPal->verify($order);
 
+        if ($order->status == "پرداخت شده"){
+            $cart = Cart::where('user_id' , auth()->user()->id)->first();
+
+            if ($cart){
+                $cart->delete();
+            }
+        }
+
         return view('home.cart.status' , compact('order')) ;
 
 

@@ -18,10 +18,18 @@
                    href="{{route('profile.favorite')}}">
                     <i class="fa-regular fa-heart  text-lg"></i>
                 </a>
-                <a class="p-3 {{\Illuminate\Support\Facades\Request::is('cart*') ? 'text-primary' : ''}}"
-                   href="{{route('cart.index')}}">
+                <a class="relative p-2 {{ \Illuminate\Support\Facades\Request::is('cart*') ? 'text-primary' : '' }}"
+                   href="{{ route('cart.index') }}">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
+                    @php
+                        $cart = \App\Models\Cart::where('user_id', auth()->id())->first();
+                        $itemCount = $cart ? $cart->items->count() : 0; // تعداد آیتم‌ها را محاسبه کنید
+                    @endphp
+                    @if($itemCount > 0)
+                        <span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-semibold rounded-full px-2">{{ $itemCount }}</span>
+                    @endif
                 </a>
+
 
 
                 @auth
