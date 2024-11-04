@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Models\ZarinPal;
 use App\Models\ZarinPalGetWay;
+use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\Jalalian;
@@ -17,6 +18,7 @@ use Morilog\Jalali\Jalalian;
 
 class OrderController extends Controller
 {
+    use SEOTools ;
 
 
     public function store(Cart $cart, Request $request)
@@ -117,8 +119,21 @@ class OrderController extends Controller
             'amount' => $totalPrice ,
         ]);
 
+        $zarinPal = new ZarinPalGetWay($order , $totalPrice , $user , $payment);
+        $zarinPal->send();
+
+
+    }
+
+
+    public function status(Order $order)
+    {
+        $this->seo()->setTitle("وضعیت پرداخت سفارش #$order->id") ;
+
         $zarinPal = new ZarinPalGetWay();
-        $zarinPal->send($totalPrice , $user , $payment);
+        $zarinPal->verify();
+
+        return view('home.cart.status' , compact('order')) ;
 
 
     }

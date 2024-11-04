@@ -59,9 +59,10 @@ Route::middleware('auth')->prefix('cart')->group(function () {
     Route::put('/{id}', [\App\Http\Controllers\home\CartController::class, 'update'])->name('cart.update');
     Route::delete('/{id}', [\App\Http\Controllers\home\CartController::class, 'destroy'])->name('cart.destroy');
 
-    Route::post('order/store/{cart}' , [\App\Http\Controllers\home\OrderController::class ,'store'])->name('order.store');
-
 });
+
+Route::post('order/store/{cart}' , [\App\Http\Controllers\home\OrderController::class ,'store'])->name('order.store');
+Route::get('order/status/{order}' , [\App\Http\Controllers\home\OrderController::class ,'status'])->name('order.status');
 
 
 require __DIR__.'/auth.php';
