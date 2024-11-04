@@ -59,7 +59,7 @@ class ZarinPalGetWay extends Model
 
         $options = new Options([
             'client_builder' => $clientBuilder,
-            'sandbox' => true, // Enable sandbox mode
+            'sandbox' => false, // Enable sandbox mode
             'merchant_id' => $this->merchant,
         ]);
 
