@@ -29,7 +29,10 @@ class ZarinPalGetWay extends Model
         $this->totalPrice = $totalPrice;
         $this->user = $user;
         $this->payment = $payment;
-        $this->callback = route('order.status' , $order);
+
+        if (!is_null($order)) {
+            $this->callback = route('order.status' , $order);
+        }
 
     }
 
