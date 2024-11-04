@@ -23,7 +23,7 @@ class ZarinPalGetWay extends Model
 
     protected $callback ;
 
-    public function __construct($order , $totalPrice, $user, $payment )
+    public function __construct($order = null, $totalPrice = null, $user = null, $payment = null)
     {
         $this->order = $order ;
         $this->totalPrice = $totalPrice;
