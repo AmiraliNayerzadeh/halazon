@@ -131,7 +131,7 @@ class OrderController extends Controller
         $this->seo()->setTitle("وضعیت پرداخت سفارش #$order->id") ;
 
         $zarinPal = new ZarinPalGetWay();
-        $zarinPal->verify();
+        $zarinPal->verify($order);
 
         return view('home.cart.status' , compact('order')) ;
 

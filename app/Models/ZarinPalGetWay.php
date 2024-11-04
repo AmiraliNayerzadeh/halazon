@@ -103,7 +103,7 @@ class ZarinPalGetWay extends Model
 
 
 
-    public function verify()
+    public function verify($order)
     {
         $clientBuilder = new ClientBuilder();
         $clientBuilder->addPlugin(new HeaderDefaultsPlugin([
@@ -124,7 +124,7 @@ class ZarinPalGetWay extends Model
 
         if ($status === 'OK') {
 
-            $amount = getAmountFromDatabase($authority);
+            $amount = $order->total;
 
             if ($amount) {
                 $verifyRequest = new VerifyRequest();
