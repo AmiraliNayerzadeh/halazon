@@ -140,13 +140,13 @@ class ZarinPalGetWay extends Model
                         echo "Card PAN: " . $response->card_pan . "\n";
                         echo "Fee: " . $response->fee . "\n";
 
-                        $this->order->update(['status' => 'پرداخت شده']);
+                        $order->update(['status' => 'پرداخت شده']);
 
                     } else if ($response->code === 101) {
                         echo "Payment already verified: \n";
                     } else {
                         echo "Transaction failed with code: " . $response->code;
-                        $this->order->update(['status' => 'نیاز به بررسی']);
+                        $order->update(['status' => 'نیاز به بررسی']);
 
                     }
 
@@ -167,7 +167,7 @@ class ZarinPalGetWay extends Model
             }
         } else {
             echo 'Transaction was cancelled or failed.';
-            $this->order->update(['status' => 'انصراف از پرداخت']);
+            $order->update(['status' => 'انصراف از پرداخت']);
 
         }
     }
