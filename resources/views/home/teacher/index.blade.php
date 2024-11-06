@@ -56,5 +56,21 @@
         <div class="mt-4">
             {{$teachers->links()}}
         </div>
+
+        <div class="bg-gray-100 rounded-lg shadow-md flex flex-col md:flex-row items-center p-6 md:p-8 my-8 mx-4 md:mx-0">
+            <div class="w-full md:w-1/4 mb-4 md:mb-0">
+                <img src="/assets/home/image/teacher.png" alt="Become a teacher on Halazon" class="rounded-lg object-cover w-60 ">
+            </div>
+            <div class="w-full md:w-3/4 flex flex-col items-start pl-4">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">شما هم می‌توانید مدرس حلزون باشید!</h2>
+                <p class="text-gray-700 mb-4">اگر تخصصی دارید و می‌خواهید دانش خود را با دیگران به اشتراک بگذارید، در حلزون ثبت‌نام کنید. دوره‌های خود را به فروش بگذارید و به جامعه بزرگ ما بپیوندید.</p>
+                <a href="{{ route('teacher.landing') }}" class="px-6 py-3 bg-main text-white rounded-full font-semibold text-center transition duration-300 ease-in-out hover:bg-main100">
+                    همکاری با حلزون
+                </a>
+            </div>
+        </div>
+
+
+
     </div>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\home;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\User;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
@@ -93,11 +94,19 @@ class ProfileController extends Controller
         Alert::success("اطلاعات شما با موفقیت بروزرسانی گردید.");
         return back();
 
+    }
 
 
+    public function payment()
+    {
+        $this->seo()->setTitle('لیست تراکنش های من') ;
 
+        $orders = Order::where('user_id' , \auth()->user()->id)->latest()->get();
+
+        return view('home.profile.payments' , compact('orders'));
 
 
     }
+
 
 }

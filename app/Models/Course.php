@@ -20,6 +20,7 @@ class Course extends Model
         'weeks',
         'minutes',
         'capacity',
+        'remain_capacity',
         'price',
         'discount_price',
         'status',
@@ -75,6 +76,12 @@ class Course extends Model
     {
         return $this->hasMany(CourseOrder::class);
     }
+    public function userCourses()
+    {
+        return $this->hasMany(UserCourse::class);
+    }
+
+
 
 
 

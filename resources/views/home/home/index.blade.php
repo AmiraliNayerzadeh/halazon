@@ -152,13 +152,7 @@
                             <h3 class="mt-4 font-extrabold text-2xl hover:text-main duration-500 truncate"><a
                                         href="{{route('course.show' , $course)}}">{{$course->title}}</a></h3>
 
-                            {{--Score--}}
-                            <div class="mt-3">
-                                <li class="fa fa-star text-yellow-400"></li>
-                                <span>5</span>
-                                <small>(14 نفر)</small>
-                            </div>
-                            {{--End Score--}}
+
 
                             {{--Teacher--}}
                             <div class="flex items-center mt-3 ">
@@ -193,8 +187,12 @@
 
                                 <div class="col-span-6 sm:col-span-6 mt-2 sm:mt-0 mx-2 bg-main25 shadow rounded-2xl my-2">
                                     <div class="flex h-full items-center justify-center py-3 text-center">
+                                        @if($course->price != 0 )
                                         {{number_format(($course->price - $course->discount_price) / $course->class_duration )}}
                                         تومان هر جلسه
+                                        @else
+                                            رایگان😍
+                                        @endif
                                     </div>
                                 </div>
                             </div>

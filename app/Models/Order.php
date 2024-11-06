@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use SoftDeletes ;
+    use SoftDeletes;
 
-    protected $fillable =[
-      'user_id' ,
-      'method' ,
-      'status' ,
-      'qty' ,
-      'total_pure_price' ,
-      'total_discount_price' ,
-      'total' ,
+    protected $fillable = [
+        'user_id',
+        'method',
+        'status',
+        'qty',
+        'total_pure_price',
+        'total_discount_price',
+        'total',
+        'status_processed',
     ];
 
     public function user()

@@ -63,6 +63,8 @@
                                                                 معلم
                                                             @elseif($comment->commentable_type == 'App\Models\Course')
                                                                 کلاس
+                                                            @elseif($comment->commentable_type == 'App\Models\Headline')
+                                                                محتوای دوره
                                                             @else
                                                                 {{$comment->commentable_type}}
                                                             @endif
@@ -75,6 +77,8 @@
                                                                 <a href="{{route('teacher.show' , $comment->commentable)}}">{{$comment->commentable->name}} {{$comment->commentable->family}}</a>
                                                             @elseif($comment->commentable_type == 'App\Models\Course')
                                                                 <a href="{{route('course.show' , $comment->commentable)}}">{{$comment->commentable->title}}</a>
+                                                            @elseif($comment->commentable_type == 'App\Models\Headline')
+                                                                <a href="{{route('headline.show' ,[$comment->commentable->course,$comment->commentable])}}">{{$comment->commentable->title}}</a>
                                                             @else
                                                                 {{$comment->commentable_type}}
                                                             @endif

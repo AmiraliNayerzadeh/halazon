@@ -43,7 +43,7 @@
             <div class="col-span-6 sm:col-span-2">
                 <h5 class="font-extrabold text-main100 mb-4">همکاری با حلزون:</h5>
                 <ul class="list-disc space-y-3">
-                    <li><a class="hover:text-primary duration-200" href="">تدریس در حلزون</a></li>
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('work-as-teacher') ? 'text-primary' :''}}"  href="{{route('teacher.landing')}}">تدریس در حلزون</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">همکاری در تولید محتوا</a></li>
                     <li><a class="hover:text-primary duration-200" href="#"> فرصت‌های شغلی</a></li>
                 </ul>

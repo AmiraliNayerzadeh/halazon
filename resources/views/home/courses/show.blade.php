@@ -1,4 +1,4 @@
- @extends('home.layouts.main.master')
+@extends('home.layouts.main.master')
 
 @section('content')
     <div class="bg-[#e9e5ef]">
@@ -23,9 +23,11 @@
                 <div class="col-span-12 border sm:col-span-6  my-10">
                     <div class="flex align-items-center justify-center items-center">
                         @if(is_null($course->video))
-                            <img class="rounded-3xl w-auto max-h-72 " src="{{!is_null($course->image) ? $course->image : '/assets/default-image.jpg'}}" alt="{{$course->title}}">
+                            <img class="rounded-3xl w-auto max-h-72 "
+                                 src="{{!is_null($course->image) ? $course->image : '/assets/default-image.jpg'}}"
+                                 alt="{{$course->title}}">
                         @else
-                            <video  height="400" controls poster="{{$course->image}}" class="max-h-72 rounded-lg w-auto">
+                            <video height="400" controls poster="{{$course->image}}" class="max-h-72 rounded-lg w-auto">
                                 <source src="{{$course->video}}" type="video/mp4">
                                 <source src="{{$course->video}}" type="video/ogg">
                                 Your browser does not support the video tag.
@@ -61,7 +63,7 @@
                 <div class="w-full mt-7">
                     <div class="accordion">
                         <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
-                            <div class="accordion-header w-full text-right flex justify-between items-center p-4" >
+                            <div class="accordion-header w-full text-right flex justify-between items-center p-4">
                                 <h3 class="text-main font-extrabold">سر فصل های {{$course->title}}</h3>
                                 <i class="fas fa-chevron-down text-main"></i>
                             </div>
@@ -78,7 +80,7 @@
                                                     <div class="grid grid-cols-12 text-right">
                                                         <div class="col-span-9">
                                                             <div class="flex items-center">
-                                                                @if(!is_null($headline) && $headline->is_free == 1)
+                                                                @if(!is_null($headline) && $headline->is_free == 1 || (auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
                                                                     <div class="bg-green-700 p-1 h-8 w-8 rounded-full text-white text-center ">
                                                                         <i class="fa fa-lock-open"></i>
                                                                     </div>
@@ -98,27 +100,28 @@
 
                                                         <div class="col-span-3 text-end">
                                                             <div class="flex items-center justify-end">
-                                                                <a class="bg-gray-400 p-1 sm:p-2 rounded text-white sm:mx-4" href="{{route('headline.show' , [$course , $headline])}}">مشاهده</a>
-                                                                <i class="fas fa-chevron-down text-main"></i>
+                                                                @if($course->type == 'offline')
+
+                                                                    <a class="bg-gray-400 p-1 sm:p-2 rounded text-white sm:mx-4"
+                                                                       href="{{route('headline.show' , [$course , $headline])}}">مشاهده</a>
+                                                                @endif
+
+                                                                @if(!is_null($headline->description))
+                                                                    <i class="fas fa-chevron-down text-main"></i>
+                                                                @endif
                                                             </div>
                                                         </div>
 
                                                     </div>
 
 
-
                                                 </button>
-                                                <div class="accordion-content bg-gray-100 p-4 hidden">
-                                                    @if(!is_null($headline) && $headline->is_free == 1)
-                                                        <video width="100%" controls>
-                                                            <source src="{{ $headline->video }}" type="video/mp4">
-                                                            مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
-                                                        </video>
+                                                @if(!is_null($headline->description))
 
-                                                    @endif
-
-                                                    {{$headline->description}}
-                                                </div>
+                                                    <div class="accordion-content bg-gray-100 p-4 hidden">
+                                                        {{$headline->description}}
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +133,6 @@
                         </div>
                     </div>
                 </div>
-
 
 
                 <div class="w-full mt-7">
@@ -173,26 +175,38 @@
                     </div>
 
                     <div class="p-3 border-b border-b-main ">
-                        <div class="flex justify-center items-center">
-                            @if($course->discount_price > 0)
-                                <div class="ml-4">
-                                    <b class="line-through decoration-red-600 ">{{number_format(($course->price))}}
-                                        تومان </b>
-                                </div>
-                            @endif
+                        @if($course->price != 0 )
 
-                            <div>
-                                <b class="font-extrabold text-2xl">{{number_format(($course->price - $course->discount_price))}}</b>
+                            <div class="flex justify-center items-center">
+                                @if($course->discount_price > 0)
+                                    <div class="ml-4">
+                                        <b class="line-through decoration-red-600 ">{{number_format(($course->price))}}
+                                            تومان </b>
+                                    </div>
+                                @endif
+
+                                <div>
+                                    <b class="font-extrabold text-2xl">{{number_format(($course->price - $course->discount_price))}}</b>
+                                    <span class="mr-1">تومان</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center">
+
+                                <div>
+                                    <b class="text-gray-600 ">{{number_format(($course->price - $course->discount_price) / $course->class_duration )}}</b>
+                                </div>
                                 <span class="mr-1">تومان</span>
+                                <small class="text-primary mr-1"> به ازای هر جلسه </small>
+
                             </div>
-                        </div>
-                        <div class="flex justify-center items-center">
-                            <div>
-                                <b class="text-gray-600 ">{{number_format(($course->price - $course->discount_price) / $course->class_duration )}}</b>
+                        @else
+                            <div class="flex justify-center items-center">
+
+                                <div class="font-bold text-2xl">
+                                    رایگان
+                                </div>
                             </div>
-                            <span class="mr-1">تومان</span>
-                            <small class="text-primary mr-1"> به ازای هر جلسه </small>
-                        </div>
+                        @endif
                     </div>
 
 
@@ -280,6 +294,9 @@
                                         <span class="text-main50">{{jdate()->forge($part->schedules->last()->start_date)->toDateString()}}</span>
                                     </div>
                                     <div class="flex justify-end">
+
+                                        @if(!(auth()->check() && auth()->user()->hasAccessToPart($course->id, $part->id)))
+
                                         <form action="{{route('cart.store')}}" method="post">
                                             @csrf
                                             @method('POST')
@@ -289,6 +306,12 @@
                                                     type="submit">ثبت نام
                                             </button>
                                         </form>
+
+                                        @else
+
+                                            <div class="mx-2 px-3 py-2 border bg-green-300 border-green-600 shadow  rounded-lg hover:bg-green-400 duration-500">ثبت نام کرده اید</div>
+
+                                        @endif
                                     </div>
                                 </div>
 
@@ -296,6 +319,9 @@
 
                         @elseif($course->type == 'offline')
                             <div class="flex items-center justify-center">
+
+                                @if(!(auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
+
                                 <form class="w-full" action="{{route('cart.store')}}" method="post">
                                     @csrf
                                     @method('POST')
@@ -304,6 +330,11 @@
                                             type="submit">ثبت نام
                                     </button>
                                 </form>
+                                @else
+                                    <button class=" my-2 w-full  py-2 border bg-green-300 border-green-600 shadow  rounded-lg  hover:bg-green-400 duration-500"
+                                            type="button">ثبت نام کرده اید
+                                    </button>
+                                @endif
                             </div>
                         @endif
 
@@ -332,22 +363,21 @@
                             @endif
                         @endauth
                         @guest
-                                <form action="{{route('favorites.store')}}" method="post">
-                                    @csrf
-                                    @method('POST')
-                                    <input type="hidden" name="type" value="{{get_class($course)}}">
-                                    <input type="hidden" name="id" value="{{$course->id}}">
-                                    <button class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
-                                            type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
-                                    </button>
-                                </form>
+                            <form action="{{route('favorites.store')}}" method="post">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="type" value="{{get_class($course)}}">
+                                <input type="hidden" name="id" value="{{$course->id}}">
+                                <button class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
+                                        type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
+                                </button>
+                            </form>
                         @endguest
 
                     </div>
 
                 </div>
             </div>
-
 
 
         </div>
@@ -360,7 +390,10 @@
             <div class="flex justify-between items-center">
                 <h4 class="font-extrabold text-2xl py-5">
                     <i class="fa fa-comment-alt mx-1"></i>نظرات</h4>
-                <button id="comment" class="bg-main50 text-white py-2 px-3 rounded-2xl border border-main hover:bg-main25 hover:text-main100 duration-700"><i class="fa fa-plus mx-1"></i>ایجاد نظر جدید</button>
+                <button id="comment"
+                        class="bg-main50 text-white py-2 px-3 rounded-2xl border border-main hover:bg-main25 hover:text-main100 duration-700">
+                    <i class="fa fa-plus mx-1"></i>ایجاد نظر جدید
+                </button>
 
                 <!--Comment Modal -->
                 <div id="myModal"
@@ -380,8 +413,10 @@
                                 <div class="max-w-2xl mx-auto ">
                                     <!-- Comment -->
                                     <div class="mb-4">
-                                        <label for="comment" class="block text-gray-700  font-extrabold mb-2">متن نظر:</label>
-                                        <textarea id="comment" name="comment" rows="3" class="rounded w-full py-2 px-3 text-gray-700 " required></textarea>
+                                        <label for="comment" class="block text-gray-700  font-extrabold mb-2">متن
+                                            نظر:</label>
+                                        <textarea id="comment" name="comment" rows="3"
+                                                  class="rounded w-full py-2 px-3 text-gray-700 " required></textarea>
                                     </div>
 
                                     <!-- Score -->
@@ -395,7 +430,8 @@
                                             <input type="radio" id="star4" name="score" value="4"/>
                                             <label class="star" for="star4" title="Great" aria-hidden="true"></label>
                                             <input type="radio" id="star3" name="score" value="3"/>
-                                            <label class="star" for="star3" title="Very good" aria-hidden="true"></label>
+                                            <label class="star" for="star3" title="Very good"
+                                                   aria-hidden="true"></label>
                                             <input type="radio" id="star2" name="score" value="2"/>
                                             <label class="star" for="star2" title="Good" aria-hidden="true"></label>
                                             <input type="radio" id="star1" name="score" value="1"/>
@@ -410,9 +446,14 @@
 
 
                                 <div class="flex justify-end ">
-                                    <button id="closeModalButton" class="px-4 mx-2 py-2 bg-red-500 text-white rounded-lg">بستن</button>
+                                    <button id="closeModalButton"
+                                            class="px-4 mx-2 py-2 bg-red-500 text-white rounded-lg">بستن
+                                    </button>
 
-                                    <button type="submit" class="bg-green-500 hover:bg-green-700 duration-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">ثبت نظر</button>
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-700 duration-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        ثبت نظر
+                                    </button>
                                 </div>
 
                             </form>
@@ -423,7 +464,8 @@
                                 <p>برای درج نظر ابتدا باید وارد حساب کاربری خود شوید.</p>
                             </div>
                             <div class="flex justify-end">
-                                <a class="bg-green-400 border border-green-500 px-3 py-2 rounded-2xl hover:bg-green-800 dark:hover:text-white duration-700 " href="{{route('login')}}">
+                                <a class="bg-green-400 border border-green-500 px-3 py-2 rounded-2xl hover:bg-green-800 dark:hover:text-white duration-700 "
+                                   href="{{route('login')}}">
                                     <i class="fa fa-user mx-1"></i>
                                     ورود به حساب کاربری </a>
                             </div>
@@ -442,9 +484,11 @@
                             <div class="flex items-center justify-between py-3">
                                 <div class="flex items-center">
                                     @if(is_null($comment->user->avatar))
-                                        <img class="h-16 rounded-2xl" src="/assets/user-avatar.png" alt="{{$comment->user->name}} {{$comment->user->family}}">
+                                        <img class="h-16 rounded-2xl" src="/assets/user-avatar.png"
+                                             alt="{{$comment->user->name}} {{$comment->user->family}}">
                                     @else
-                                        <img class="h-16 rounded-2xl" src="{{$comment->user->avatar}}" alt="{{$comment->user->name}} {{$comment->user->family}}">
+                                        <img class="h-16 rounded-2xl" src="{{$comment->user->avatar}}"
+                                             alt="{{$comment->user->name}} {{$comment->user->family}}">
                                     @endif
                                     <div class="mr-3 pt-2">
                                         <h5 class=" text-main100 font-extrabold mb-2">{{$comment->user->name}} {{$comment->user->family}}</h5>
@@ -478,14 +522,17 @@
                                             <div class="flex items-center justify-between py-3">
                                                 <div class="flex items-center">
                                                     @if(is_null($child->user->avatar))
-                                                        <img class="h-16 rounded-2xl" src="/assets/user-avatar.png" alt="{{$child->user->name}} {{$child->user->family}}">
+                                                        <img class="h-16 rounded-2xl" src="/assets/user-avatar.png"
+                                                             alt="{{$child->user->name}} {{$child->user->family}}">
                                                     @else
-                                                        <img class="h-16 rounded-2xl" src="{{$child->user->avatar}}" alt="{{$child->user->name}} {{$child->user->family}}">
+                                                        <img class="h-16 rounded-2xl" src="{{$child->user->avatar}}"
+                                                             alt="{{$child->user->name}} {{$child->user->family}}">
                                                     @endif
                                                     <div class="mr-3 pt-2">
                                                         <h5 class=" text-main100 font-extrabold mb-2">{{$child->user->name}} {{$child->user->family}}
                                                             <small class="text-gray-400">
-                                                                در پاسخ به  {{$comment->user->name}} {{$comment->user->family}}
+                                                                در پاسخ
+                                                                به {{$comment->user->name}} {{$comment->user->family}}
                                                             </small>
                                                         </h5>
                                                     </div>
@@ -571,22 +618,21 @@
 
 
         <script>
-            // انتخاب دکمه و مدال
             const comment = document.getElementById('comment');
             const closeModalButton = document.getElementById('closeModalButton');
             const modal = document.getElementById('myModal');
 
-            // زمانی که کاربر روی دکمه کلیک می‌کند، مدال باز شود
+
             comment.addEventListener('click', () => {
                 modal.classList.remove('hidden');
             });
 
-            // زمانی که کاربر روی دکمه بسته شدن کلیک می‌کند، مدال بسته شود
+
             closeModalButton.addEventListener('click', () => {
                 modal.classList.add('hidden');
             });
 
-            // همچنین می‌توانید مدال را با کلیک خارج از آن ببندید
+
             window.addEventListener('click', (event) => {
                 if (event.target === modal) {
                     modal.classList.add('hidden');

@@ -19,12 +19,12 @@ class CourseController extends Controller
         $this->seo()->setTitle("دوره‌های آموزشی آنلاین و آفلاین برای کودکان، نوجوانان و جوانان | حلزون");
         $this->seo()->setDescription("با دوره‌های آموزشی متنوع حلزون، یادگیری را برای کودکان، نوجوانان و جوانان به تجربه‌ای هیجان‌انگیز تبدیل کنید! آموزش‌های آنلاین و آفلاین شامل مهارت‌های هنری، علمی، ورزشی و رشد فردی، به صورت ویژه برای سنین مختلف طراحی شده‌اند. بهترین دوره‌ها برای رشد و پرورش استعدادها در حلزون!");
 
-            $courses = Cache::remember('all_courses' , 60*60 ,  function (){
-                return Course::where('status' , "منتشر شده")->paginate(16);
-            });
+        $courses = Cache::remember('all_courses', 60 * 60, function () {
+            return Course::where('status', "منتشر شده")->paginate(16);
+        });
 
 
-        return view('home.courses.index' , compact('courses')) ;
+        return view('home.courses.index', compact('courses'));
 
     }
 
@@ -36,18 +36,19 @@ class CourseController extends Controller
         } else {
             $this->seo()->setTitle($course->title);
         }
-        
-        return view('home.courses.show' , compact('course')) ;
+
+        return view('home.courses.show', compact('course'));
     }
 
 
-    public function headline(Course $course , Headline $headline)
+    public function headline(Course $course, Headline $headline)
     {
-        $this->seo()->setTitle($headline->title);
-        return view('home.courses.headline' , compact('course' , 'headline')) ;
+        if ($course->type == 'offline') {
+            $this->seo()->setTitle($headline->title);
+            return view('home.courses.headline', compact('course', 'headline'));
+        }
+        abort(404);
     }
 
 
-
-    
 }

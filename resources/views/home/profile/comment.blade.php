@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <h1 class="text-2xl font-extrabold text-main my-4">دیدگاه و سوالات شما</h1>
+    <h1 class="text-2xl font-extrabold text-main my-4"><i class="fa fa-comment-alt mx-1"></i>دیدگاه و سوالات شما</h1>
 
     <div class="grid grid-cols-12">
         @if(count($comments) != 0  )
             @foreach($comments as $comment)
                 <div class="col-span-12 sm:col-span-6 m-2">
-                    <div class="bg-gray-100 rounded-3xl p-3 mb-2">
+                    <div class="bg-gray-100 rounded-3xl p-3 mb-2 h-full shadow-md border">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <img class="rounded-3xl h-16 ml-2" src="{{$comment->commentable->image}}"

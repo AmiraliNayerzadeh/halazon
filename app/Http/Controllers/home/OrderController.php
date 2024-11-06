@@ -8,17 +8,22 @@ use App\Models\CourseOrder;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\User;
+use App\Models\UserCourse;
 use App\Models\ZarinPal;
 use App\Models\ZarinPalGetWay;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 use Morilog\Jalali\Jalalian;
+use Kavenegar;
+
 
 
 class OrderController extends Controller
 {
-    use SEOTools ;
+    use SEOTools;
+
 
 
     public function store(Cart $cart, Request $request)
@@ -102,7 +107,7 @@ class OrderController extends Controller
 
 
         foreach ($cart->items as $item) {
-            $discount = !is_null($item->course->discount_price) ? $item->course->discount_price : 0 ;
+            $discount = !is_null($item->course->discount_price) ? $item->course->discount_price : 0;
             CourseOrder::create([
                 'user_id' => $user->id,
                 'order_id' => $order->id,
@@ -113,41 +118,111 @@ class OrderController extends Controller
         }
 
 
-        $payment = Payment::create([
-            'user_id' => $user->id ,
-            'order_id' => $order->id ,
-            'amount' => $totalPrice ,
-        ]);
+        if ($totalPrice != 0) {
 
-        $zarinPal = new ZarinPalGetWay($order , $totalPrice , $user , $payment);
-        $zarinPal->send();
+            $payment = Payment::create([
+                'user_id' => $user->id,
+                'order_id' => $order->id,
+                'amount' => $totalPrice,
+            ]);
+
+            $zarinPal = new ZarinPalGetWay($order, $totalPrice, $user, $payment);
+            $zarinPal->send();
+
+        } else {
+            $order->update([
+                'status' => 'پرداخت شده'
+            ]);
+
+            header("Location: " . route('order.status', ['order' => $order->id]));
+            exit;
 
 
+        }
     }
 
 
     public function status(Order $order)
     {
-        $this->seo()->setTitle("وضعیت پرداخت سفارش #$order->id") ;
+        $this->seo()->setTitle("وضعیت پرداخت سفارش #$order->id");
 
-        $zarinPal = new ZarinPalGetWay();
-        $zarinPal->verify($order);
-
-        if ($order->status == "پرداخت شده"){
-            $cart = Cart::where('user_id' , auth()->user()->id)->first();
-
-            if ($cart){
-                $cart->delete();
-            }
+        if ($order->total != 0) {
+            $zarinPal = new ZarinPalGetWay();
+            $zarinPal->verify($order);
         }
 
-        return view('home.cart.status' , compact('order')) ;
+        if ($order->status == "پرداخت شده" && !$order->status_processed) {
+            $cart = Cart::where('user_id', auth()->user()->id)->first();
 
+            if ($cart) {
+                $cart->delete();
+            }
+
+            foreach ($order->courseOrders as $item) {
+                UserCourse::create([
+                    'user_id' => auth()->user()->id,
+                    'course_id' => $item->course_id,
+                    'part_id' => $item->part_id
+                ]);
+
+
+                if ($item->course->type == 'online') {
+                    try {
+                        $remain = $item->course->remain_capacity - 1;
+
+                        $item->course->update([
+                            'remain_capacity' => $remain
+                        ]);
+                    }catch (Exception $exception) {
+                        echo $exception->getMessage();
+                    }
+                }
+            }
+
+
+
+            $order->update(['status_processed' => true]);
+
+            $this->sendSms($order);
+
+        }
+
+        return view('home.cart.status', compact('order'));
 
     }
 
 
+    public function sendSms($order)
+    {
 
+        try{
+            $receptor = $order->user->phone;
+            $token = $order->id;
+            $token2 = "";
+            $token3 = "";
+            $template="completeOrder";
+            //Send null for tokens not defined in the template
+            //Pass token10 and token20 as parameter 6th and 7th
+
+            $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null);
+            if($result){
+                foreach($result as $r){
+                    echo "messageid = $r->messageid";
+                    echo "message = $r->message";
+                    echo "status = $r->status";
+                    echo "statustext = $r->statustext";
+                    echo "sender = $r->sender";
+                    echo "receptor = $r->receptor";
+                    echo "date = $r->date";
+                    echo "cost = $r->cost";
+                }
+            }
+        }
+        catch(\Kavenegar\Exceptions\ApiException $e){
+//             $e->errorMessage();
+        }
+
+    }
 
 
 }

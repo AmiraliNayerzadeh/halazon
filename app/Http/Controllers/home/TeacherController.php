@@ -60,8 +60,16 @@ class TeacherController extends Controller
 
         Alert::success("شما معلم $user->name $user->family را دیگر دنبال نمی کنید. ");
         return back();
+        
+    }
 
 
+    public function landing()
+    {
+        $this->seo()->setTitle("همکاری با حلزون | به جمع مدرسین ما بپیوندید و آموزش دهید") ;
+        $this->seo()->setDescription("در پلتفرم آموزشی حلزون، به‌عنوان مدرس یا معلم به دانش‌آموزان سراسر کشور آموزش دهید. برای شروع همکاری و کسب درآمد از تخصص خود، همین حالا ثبت‌نام کنید و جزئیات بیشتر را درباره نحوه تدریس آنلاین در حلزون بیابید.");
+
+        return view('home.teacher.landing');
 
     }
 

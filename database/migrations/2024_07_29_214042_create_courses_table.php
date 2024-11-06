@@ -30,6 +30,7 @@ return new class extends Migration
             $table->integer('minutes')->nullable();
 
             $table->unsignedBigInteger('capacity')->nullable();
+            $table->unsignedBigInteger('remain_capacity')->nullable();
 
             $table->unsignedBigInteger('price')->nullable();
             $table->unsignedBigInteger('discount_price')->nullable();

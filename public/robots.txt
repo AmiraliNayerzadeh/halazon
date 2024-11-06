@@ -1,4 +1,5 @@
 User-agent: *
 disallow: /cart
 disallow: /order
+disallow: /profile
 

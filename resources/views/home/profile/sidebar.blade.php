@@ -8,8 +8,8 @@
 </button>
 
 <aside id="sidebar"
-       class="fixed top-1 border border-main50 sm:mt-3 w-72 h-full sm:h-auto bg-white shadow-xl transform translate-x-full md:translate-x-0 transition-transform duration-300 z-40 rounded-3xl">
-    <div class="p-6">
+       class="fixed top-0 sm:top-20 border border-main50 sm:mt-3 w-72 h-full sm:h-auto bg-white shadow-xl transform translate-x-full md:translate-x-0 transition-transform duration-300 z-50 rounded-3xl">
+    <div class="p-1 sm:p-4">
 
         <div class="flex justify-center">
             @if(!is_null($user->avatar))
@@ -28,31 +28,31 @@
             @endif
         </div>
 
-        <ul class="space-y-3 my-2">
+        <ul class="space-y-3 mt-4">
             <li>
                 <a href="{{route('profile.index')}}"
-                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all {{ Request::is('profile') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all {{ Request::is('profile') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
                     <i class="fa fa-dashboard mx-1"></i>
                     داشبورد
                 </a>
             </li>
             <li>
                 <a href="{{route('profile.comment')}}"
-                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all {{ Request::is('profile/comments') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all {{ Request::is('profile/comments') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
                     <i class="fa fa-comment-alt mx-1"></i>
                     دیدگاه و سوالات
                 </a>
             </li>
             <li>
                 <a href="{{route('profile.favorite')}}"
-                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all {{ Request::is('profile/favorites') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all {{ Request::is('profile/favorites') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
                     <i class="fa fa-heart mx-1"></i>
                     علاقه مندی ها
                 </a>
             </li>
             <li>
-                <a href="#"
-                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all">
+                <a href="{{route('profile.payment')}}"
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all  {{ Request::is('profile/payment') ? 'bg-main25 border-main border-l-4' : 'border-primary' }} ">
                     <i class="fa fa-money-bill mx-1"></i>
                     لیست تراکنش ها
                 </a>
@@ -61,14 +61,14 @@
 
             <li>
                 <a href="#"
-                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all">
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all">
                     <i class="fa fa-book mx-1"></i>
                     پشتیبانی
                 </a>
             </li>
             <li>
                 <a href="{{route('profile.setting')}}"
-                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all {{ Request::is('profile/setting') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
+                   class="flex items-center hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all {{ Request::is('profile/setting') ? 'bg-main25 border-main border-l-4' : 'border-primary' }}">
                     <i class="fa fa-gear mx-1"></i>
                     اطلاعات کاربری
                 </a>
@@ -77,7 +77,7 @@
 
             <li>
                 <form action="{{route('logout')}}">
-                    <button class="flex items-center text-red-500 hover:text-primary hover:bg-gray-100 px-8 py-4 transition-all">
+                    <button class="flex items-center text-red-500 hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all">
                         <i class="fa fa-sign-out mx-1"></i>
                         خروج
                     </button>

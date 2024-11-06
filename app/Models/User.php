@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->is_admin ;
+        return $this->is_admin;
     }
 
     public function isTeacher()
@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function courses()
     {
-        return $this->hasMany(Course::class , 'teacher_id');
+        return $this->hasMany(Course::class, 'teacher_id');
     }
 
     public function categories()
@@ -97,7 +97,7 @@ class User extends Authenticatable
 
     public function schedules()
     {
-        return $this->hasMany(CourseSchedule::class , 'teacher_id');
+        return $this->hasMany(CourseSchedule::class, 'teacher_id');
     }
 
     public function favorites()
@@ -112,7 +112,7 @@ class User extends Authenticatable
 
     public function getComments()
     {
-        return $this->morphMany(Comment::class ,'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
 
     }
 
@@ -132,9 +132,21 @@ class User extends Authenticatable
         return $this->hasMany(Payment::class);
     }
 
+    public function userCourses()
+    {
+        return $this->hasMany(UserCourse::class);
+    }
 
 
+    public function hasAccessToPart($courseId, $partId = null)
+    {
+        return $this->userCourses()->where('course_id', $courseId)->where('part_id', $partId)->exists();
+    }
 
+    public function hasAccessToCourse($courseId)
+    {
+        return $this->userCourses()->where('course_id', $courseId)->exists();
+    }
 
 
 }

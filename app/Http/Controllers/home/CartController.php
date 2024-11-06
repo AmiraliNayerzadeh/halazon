@@ -5,6 +5,8 @@ namespace App\Http\Controllers\home;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Course;
+use App\Models\UserCourse;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use mysql_xdevapi\Exception;
@@ -21,20 +23,24 @@ class CartController extends Controller
         $cart = Cart::where('user_id', auth()->id())->first();
 
 
-        $pureTotalDiscount = 0 ;
-        $pureTotalPrice = 0 ;
-        $totalPrice = 0 ;
+        $pureTotalDiscount = 0;
+        $pureTotalPrice = 0;
+        $totalPrice = 0;
 
-        foreach ($cart->items as $item) {
-            $course = $item->course;
-            $quantity = 1;
-            $pureTotalDiscount += $course->discount_price ;
-            $pureTotalPrice += $course->price ;
+        if ($cart) {
+
+            foreach ($cart->items as $item) {
+                $course = $item->course;
+                $quantity = 1;
+                $pureTotalDiscount += $course->discount_price;
+                $pureTotalPrice += $course->price;
+            }
+
         }
 
-        $totalPrice= $pureTotalPrice - $pureTotalDiscount ;
+        $totalPrice = $pureTotalPrice - $pureTotalDiscount;
 
-        return view('home.cart.index', compact('cart' , 'pureTotalDiscount', 'pureTotalPrice' , 'totalPrice'));
+        return view('home.cart.index', compact('cart', 'pureTotalDiscount', 'pureTotalPrice', 'totalPrice'));
     }
 
     public function store(Request $request)
@@ -57,7 +63,18 @@ class CartController extends Controller
         }
 
 
-        $item= CartItem::create([
+
+        $part = isset($validated['part']) ? $validated['part'] : null ;
+        $existingCourseItem= UserCourse::where('user_id' , auth()->id())->where('course_id' , $validated['course'])->where('part_id' , $part)->first() ;
+
+        if ($existingCourseItem) {
+            Alert::error("شما قبلا این دوره را خریداری کرده اید.");
+            return redirect()->back();
+        }
+
+
+
+        $item = CartItem::create([
             'cart_id' => $cart->id,
             'course_id' => $validated['course'],
             'part_id' => $validated['part'] ?? null,
@@ -84,7 +101,7 @@ class CartController extends Controller
             ->where('course_id', $validated['course'])
             ->first();
 
-        if ($existingCartItem){
+        if ($existingCartItem) {
             $existingCartItem->delete();
         }
         Alert::success("با موفقیت از سبد خرید حذف شد.");

@@ -29,6 +29,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('total');
 
+            $table->boolean('status_processed')->default(false);
+
+
             $table->softDeletes();
 
             $table->timestamps();

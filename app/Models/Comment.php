@@ -23,6 +23,13 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    public function headline()
+    {
+        return $this->belongsTo(Headline::class);
+    }
+
+
     public function commentable()
     {
         return $this->morphTo();

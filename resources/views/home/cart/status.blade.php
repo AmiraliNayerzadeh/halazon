@@ -8,9 +8,9 @@
             <h2 class="text-lg sm:text-2xl font-extrabold mb-5 bg-main25 py-4 px-3 rounded">وضعیت سفارش
                 #{{$order->id}}</h2>
 
-            <!-- وضعیت آیکون‌ها -->
+
             <div class="flex items-center justify-center mb-5">
-                <!-- پرداخت شده -->
+
                 @if($order->status == 'پرداخت شده')
                     <div class="text-green-600 text-center">
                         <i class="fas fa-check-circle fa-3x"></i>
@@ -67,13 +67,13 @@
                 <tbody>
                 @foreach($order->courseOrders as $item)
                     <tr class="border-b">
-                        <!-- تصویر دوره -->
+
                         <td class="p-4 text-center">
                             <img src="{{ $item->course->image }}" alt="Course Image"
                                  class="w-24 h-24 object-cover mx-auto">
                         </td>
 
-                        <!-- عنوان دوره -->
+
                         <td class="p-4 text-center">
                             <a href="{{ route('course.show', $item->course->slug) }}"
                                class="text-primary100 hover:underline text-lg font-medium">
