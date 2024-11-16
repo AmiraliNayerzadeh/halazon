@@ -27,9 +27,10 @@ class HomeController extends Controller
             return count(User::where('is_teacher' , 1)->where('is_verify' , 1)->take(6)->get()) ;
         });
 
-        $degrees = Cache::remember('degress' , 10080 , function (){
-            return  Degree::all();
+        $degrees = Cache::rememberForever('degrees', function () {
+            return Degree::whereIn('id', [1, 2, 3, 4])->get();
         });
+
 
 
         $mainCategory = Cache::remember('mainCategory' , 10080 , function (){
