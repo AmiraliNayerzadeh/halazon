@@ -5,12 +5,15 @@ namespace App\Http\Controllers\home;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\User;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
@@ -36,7 +39,7 @@ class HomeController extends Controller
 
 
         $courses = Cache::remember('lastCourse' ,'2880' , function (){
-            return Course::where('is_draft' , 0)->where('type','online')->take(6)->get();
+            return Course::where('status', "منتشر شده")->where('type','online')->take(6)->get();
         });
 
 
@@ -54,8 +57,54 @@ class HomeController extends Controller
     }
 
 
+    public function contact()
+    {
+        $this->seo()->setTitle("تماس با ما") ;
+
+        return view('home.landing.contact');
+
+    }
+
+    public function contactStore(Request $request)
+    {
+        $valid = Validator::make($request->all() , [
+            'name' => ['required' , 'string' , 'min:2'] ,
+            'phone' => ['required'] ,
+            'email' => ['nullable'] ,
+            'description' => ['nullable'] ,
+        ]) ;
+
+        if ($valid->fails()) {
+            alert()->error('خطا', $valid->messages()->all()[0]);
+            return back()->withInput();
+        }
+
+        Contact::create($request->all()) ;
+
+
+        Alert::success("درخواست تماس شما با موفقیت ثبت شد. کارشناسان ما در اسرع وقت با شما تماس خواهند گرفت.");
+
+        return back();
+
+
+    }
+
+
+    public function about()
+    {
+        $this->seo()->setTitle("درباره ما");
+        return view('home.landing.about');
+    }
+
     public function terms()
     {
-        dd('this is terms');
+        $this->seo()->setTitle("قوانین و مقررات حلزون");
+        return view('home.landing.terms');
+
+
     }
+    
+    
+    
+    
 }

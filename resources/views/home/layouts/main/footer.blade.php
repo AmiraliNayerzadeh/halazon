@@ -24,7 +24,7 @@
                 <h5 class="font-extrabold text-main100 mb-4">دسترسی سریع:</h5>
                 <ul class="list-disc space-y-3">
                     <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('degrees*') ? 'text-primary' :''}}" href="{{route('degrees.index')}}">مقاطع</a></li>
-                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('blogs*') ? 'text-primary' :''}}" href="{{route('blog.index')}}">مجله</a></li>
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('blog*') ? 'text-primary' :''}}" href="{{route('blog.index')}}">مجله</a></li>
                     <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('teacher*') ? 'text-primary' :''}}" href="{{route('teacher.index')}}">معلمین حلزون</a></li>
                 </ul>
             </div>
@@ -33,10 +33,10 @@
             <div class="col-span-6 sm:col-span-2">
                 <h5 class="font-extrabold text-main100 mb-4">خدمات:</h5>
                 <ul class="list-disc space-y-3">
-                    <li><a class="hover:text-primary duration-200" href="">درباره‌ حلزون</a></li>
-                    <li><a class="hover:text-primary duration-200" href="#">تماس با ما</a></li>
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('about*') ? 'text-primary' :''}} " href="{{route('about')}}">درباره‌ حلزون</a></li>
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('contact-us*') ? 'text-primary' :''}}" href="{{route('contact.index')}}">تماس با ما</a></li>
                     <li><a class="hover:text-primary duration-200" href="#">سوالات متداول</a></li>
-                    <li><a class="hover:text-primary duration-200" href="#">شرایط استفاده</a></li>
+                    <li><a class="hover:text-primary duration-200 {{\Illuminate\Support\Facades\Request::is('terms*') ? 'text-primary' :''}} "  href="{{route('terms')}}">قوانین و مقررات</a></li>
                 </ul>
             </div>
 

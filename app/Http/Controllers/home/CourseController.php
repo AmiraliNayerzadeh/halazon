@@ -37,7 +37,12 @@ class CourseController extends Controller
             $this->seo()->setTitle($course->title);
         }
 
-        return view('home.courses.show', compact('course'));
+        $questions= Cache::remember('questions_course'.$course->id , 60*120 , function ()use ($course) {
+            return $course->questions ;
+        });
+
+
+        return view('home.courses.show', compact('course' , 'questions'));
     }
 
 

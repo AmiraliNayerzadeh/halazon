@@ -163,6 +163,26 @@
                     </div>
                 </div>
 
+                @if(count($questions) )
+                    @foreach($questions as $question)
+                        <div class="w-full mt-7">
+                            <div class="accordion">
+                                <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
+                                    <button class="accordion-header w-full text-right flex justify-between items-center p-4"
+                                            onclick="toggleAccordion(event)">
+                                        <h5 class="text-main font-extrabold">{{$question->question}}</h5>
+                                        <i class="fas fa-chevron-down text-main"></i>
+                                    </button>
+                                    <div class="accordion-content bg-main25 rounded-b-2xl p-4 hidden">
+                                        <p>{{$question->answer}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+                @endif
+
 
             </div>
 
@@ -297,19 +317,21 @@
 
                                         @if(!(auth()->check() && auth()->user()->hasAccessToPart($course->id, $part->id)))
 
-                                        <form action="{{route('cart.store')}}" method="post">
-                                            @csrf
-                                            @method('POST')
-                                            <input type="hidden" name="course" value="{{ $course->id }}">
-                                            <input type="hidden" name="part" value="{{ $part->id }}">
-                                            <button class="mx-2 px-3 py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
-                                                    type="submit">ثبت نام
-                                            </button>
-                                        </form>
+                                            <form action="{{route('cart.store')}}" method="post">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" name="course" value="{{ $course->id }}">
+                                                <input type="hidden" name="part" value="{{ $part->id }}">
+                                                <button class="mx-2 px-3 py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
+                                                        type="submit">ثبت نام
+                                                </button>
+                                            </form>
 
                                         @else
 
-                                            <div class="mx-2 px-3 py-2 border bg-green-300 border-green-600 shadow  rounded-lg hover:bg-green-400 duration-500">ثبت نام کرده اید</div>
+                                            <div class="mx-2 px-3 py-2 border bg-green-300 border-green-600 shadow  rounded-lg hover:bg-green-400 duration-500">
+                                                ثبت نام کرده اید
+                                            </div>
 
                                         @endif
                                     </div>
@@ -322,14 +344,14 @@
 
                                 @if(!(auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
 
-                                <form class="w-full" action="{{route('cart.store')}}" method="post">
-                                    @csrf
-                                    @method('POST')
-                                    <input type="hidden" name="course" value="{{ $course->id }}">
-                                    <button class=" my-2 w-full  py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
-                                            type="submit">ثبت نام
-                                    </button>
-                                </form>
+                                    <form class="w-full" action="{{route('cart.store')}}" method="post">
+                                        @csrf
+                                        @method('POST')
+                                        <input type="hidden" name="course" value="{{ $course->id }}">
+                                        <button class=" my-2 w-full  py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
+                                                type="submit">ثبت نام
+                                        </button>
+                                    </form>
                                 @else
                                     <button class=" my-2 w-full  py-2 border bg-green-300 border-green-600 shadow  rounded-lg  hover:bg-green-400 duration-500"
                                             type="button">ثبت نام کرده اید

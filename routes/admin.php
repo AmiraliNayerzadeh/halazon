@@ -30,6 +30,8 @@ Route::resource('/degrees' , \App\Http\Controllers\admin\DegreeController::class
 Route::resource('/comments' , \App\Http\Controllers\admin\commentController::class);
 
 
+Route::resource('/contacts' , \App\Http\Controllers\admin\ContactController::class)->except(['create' , 'store' , 'edit' , 'show']);
+
 
 Route::resource('/orders' , \App\Http\Controllers\admin\OrderController::class) ;
 

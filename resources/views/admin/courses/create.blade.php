@@ -36,9 +36,12 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="card">
-                        <div class="card-header bg-light"><h4 class="text-primary">
+                        <div class="card-header bg-light">
+                            <h4 class="text-primary">
                                 <li class="mx-2 fa fa-info"></li>
-                                مشخصات کلّی</h4></div>
+                                مشخصات کلّی
+                            </h4>
+                        </div>
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col-lg-4 mt-4">
@@ -71,9 +74,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-
-
 
 
                                 <div class="col-lg-4 mt-4">
@@ -122,11 +122,12 @@
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
                                                             class="btn btn-primary">
-                                                           <i class="fa fa-picture-o"></i>
+                                                           <i class="fa fa-image"></i>
                                                              انتخاب
                                                          </a>
                                           </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="image" value="{{old('image')}}">
+                                        <input id="thumbnail" class="form-control" type="text" name="image"
+                                               value="{{old('image')}}">
                                     </div>
                                     <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                                 </div>
@@ -138,14 +139,14 @@
                                                        <span class="input-group-btn">
                                                          <a id="lfv" data-input="video" data-preview="holder"
                                                             class="btn btn-primary">
-                                                           <i class="fa fa-file-video-o"></i>
+                                                           <i class="fa fa-video"></i>
                                                              انتخاب
                                                          </a>
                                           </span>
-                                        <input id="video" class="form-control" type="text" name="video" value="{{old('video')}}">
+                                        <input id="video" class="form-control" type="text" name="video"
+                                               value="{{old('video')}}">
                                     </div>
                                 </div>
-
 
 
                             </div>
@@ -153,31 +154,47 @@
                     </div>
 
                     <div class="card my-3">
-                        <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-sort-numeric-asc"></li>بازه سنی</h4></div>
+                        <div class="card-header bg-light">
+                            <h4 class="text-primary">
+                                <li class="mx-2 fa fa-sort-numeric-asc"></li>
+                                بازه سنی
+                            </h4>
+                        </div>
                         <div class="card-body">
                             <div class="text-warning">
                                 <i class="fa fa-warning"></i>
                                 در صورتی که این دوره تنها مختص یک سن خاص است، هر دو مقدار را با همان عدد تکمیل کنید.
                             </div>
                             <div class="col-lg-12 d-flex align-items-center mt-4">
-                                <bdi>این کلاس مناسب بازه سنی </bdi>
-                                <input type="number" name="age_from" id="age_from" class="form-control w-auto mx-2" placeholder="بازه شروع" value="{{old('age_from')}}">
-                                <bdi>تا </bdi>
-                                <input type="number" name="age_to" id="age_to" class="form-control w-auto mx-2" placeholder="بازه پایان" value="{{old('age_to')}}">
+                                <bdi>این کلاس مناسب بازه سنی</bdi>
+                                <input type="number" name="age_from" id="age_from" class="form-control w-auto mx-2"
+                                       placeholder="بازه شروع" value="{{old('age_from')}}">
+                                <bdi>تا</bdi>
+                                <input type="number" name="age_to" id="age_to" class="form-control w-auto mx-2"
+                                       placeholder="بازه پایان" value="{{old('age_to')}}">
                             </div>
                         </div>
                     </div>
 
                     <div class="card my-3">
-                        <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-calendar-alt"></li>اطلاعات زمانی</h4></div>
+                        <div class="card-header bg-light">
+                            <h4 class="text-primary">
+                                <li class="mx-2 fa fa-calendar-alt"></li>
+                                اطلاعات زمانی
+                            </h4>
+                        </div>
                         <div class="card-body">
                             <div class="col-lg-12 d-flex align-items-center mt-4">
                                 <span class="mx-2">این کلاس در </span>
-                                <input type="number" name="class_duration" id="class_duration" class="form-control w-auto" placeholder="تعداد جلسات " value="{{old('class_duration')}}">
+                                <input type="number" name="class_duration" id="class_duration"
+                                       class="form-control w-auto" placeholder="تعداد جلسات "
+                                       value="{{old('class_duration')}}">
                                 <span class="mx-2"> جلسه و در هفته</span>
-                                <input type="number" name="weeks" id="weeks" class="form-control w-auto" placeholder="تعداد هفته" value="{{old('weeks')}}">
+                                <input type="number" name="weeks" id="weeks" class="form-control w-auto"
+                                       placeholder="تعداد هفته" value="{{old('weeks')}}">
                                 <span class="mx-2">بار برگذار میشود که مدّت هر جلسه  </span>
-                                <input type="number" name="minutes" id="minutes" class="form-control w-auto" placeholder="مثال 30 " value="{{old('minutes')}}">
+                                <input type="number" name="minutes" id="minutes" class="form-control w-auto"
+                                       placeholder="مثال 30 " value="{{old('minutes')}}">
                                 <span class="mx-2"> دقیقه میباشد.  </span>
                             </div>
                         </div>
@@ -185,14 +202,25 @@
 
 
                     <div class="card my-3">
-                        <div class="card-header bg-light"><h4 class="text-primary"><li class="mx-2 fa fa-paragraph"></li>توضیحات دوره</h4></div>
+                        <div class="card-header bg-light">
+                            <h4 class="text-primary">
+                                <li class="mx-2 fa fa-paragraph"></li>
+                                توضیحات دوره
+                            </h4>
+                        </div>
                         <div class="card-body">
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <div>
-                                        <p>توضیحات دقیق و کامل، به تنظیم انتظارات والدین و جذب ثبت‌نام‌ها کمک می‌کند.</p>
+                                        <p>توضیحات دقیق و کامل، به تنظیم انتظارات والدین و جذب ثبت‌نام‌ها کمک
+                                            می‌کند.</p>
                                         <h5>تجربه کلاس</h5>
-                                        <p>جزئیات کاملی از کلاس را که ممکن است والدین بخواهند بدانند، ارائه دهید. هرچه کلاس طولانی‌تر باشد، باید جزئیات بیشتری ارائه دهید. برای کلاس‌های نیم ساعته، چند جمله کافی است. برای دوره‌های طولانی‌تر، لطفاً برنامه درسی دقیق ارائه کنید. کلاس‌های چند هفته‌ای باید مشخص کنند که هر هفته چه موضوعاتی پوشش داده می‌شود، حداقل برای ۴ هفته اول. کلاسی که ۸ جلسه یا بیشتر دارد باید حداقل ۲۰۰ کلمه توضیحات داشته باشد.</p>
+                                        <p>جزئیات کاملی از کلاس را که ممکن است والدین بخواهند بدانند، ارائه دهید. هرچه
+                                            کلاس طولانی‌تر باشد، باید جزئیات بیشتری ارائه دهید. برای کلاس‌های نیم ساعته،
+                                            چند جمله کافی است. برای دوره‌های طولانی‌تر، لطفاً برنامه درسی دقیق ارائه
+                                            کنید. کلاس‌های چند هفته‌ای باید مشخص کنند که هر هفته چه موضوعاتی پوشش داده
+                                            می‌شود، حداقل برای ۴ هفته اول. کلاسی که ۸ جلسه یا بیشتر دارد باید حداقل ۲۰۰
+                                            کلمه توضیحات داشته باشد.</p>
 
                                         <h5>نکاتی که باید به آنها بپردازید:</h5>
                                         <ul>
@@ -201,14 +229,17 @@
                                             <li>ساختار کلاس شما چگونه است؟</li>
                                             <li>چگونه تدریس خواهید کرد؟</li>
                                             <li>سبک تدریس شما چیست؟</li>
-                                            <li>کودکان چقدر با شما و با یکدیگر تعامل خواهند داشت (جزئیاتی مانند: سخنرانی، بازی‌ها، اسلایدها، کلیپ‌های ویدیویی، بحث)؟</li>
+                                            <li>کودکان چقدر با شما و با یکدیگر تعامل خواهند داشت (جزئیاتی مانند:
+                                                سخنرانی، بازی‌ها، اسلایدها، کلیپ‌های ویدیویی، بحث)؟
+                                            </li>
                                             <li>آیا کودکان نیاز به تجربه یا دانش قبلی دارند؟</li>
                                         </ul>
 
-                                        <p>با توجه به این نکات، سعی کنید توضیحاتی بنویسید که والدین را ترغیب به ثبت‌نام فرزندانشان در دوره شما کند و انتظارات آن‌ها را به‌درستی تنظیم کند.</p>
+                                        <p>با توجه به این نکات، سعی کنید توضیحاتی بنویسید که والدین را ترغیب به ثبت‌نام
+                                            فرزندانشان در دوره شما کند و انتظارات آن‌ها را به‌درستی تنظیم کند.</p>
                                     </div>
                                     <label class="form-label" for="description">توضیحات </label>
-                                    <textarea name="description" id="editor">{{ old('description', "<h4> توضیحات کلاس:</h4><br><br><h4> هدف یادگیری:</h4><br><br><h4> ارزیابی پیشرفت دانش آموزان:</h4><br><br><h4> موارد مورد نیاز:</h4><br><br><h4> زمان لازم برای مطالعه:</h4><br><br><h4> تجربه تدریس و مهارت های معلم:</h4><br><br>") }}</textarea>
+                                    <textarea name="description" id="editor">{{ old('description')}}</textarea>
 
                                     <script>
                                         CKEDITOR.replace('editor');
@@ -220,7 +251,42 @@
                     </div>
 
 
+                    <div class="card my-3">
+                        <div class="card-header bg-light">
+                            <h4 class="text-primary">
+                                <li class="mx-2 fa fa-question-circle"></li>
+                                سوالات متداول
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-lg-12">
 
+                                <div class="form-group">
+                                    <label for="questions[learning_goal]">هدف یادگیری این دوره چیست؟</label>
+                                    <textarea name="questions[learning_goal]" id="questions_learning_goal" class="form-control">{{ old('questions.learning_goal') }}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="questions[assessment_method]">چگونه قصد دارید پیشرفت دانش‌آموزان را ارزیابی کنید؟</label>
+                                    <textarea name="questions[assessment_method]" id="questions_assessment_method" class="form-control">{{ old('questions.assessment_method') }}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="questions[requirements]">چه مواردی برای شرکت در این دوره مورد نیاز است؟</label>
+                                    <textarea name="questions[requirements]" id="questions_requirements" class="form-control">{{ old('questions.requirements') }}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="questions[duration_needed]">برای تکمیل این دوره چقدر زمان نیاز است؟</label>
+                                    <input type="text" name="questions[duration_needed]" id="questions_duration_needed" class="form-control" value="{{ old('questions.duration_needed') }}">
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -319,7 +385,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره پیش نویس</button>
+                                    <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره
+                                        پیش نویس
+                                    </button>
                                 </div>
 
                             </div>

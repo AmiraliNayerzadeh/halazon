@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\home\HomeController::class, 'home'])->name('home');
 
+Route::get('/about', [\App\Http\Controllers\home\HomeController::class, 'about'])->name('about');
+
 Route::get('/terms', [\App\Http\Controllers\home\HomeController::class, 'terms'])->name('terms');
+
+Route::get('/contact-us', [\App\Http\Controllers\home\HomeController::class, 'contact'])->name('contact.index');
+Route::post('/contact-us', [\App\Http\Controllers\home\HomeController::class, 'contactStore'])->name('contact.store');
 
 Route::get('/category/{category:slug}', [\App\Http\Controllers\home\CategoryController::class, 'main'])->name('category');
 
