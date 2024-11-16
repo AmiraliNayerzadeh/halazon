@@ -2,19 +2,13 @@
 @section('content')
 
     <div class="grid grid-cols-12 h-full ">
-        <div class="col-span-12 sm:col-span-6"
-             style="background: linear-gradient(270deg, rgba(251, 137, 49, 0.73) 0%, rgba(81, 46, 136, 0.23) 100%);">
-            <div class="flex h-full items-center justify-center">
-                <img class="h-44 sm:h-96" src="/assets/home/image/login.webp" alt="ورود / ثبت نام در پلتفرم آموزشی حلزون">
 
-            </div>
-        </div>
-
-        <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-12">
             <div class="flex flex-col sm:justify-center items-center h-full">
 
-                <h1 class="text-main font-extrabold text-3xl my-5">{{session()->get('type') == 'register' ? 'تایید ثبت نام' : 'تایید ورود'}}</h1>
-                <div class="sm:w-1/2 p-5 sm:px-0">
+                <h1 class="text-main font-extrabold text-3xl my-5">{{session()->get('type') == 'register' ? 'تایید ثبت نام معلمین ' : ' تایید ورود معلمین'}}</h1>
+                <p>کُد ارسال شده را وارد نمایید.</p>
+                <div class="sm:w-1/3 p-5 sm:px-0">
                     <form method="post" action="{{ route('doVerifyPhone') }}">
                         @method('post')
                         @csrf

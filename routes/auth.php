@@ -18,8 +18,12 @@ Route::middleware('guest')->group(function () {
 //    Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
-
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    /*Teacher Auth*/
+    Route::get('/auth/teacher', [AuthenticatedSessionController::class, 'createTeacher'])->name('teachers.login');
+
+
 
     Route::get('verify-phone', [AuthenticatedSessionController::class , 'verifyPhone'])->name('verifyPhone') ;
     Route::post('verify-phone', [AuthenticatedSessionController::class , 'doVerifyPhone'])->name('doVerifyPhone') ;

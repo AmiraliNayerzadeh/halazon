@@ -2,22 +2,15 @@
 @section('content')
 
     <div class="grid grid-cols-12 h-full ">
-        <div class="col-span-12 sm:col-span-6"
-             style="background: linear-gradient(270deg, rgba(251, 137, 49, 0.73) 0%, rgba(81, 46, 136, 0.23) 100%);">
-            <div class="flex h-full items-center justify-center">
-                <img class="h-44 sm:h-96" src="/assets/home/image/login.webp" alt="ورود / ثبت نام در پلتفرم آموزشی حلزون">
 
-            </div>
-        </div>
-
-        <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-12">
             <div class="flex flex-col sm:justify-center items-center h-full">
-                <h1 class="text-main font-extrabold text-3xl my-5">ورود / عضویت</h1>
-                <div class="sm:w-1/2 p-5 sm:px-0">
+                <h1 class="text-main font-extrabold text-3xl my-5"> ورود / عضویت معلمین</h1>
+                <div class="sm:w-1/3 p-5 sm:px-0">
+
                     <form method="post" action="{{ route('login') }}">
                         @csrf
-                        <input type="hidden" name="teacher" value="0">
-
+                        <input type="hidden" name="teacher" value="1">
                         <div class="py-2 flex justify-around items-center rounded-2xl border border-l-gray-500">
                             <input name="phone" class="w-full border-0  focus:border-transparent focus:ring-0 text-2xl num" style="direction: ltr" type="text" placeholder="شماره تلفن" id="" inputmode="numeric" pattern="[0-9]*">
                             <span class="text-2xl font-extrabold border-r  text-gray-400 px-2">98+</span>

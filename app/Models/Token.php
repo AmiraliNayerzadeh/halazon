@@ -144,13 +144,10 @@ class Token extends Model
         }
         catch(\Kavenegar\Exceptions\ApiException $e){
             // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
-            dd($e->getMessage());
-
             \alert()->error( $e->errorMessage() ."مشکلی در ارسال کُد به وجود آمده است. دوباره تلاش کنید.") ;
             return redirect('login');
         }
         catch(\Kavenegar\Exceptions\HttpException $e){
-            dd($e->getMessage());
             \alert()->error( $e->errorMessage() ."مشکلی در ارسال کُد به وجود آمده است. دوباره تلاش کنید.") ;
             return redirect('login');
 

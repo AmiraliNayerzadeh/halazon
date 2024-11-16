@@ -16,7 +16,7 @@
 
                     <div class="mt-24 flex">
                         <a class="bg-primary hover:bg-primary100 duration-500 py-4 px-5 font-extrabold rounded-3xl text-white "
-                           href="{{route('login')}}"><i class="fa-solid fa-plus ml-3"></i>ثبت نام به عنوان مدرس</a>
+                           href="{{route('teachers.login')}}"><i class="fa-solid fa-plus ml-3"></i>ثبت نام به عنوان مدرس</a>
                     </div>
 
                 </div>

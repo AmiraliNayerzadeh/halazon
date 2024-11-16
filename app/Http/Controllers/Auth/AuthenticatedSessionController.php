@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-Use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class AuthenticatedSessionController extends Controller
@@ -28,10 +28,17 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function createTeacher()
+    {
+        $this->seo()->setTitle('ورود / عضویت معلمین');
+        return view('auth.teacherLogin');
+
+    }
 
 
     public function store(LoginRequest $request)
     {
+
         $request->authenticate();
         return redirect(route('verifyPhone'));
 
@@ -54,27 +61,33 @@ class AuthenticatedSessionController extends Controller
     {
         if (session()->get('type') == 'login') {
             $this->seo()->setTitle('تایید ورود');
-        }else
+        } else {
+            if (session()->get('teacher') == 0){
             $this->seo()->setTitle('تایید ثبت نام');
+            return view('auth.verify-phone');
+            } else{
+                $this->seo()->setTitle('تایید ثبت نام معلمین');
+                return view('auth.teacherVerify-phone');
+            }
+        }
 
-        return view('auth.verify-phone');
     }
 
     public function doVerifyPhone(Request $request)
     {
-        $request['code'] = $request['otp1'].$request['otp2'].$request['otp3'].$request['otp4'];
+        $request['code'] = $request['otp1'] . $request['otp2'] . $request['otp3'] . $request['otp4'];
         $valid = Validator::make($request->all(), [
-            'code' => ['required' , 'numeric' , 'digits:4']
+            'code' => ['required', 'numeric', 'digits:4']
         ]);
 
 
-        if($valid->fails()){
-            \alert()->error('خطا' , $valid->messages()->all()[0]) ;
+        if ($valid->fails()) {
+            \alert()->error('خطا', $valid->messages()->all()[0]);
             return back();
         }
 
         if (!session()->has('code_id') || !session()->has('phone')) {
-            \alert()->error('خطا' , 'مشکلی به وجود آمده است. دوباره اقدام کنید.') ;
+            \alert()->error('خطا', 'مشکلی به وجود آمده است. دوباره اقدام کنید.');
             return redirect()->route('login');
         }
 
@@ -85,12 +98,12 @@ class AuthenticatedSessionController extends Controller
         }
 
         if (!$token->isValidUsed()) {
-            \alert()->error('خطا', 'کُد یا استفاده شده است.') ;
+            \alert()->error('خطا', 'کُد یا استفاده شده است.');
             return redirect()->back();
         }
 
         if (!$token->isValidExpired()) {
-            \alert()->error('خطا', 'کُد منقضی شده است.') ;
+            \alert()->error('خطا', 'کُد منقضی شده است.');
             return redirect()->back();
         }
 
@@ -106,27 +119,27 @@ class AuthenticatedSessionController extends Controller
 
         $rememberMe = session()->get('remember');
 
-        if (session()->get('type') == 'login'){
+        if (session()->get('type') == 'login') {
             $user = User::find(session()->get('user_id'));
-        }else {
+        } else {
             $user = User::create([
-                'phone' => session()->get('phone')
+                'phone' => session()->get('phone'),
+                'is_teacher' => session()->get('teacher')
             ]);
 
-            $token = new Token() ;
+            $token = new Token();
 
             $token->sendWelcome($user->phone);
 
         }
 
-        auth()->login($user , $rememberMe);
+        auth()->login($user, $rememberMe);
 
-
-
-
+        if ($user->is_teacher == 1 ) {
+         return redirect(route('teachers.dashboard')) ;
+        }
         return redirect()->intended('/');
     }
-
 
 
 }

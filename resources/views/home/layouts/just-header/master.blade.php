@@ -15,6 +15,16 @@
 
     @yield('content')
 
+
+
+    <script>
+        document.querySelectorAll('.num').forEach(input => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            });
+        });
+    </script>
+
 <script src="/assets/home/plugins/fontawesome/solid.min.js"></script>
     @include('sweetalert::alert')
 

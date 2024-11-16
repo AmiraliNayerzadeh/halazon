@@ -75,6 +75,7 @@ class LoginRequest extends FormRequest
                 session()->put("user_id", $user->id);
             }
             session()->put("phone", $this->phone);
+            session()->put("teacher", $this->teacher);
             session()->put("remember", $rememberMe);
         }
 
