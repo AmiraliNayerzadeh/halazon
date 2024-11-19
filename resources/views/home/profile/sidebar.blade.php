@@ -76,8 +76,10 @@
 
 
             <li>
-                <form action="{{route('logout')}}">
-                    <button class="flex items-center text-red-500 hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all">
+                <form class="grid" action="{{route('logout')}}" method="post">
+                    @csrf
+                    @method('POST')
+                    <button class="flex items-center text-red-500 hover:text-primary hover:bg-gray-100 px-8 py-2 sm:py-4 transition-all ">
                         <i class="fa fa-sign-out mx-1"></i>
                         خروج
                     </button>

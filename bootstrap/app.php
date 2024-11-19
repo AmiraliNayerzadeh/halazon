@@ -16,13 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->name('admin.')
                 ->group(base_path('routes/admin.php'));
 
-            Route::middleware(['web', 'auth', \App\Http\Middleware\TeacherAuth::class])
+            Route::middleware(['web', 'auth', \App\Http\Middleware\TeacherAuth::class , \App\Http\Middleware\VerifyedTeacher::class])
             ->prefix('panel/teacher')
                 ->name('teachers.')
                 ->group(base_path('routes/teacher.php'));
-
-
-
 
         }
     )

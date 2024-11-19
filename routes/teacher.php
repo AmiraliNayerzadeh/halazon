@@ -18,3 +18,21 @@ Route::get('/courses/headlines/{course}', [\App\Http\Controllers\teacher\CourseC
 Route::post('/courses/headlines/{course}', [\App\Http\Controllers\teacher\CourseController::class , 'headlineStore'])->name('headline.store');
 Route::put('/courses/headlines/{headline}', [\App\Http\Controllers\teacher\CourseController::class , 'headlineUpdate'])->name('headline.update');
 Route::post('/courses/headline/upload-video', [\App\Http\Controllers\teacher\CourseController::class, 'uploadVideo'])->name('headline.uploadVideo');
+
+
+
+Route::get('/complete/register', [\App\Http\Controllers\teacher\TeacherController::class, 'completeInformation'])->name('register.complete');
+
+
+Route::get('/categories/main', [\App\Http\Controllers\teacher\TeacherController::class, 'getMainCategories'])->name('categories.main');
+Route::post('/categories/sub', [\App\Http\Controllers\teacher\TeacherController::class, 'getSubCategories'])->name('categories.sub');
+
+
+
+Route::put('/complete/information', [\App\Http\Controllers\teacher\TeacherController::class, 'information'])->name('information');
+
+Route::put('/complete/category', [\App\Http\Controllers\teacher\TeacherController::class, 'informationCategory'])->name('information.category');
+
+
+
+Route::post('/complete/upload-files', [\App\Http\Controllers\teacher\TeacherController::class, 'upload'])->name('files.upload.complete');

@@ -34,7 +34,7 @@
                                                 <label for="title">نویسنده</label>
                                                 <select class="form-control select2" name="user_id" id="user_id">
                                                     <option></option>
-                                                    @foreach(\App\Models\User::where('is_teacher' , 1)->get() as $teacher)
+                                                    @foreach(\App\Models\User::where('is_admin' , 1)->get() as $teacher)
                                                         <option {{ $blog->user_id == $teacher->id ? 'selected' : '' }} value="{{$teacher->id}}">{{$teacher->name}} {{$teacher->family}}</option>
                                                     @endforeach
                                                 </select>

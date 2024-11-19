@@ -107,6 +107,16 @@
             </li>
 
 
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/supports*') ? 'active' : '' }}" href="{{ route('admin.supports.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-headset"></span>
+                    </div>
+                    <span class="nav-link-text me-1">پشتیبانی</span>
+                </a>
+            </li>
+
+
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('admin/contacts*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">

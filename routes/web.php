@@ -30,7 +30,7 @@ Route::get('teacher/{user:slug}', [\App\Http\Controllers\home\TeacherController:
 Route::post('teacher/{user:slug}/fallow', [\App\Http\Controllers\home\TeacherController::class, 'fallow'])->name('teacher.fallow');
 Route::post('teacher/{user:slug}/unfollow', [\App\Http\Controllers\home\TeacherController::class, 'unfollow'])->name('teacher.unfollow');
 
-Route::get('work-as-teacher' , [\App\Http\Controllers\home\TeacherController::class , 'landing'])->name('teacher.landing') ;
+Route::get('work-as-teacher', [\App\Http\Controllers\home\TeacherController::class, 'landing'])->name('teacher.landing');
 
 Route::get('/blog/', [\App\Http\Controllers\home\BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{category:slug}/{blog:slug}/', [\App\Http\Controllers\home\BlogController::class, 'show'])->name('blog.show');
@@ -57,6 +57,10 @@ Route::middleware('auth')->prefix('profile')->group(function () {
 
 
 });
+
+
+Route::post('/profile/submit/support', [\App\Http\Controllers\home\SupportController::class, 'submitSupport'])->name('submit.support')->middleware('auth');
+
 
 
 Route::middleware('auth')->prefix('cart')->group(function () {

@@ -61,17 +61,18 @@ class AuthenticatedSessionController extends Controller
     {
         if (session()->get('type') == 'login') {
             $this->seo()->setTitle('تایید ورود');
-        } else {
-            if (session()->get('teacher') == 0){
-            $this->seo()->setTitle('تایید ثبت نام');
             return view('auth.verify-phone');
-            } else{
+        } else {
+            if (session()->get('teacher') == 0) {
+                $this->seo()->setTitle('تایید ثبت نام');
+                return view('auth.verify-phone');
+            } else {
                 $this->seo()->setTitle('تایید ثبت نام معلمین');
                 return view('auth.teacherVerify-phone');
             }
         }
-
     }
+
 
     public function doVerifyPhone(Request $request)
     {
@@ -128,7 +129,6 @@ class AuthenticatedSessionController extends Controller
             ]);
 
             $token = new Token();
-
             $token->sendWelcome($user->phone);
 
         }
@@ -138,6 +138,7 @@ class AuthenticatedSessionController extends Controller
         if ($user->is_teacher == 1 ) {
          return redirect(route('teachers.dashboard')) ;
         }
+
         return redirect()->intended('/');
     }
 

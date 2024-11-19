@@ -29,9 +29,6 @@
 
 
 
-
-
-
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('panel/teachers/courses*') ? 'active' : '' }}" href="{{ route('teachers.courses.index') }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
@@ -43,8 +40,18 @@
 
 
 
-
-
+            <li class="nav-item">
+                <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-flex align-items-center">
+                    @csrf
+                    @method('post')
+                    <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                            <span class="fa fa-sign-out"></span>
+                        </div>
+                        <span class="nav-link-text me-1">خروج</span>
+                    </a>
+                </form>
+            </li>
 
 
 

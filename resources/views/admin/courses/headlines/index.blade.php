@@ -271,7 +271,7 @@
             <script>
                 Dropzone.options.videoDropzone = {
                     url: "{{ route('admin.video.upload', $course) }}",
-                    maxFilesize: 20, // حداکثر حجم فایل به مگابایت
+                    maxFilesize: 20,
                     acceptedFiles: '.mp4,.mov,.avi',
                     headers: {
                         'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -285,7 +285,7 @@
                             submitButton.disabled = true;
                             submitButton.textContent = "در انتظار بارگذاری آپلود ویدیو...";
 
-                            // افزودن رویداد 'progress' به درخواست xhr
+
                             xhr.upload.onprogress = function(event) {
                                 if (event.lengthComputable) {
                                     const percent = (event.loaded / event.total) * 100;
@@ -306,13 +306,13 @@
                             document.getElementById('headlineForm').appendChild(videoInput);
 
                             submitButton.disabled = false;
-                            submitButton.textContent = "ثبت"; // متن دکمه به حالت اولیه برمی‌گردد
+                            submitButton.textContent = "ثبت";
                         });
 
                         this.on("error", function(file, response) {
                             console.error('Error uploading file: ', response);
                             submitButton.disabled = false;
-                            submitButton.textContent = "ثبت"; // در صورت خطا، متن دکمه به حالت اولیه برمی‌گردد
+                            submitButton.textContent = "ثبت";
                         });
                     }
                 };

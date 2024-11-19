@@ -30,7 +30,11 @@
     <link href="/assets/admin/plugin/select2/select2.css" rel="stylesheet"/>
     <link href="/assets/admin/plugin/select2/select2-bootstrap-5-theme.rtl.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/assets/admin/plugin/stepper/css/bs-stepper.min.css">
+
+
+{{--    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css"/>--}}
 
 
     <style>
@@ -67,6 +71,8 @@
 
     </style>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 </head>
 <body class="g-sidenav-show  rtl bg-gray-100">
@@ -80,10 +86,12 @@
     @include('teacher.layout.header')
 
 
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid min-vh-100">
+        <div class="row min-vh-100">
             @yield('content')
         </div>
+
+
         @include('teacher.layout.footer')
     </div>
 
@@ -129,10 +137,7 @@
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
 
-<script src="/assets/admin/js/plugins/dropzone.min.js"></script>
 
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
 
 
 <script src="/assets/admin/plugin/JalaliDatePicker-main/dist/jalalidatepicker.min.js"></script>
@@ -140,6 +145,15 @@
 
 
 <script src="/assets/admin/plugin/ckeditor/main.js"></script>
+
+
+<script src="/assets/admin/plugin/stepper/js/bs-stepper.min.js"></script>
+
+
+<script src="/assets/admin/js/plugins/dropzone.min.js"></script>
+
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
 
 
 @yield('script')
@@ -155,6 +169,8 @@
         }
     }
 </script>
+
+
 <script type="module">
     import {
         ClassicEditor,
@@ -220,8 +236,16 @@
         .catch( /* ... */);
 </script>
 
+<script>
+    jalaliDatepicker.startWatch();
+</script>
+
 
 @yield('script')
+
+
+
+
 
 
 {{--<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon='{"rayId":"76b616b3cd2d8c21","version":"2022.11.0","r":1,"token":"1b7cbb72744b40c580f8633c6b62637e","si":100}' crossorigin="anonymous"></script>--}}

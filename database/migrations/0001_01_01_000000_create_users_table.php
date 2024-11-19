@@ -20,12 +20,15 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->boolean('is_teacher')->default(0);
             $table->integer('nationalCode')->nullable();
+            $table->text('id_card')->nullable();
             $table->text('birthday')->nullable();
             $table->longText('address')->nullable();
             $table->integer('postalCode')->nullable();
             $table->text('avatar')->nullable();
             $table->text('video')->nullable();
             $table->longText('description')->nullable();
+            $table->text('last_certificate')->nullable();
+            $table->text('resume')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->boolean('is_admin')->default(0);
