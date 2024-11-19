@@ -18,7 +18,9 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^43.3.1",
         "@fortawesome/fontawesome-free": "^6.6.0",
+        "ckeditor5": "^43.3.1",
         "dropzone": "^6.0.0-beta.2",
         "flowbite": "^2.5.2",
         "tw-elements": "^2.0.0"

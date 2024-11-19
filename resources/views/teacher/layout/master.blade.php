@@ -34,7 +34,9 @@
     <link rel="stylesheet" type="text/css" href="/assets/admin/plugin/stepper/css/bs-stepper.min.css">
 
 
-{{--    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css"/>--}}
+    <link href="/assets/admin/ckeditor/contents.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css"/>
 
 
     <style>

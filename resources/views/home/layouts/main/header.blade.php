@@ -1,3 +1,13 @@
+@if(auth()->user() && auth()->user()->is_teacher == 1)
+    <div class="p-3 bg-main25">
+        <div class="container mx-auto">
+            <div class="grid col-lg-9"><a href="{{route('teachers.dashboard')}}">ورود به پنل معملمین</a></div>
+        </div>
+    </div>
+@endif
+
+
+
 <header class=' border-b shadow shadow-lg bg-white  tracking-wide relative z-50'>
     <div class="container mx-auto">
         <section class='flex  items-center justify-between  py-3 px-2 sm:px-10 min-h-[75px] '>
@@ -29,7 +39,6 @@
                         <span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-semibold rounded-full px-2">{{ $itemCount }}</span>
                     @endif
                 </a>
-
 
 
                 @auth
@@ -66,9 +75,9 @@
 
                         <li class='group text-[14px] max-lg:border-b max-lg:px-3 max-lg:py-2 '>
                             <div class="flex w-full justify-between">
-                            <a href="{{route('category' , $main)}}"
-                               class='hover:text-main50  font-bold  block'>{{$main->title}}
-                            </a>
+                                <a href="{{route('category' , $main)}}"
+                                   class='hover:text-main50  font-bold  block'>{{$main->title}}
+                                </a>
                                 <span class="fa fa-angle-down sm:mr-2"></span>
 
                             </div>

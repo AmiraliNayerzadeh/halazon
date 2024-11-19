@@ -28,9 +28,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::latest()->paginate('12');
+        $courses = Course::where('teacher_id' , auth()->user()->id)->paginate(12);
         $this->seo()->setTitle('دوره ها');
-        return view('admin.courses.index', compact('courses'));
+        return view('teacher.courses.index', compact('courses'));
     }
 
     /**
@@ -39,7 +39,7 @@ class CourseController extends Controller
     public function create()
     {
         $this->seo()->setTitle('ایجاد دوره جدید');
-        return view('admin.courses.create');
+        return view('teacher.courses.create');
     }
 
     /**
@@ -48,21 +48,19 @@ class CourseController extends Controller
     public function store(Request $request)
     {
 
-
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'type' => 'required_if:is_draft,0|string|in:online,offline',
+            'type' => 'required|in:online,offline',
             'image' => 'nullable',
             'video' => 'nullable',
-            'description' => 'required_if:is_draft,0|string',
-            'teacher_id' => 'required|exists:users,id',
+            'description' => 'nullable',
             'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
-            'class_duration' => 'required_if:is_draft,0|integer|min:1',
-            'weeks' => 'required_if:is_draft,0|integer|min:1',
-            'minutes' => 'required_if:is_draft,0|integer|min:1',
-            'capacity' => 'required_if:is_draft,0|integer|min:1',
+            'class_duration' => 'required_unless:type,offline|integer|min:1',
+            'weeks' => 'required_unless:type,offline|integer|min:1',
+            'minutes' =>'required_unless:type,offline|integer|min:1',
+            'capacity' => 'required_unless:type,offline|integer|min:1',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'is_draft' => 'required|boolean',
@@ -92,6 +90,7 @@ class CourseController extends Controller
         }
 
 
+
         /*Slug Handler*/
         if (!is_null($request['slug'])) {
             $request['slug'] = str_replace([' ', '‌'], '-', $request->slug);
@@ -99,6 +98,8 @@ class CourseController extends Controller
             $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
             /*End Slug Handler*/
         }
+
+        $request['teacher_id'] = auth()->user()->id ;
 
 
         $course = Course::create($request->all());
@@ -144,7 +145,18 @@ class CourseController extends Controller
 
 
         Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
-        return redirect(route('admin.courses.index'));
+
+        if ($course->type == "offline") {
+            return redirect(route('teachers.headline.index' , $course));
+        }
+
+        if ($course->type == "online") {
+            return redirect(route('teachers.schedules.index' , $course));
+        }
+
+        return redirect(route('teachers.courses.index'));
+
+
 
     }
 
@@ -165,7 +177,7 @@ class CourseController extends Controller
 
         $questions = $course->questions;
 
-        return view('admin.courses.edit', compact('course', 'questions'));
+        return view('teacher.courses.edit', compact('course', 'questions'));
     }
 
     /**
@@ -180,15 +192,14 @@ class CourseController extends Controller
             'type' => 'required_if:is_draft,0|string|in:online,offline',
             'image' => 'nullable',
             'video' => 'nullable',
-            'description' => 'required_if:is_draft,0|string',
-            'teacher_id' => 'required|exists:users,id',
+            'description' => 'nullable',
             'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
-            'class_duration' => 'required_if:is_draft,0|integer|min:1',
-            'weeks' => 'required_if:is_draft,0|integer|min:1',
-            'minutes' => 'required_if:is_draft,0|integer|min:1',
-            'capacity' => 'required_if:is_draft,0|integer|min:1',
+            'class_duration' => 'required_unless:type,offline|integer|min:1',
+            'weeks' => 'required_unless:type,offline|integer|min:1',
+            'minutes' =>'required_unless:type,offline|integer|min:1',
+            'capacity' => 'required_unless:type,offline|integer|min:1',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'homework' => 'nullable|string',
@@ -255,14 +266,21 @@ class CourseController extends Controller
 
 
         Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
-        return redirect(route('admin.courses.index'));
+        return back();
     }
 
 
     public function schedule(Course $course)
     {
         $this->seo()->setTitle("زمان بندی دوره $course->title");
-        return view('admin.courses.schedule.index', compact('course'));
+
+        if ($course->type == "offline") {
+            Alert::info("دوره آفلاین نیازی به زمان بندی ندارد");
+
+            return redirect(route('teachers.headline.index' , $course));
+        }
+
+        return view('teacher.courses.schedule.index', compact('course'));
 
     }
 
@@ -373,7 +391,7 @@ class CourseController extends Controller
         }
 
 
-        Alert::success("زمان بندی برای   $course->title با موفقیت ایجاد شد. ");
+        Alert::success("زمان بندی برای$course->title با موفقیت ایجاد شد. ");
         return back();
 
     }
@@ -410,7 +428,7 @@ class CourseController extends Controller
     public function headline(Course $course)
     {
         $this->seo()->setTitle("سرفصل های $course->title");
-        return view('admin.courses.headlines.index', compact('course'));
+        return view('teacher.courses.headlines.index', compact('course'));
     }
 
 

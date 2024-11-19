@@ -80,6 +80,13 @@
                                 </form>
                             @endif
 
+                            @if($support->supportable_type == "App\Models\Course")
+                                <form class="d-grid" action="" method="post">
+                                    برای بررسی و یا ویرایش این دوره میتوانید از این دکمه استفاده کنید.
+                                    <a class="btn btn-warning" href="{{route('admin.courses.edit' , $support->supportable)}}">مشاهده و ویرایش دوره</a>
+                                </form>
+                            @endif
+
                         </div>
 
 

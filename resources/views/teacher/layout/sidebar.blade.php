@@ -30,7 +30,7 @@
 
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('panel/teachers/courses*') ? 'active' : '' }}" href="{{ route('teachers.courses.index') }}">
+                <a class="nav-link {{ Request::is('panel/teacher/courses*') ? 'active' : '' }}" href="{{ route('teachers.courses.index') }}">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
                         <span class="fa fa-book"></span>
                     </div>
