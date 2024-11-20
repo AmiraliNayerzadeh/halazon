@@ -211,18 +211,7 @@ class OrderController extends Controller
             //Pass token10 and token20 as parameter 6th and 7th
 
             $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null);
-            if($result){
-                foreach($result as $r){
-                    echo "messageid = $r->messageid";
-                    echo "message = $r->message";
-                    echo "status = $r->status";
-                    echo "statustext = $r->statustext";
-                    echo "sender = $r->sender";
-                    echo "receptor = $r->receptor";
-                    echo "date = $r->date";
-                    echo "cost = $r->cost";
-                }
-            }
+
         }
         catch(\Kavenegar\Exceptions\ApiException $e){
 //             $e->errorMessage();
