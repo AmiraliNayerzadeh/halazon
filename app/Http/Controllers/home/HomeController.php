@@ -33,6 +33,7 @@ class HomeController extends Controller
 
 
 
+
         $mainCategory = Cache::remember('mainCategory' , 10080 , function (){
             return  Category::where('parent_id' , null)->get();
         });

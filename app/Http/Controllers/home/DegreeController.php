@@ -19,7 +19,7 @@ class DegreeController extends Controller
         $this->seo()->setTitle('مقاطع');
         SEOMeta::setCanonical(route('degrees.index'));
 
-        $degrees = Cache::remember('degrees' , '10080', function (){
+        $degrees = Cache::remember('Alldegrees' , '10080', function (){
             return Degree::all();
         });
         return view('home.degrees.index' , compact('degrees'));
