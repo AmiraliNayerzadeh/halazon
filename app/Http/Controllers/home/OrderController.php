@@ -174,9 +174,7 @@ class OrderController extends Controller
                         } else {
                             $fullRemain = $item->course->remain_capacity;
                         }
-
                         $remain = $fullRemain - 1;
-
 
                         $item->course->update([
                             'remain_capacity' => $remain
