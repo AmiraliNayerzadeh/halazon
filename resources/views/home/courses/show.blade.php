@@ -27,7 +27,7 @@
                                  src="{{!is_null($course->image) ? $course->image : '/assets/default-image.jpg'}}"
                                  alt="{{$course->title}}">
                         @else
-                            <video height="400" controls poster="{{$course->image}}" class="max-h-72 rounded-lg w-auto">
+                            <video height="400" controls class="max-h-72 rounded-lg w-auto">
                                 <source src="{{$course->video}}" type="video/mp4">
                                 <source src="{{$course->video}}" type="video/ogg">
                                 Your browser does not support the video tag.
