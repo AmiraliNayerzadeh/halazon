@@ -78,7 +78,7 @@
                                                         onclick="toggleAccordion(event)">
 
                                                     <div class="grid grid-cols-12 text-right">
-                                                        <div class="col-span-9">
+                                                        <div class="col-span-8">
                                                             <div class="flex items-center">
                                                                 @if(!is_null($headline) && $headline->is_free == 1 || (auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
                                                                     <div class="bg-green-700 p-1 h-8 w-8 rounded-full text-white text-center ">
@@ -94,17 +94,27 @@
                                                                     <span class="text-primary">{{$headline->priority}})</span>
                                                                     {{$headline->title}}
                                                                 </h4>
+
+
                                                             </div>
 
                                                         </div>
 
-                                                        <div class="col-span-3 text-end">
+                                                        <div class="col-span-4 text-end">
                                                             <div class="flex items-center justify-end">
                                                                 @if($course->type == 'offline')
-
                                                                     <a class="bg-gray-400 p-1 sm:p-2 rounded text-white sm:mx-4"
                                                                        href="{{route('headline.show' , [$course , $headline])}}">مشاهده</a>
                                                                 @endif
+
+                                                                    @if($course->type=='online' && !is_null($headline) && $headline->is_free == 1 || (auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
+                                                                        @if(!is_null($headline->link))
+                                                                            <a class="bg-green-600 text-white p-2 rounded-lg text-xs truncate" target="_blank" href="{{$headline->link}}">ورود به جلسه</a>
+                                                                        @else
+                                                                            <a class="bg-yellow-400 text-white p-2 rounded-lg text-xs truncate" href="#">لینک جلسه وارد نشده</a>
+
+                                                                        @endif
+                                                                    @endif
 
                                                                 @if(!is_null($headline->description))
                                                                     <i class="fas fa-chevron-down text-main"></i>

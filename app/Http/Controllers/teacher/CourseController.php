@@ -223,6 +223,9 @@ class CourseController extends Controller
 
         $request['status'] = 'پیش نویس';
 
+        $request['teacher_id'] = auth()->user()->id ;
+
+
 
 
         $course->update($request->all());
@@ -262,6 +265,7 @@ class CourseController extends Controller
                 }
             }
         }
+
 
 
         Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
@@ -452,6 +456,7 @@ class CourseController extends Controller
     {
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'link' => 'nullable',
             'description' => 'nullable|string|max:255',
             'video_url' => 'nullable', // 50MB
             'is_free' => 'nullable',
@@ -469,6 +474,7 @@ class CourseController extends Controller
 
         Headline::create([
             'title' => $request['title'],
+            'link' => $request['link'],
             'description' => $request['description'],
             'priority' => $request['priority'],
             'video' => $request['video_url'],
@@ -490,6 +496,7 @@ class CourseController extends Controller
     {
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'link' => 'nullable',
             'description' => 'nullable|string|max:255',
             'video' => 'nullable|string|max:255',
         ]);

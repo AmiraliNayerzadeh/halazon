@@ -306,48 +306,6 @@
                     </div>
 
 
-                    <div class="card mb-3 ">
-                        <div class="card-header bg-light">
-                            <h5 class="text-primary fw-bold">
-                                <li class="mx-2 fa fa-search mx-2"></li>
-                                موتور های جستجو
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="my-3">
-                                <label class="form-label" for="slug">اسلاگ (نامک):</label>
-                                <input class="form-control" type="text" name="slug" id="slug"
-                                       value="{{old('slug') ? old('slug') : $course->slug}}"
-                                       placeholder="آدرس  صفحه ی دسته بندی را وارد کنید...">
-                            </div>
-
-
-                            <div class="my-3">
-                                <label class="form-label" for="meta_title">مِتا تایل:</label>
-                                <input class="form-control" type="text" name="meta_title"
-                                       id="meta_title"
-                                       value="{{old('meta_title') ? old('meta_title') : $course->meta_title}}"
-                                       placeholder="متا تایتل صفحه ی دسته بندی را وارد کنید...">
-                            </div>
-
-                            <div class="my-3">
-                                <label class="form-label" for="meta_keywords">کلمات کلیدی:</label>
-                                <input class="form-control" type="text" name="meta_keywords"
-                                       id="meta_keywords"
-                                       value="{{old('meta_keywords') ? old('meta_keywords') : $course->meta_keywords}}"
-                                       placeholder="با استفاده از , جدا کنید.">
-                            </div>
-
-                            <div class="my-3">
-                                <label class="form-label" for="meta_description">مِتا دیسکرپشن:</label>
-                                <textarea class="form-control" name="meta_description"
-                                          id="meta_description"
-                                          cols="30"
-                                          rows="3">{{old('meta_description') ? old('meta_description') : $course->meta_description}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
 
                     @if($course->status != "منتشر شده")
                     <div class="card position-sticky fixed-top">
@@ -358,7 +316,11 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row p-2">
+                                <ul>
+                                    <li>قبل از درخواست انتشار توجه داشته باشید که تغیرات خود را ذخیره کرده باشید.</li>
+                                    <li>توجه داشته باشید بعد از انتشار، امکان ویرایش مشخصات کلی نمی باشد.</li>
+                                </ul>
                                 <div class="col-lg-6">
                                     <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره
                                         پیش نویس

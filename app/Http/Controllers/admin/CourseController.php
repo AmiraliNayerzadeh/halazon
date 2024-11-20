@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -217,6 +218,16 @@ class CourseController extends Controller
         }
 
 
+        /*Slug Handler*/
+        if (!is_null($request['slug'])) {
+            $request['slug'] = str_replace([' ', '‌'], '-', $request->slug);
+        } else {
+//            $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
+            Str::slug($request['slug']) ;
+            /*End Slug Handler*/
+        }
+
+
         $course->update($request->all());
 
 
@@ -257,7 +268,7 @@ class CourseController extends Controller
 
 
         Alert::success("دوره$course->title با موفقیت ایجاد شد. ");
-        return redirect(route('admin.courses.index'));
+        return redirect()->back();
     }
 
 
@@ -437,6 +448,7 @@ class CourseController extends Controller
     {
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'link' => 'nullable',
             'description' => 'nullable|string|max:255',
             'video_url' => 'nullable', // 50MB
             'is_free' => 'nullable',
@@ -454,6 +466,7 @@ class CourseController extends Controller
 
         Headline::create([
             'title' => $request['title'],
+            'link' => $request['link'],
             'description' => $request['description'],
             'priority' => $request['priority'],
             'video' => $request['video_url'],
@@ -475,6 +488,7 @@ class CourseController extends Controller
     {
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
+            'link' => 'nullable',
             'description' => 'nullable|string|max:255',
             'video' => 'nullable|string|max:255',
         ]);

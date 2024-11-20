@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Support;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SupportController extends Controller
@@ -79,9 +80,30 @@ class SupportController extends Controller
 
         Alert::success("پاسخ با موفقیت ثبت شد.");
         return back() ;
-
-
     }
+
+
+    public function supportUpdate(Support $support , Request $request)
+    {
+
+        $valid = Validator::make($request->all() , [
+            'status' => ['required'] ,
+        ]) ;
+
+        if ($valid->fails()) {
+            alert()->error('خطا', $valid->messages()->all()[0]);
+            return back()->withInput();
+        }
+
+        $support->update([
+            'status' => $request['status']
+        ]) ;
+
+        Alert::success("وضعیت تیکت با موفقیت بروز رسانی شد.");
+        return back() ;
+        
+    }
+    
 
     /**
      * Remove the specified resource from storage.

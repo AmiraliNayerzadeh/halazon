@@ -53,7 +53,9 @@
                     <div class="card blur shadow-blur max-height-vh-70 overflow-auto overflow-x-hidden mb-5 mb-lg-0">
 
                         <div class="card-body p-2">
-                            <form class="d-grid" action="" method="post">
+                            <form class="d-grid" action="{{route('admin.supports.status.update', $support)}}" method="post">
+                                @csrf
+                                @method('PUT')
                                 <h5>
                                     وضعیت تیکت:
                                 </h5>

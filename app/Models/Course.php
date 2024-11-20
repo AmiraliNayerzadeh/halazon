@@ -88,6 +88,18 @@ class Course extends Model
     }
 
 
+    public function getTypeTranslatedAttribute()
+    {
+        $translations = [
+            'offline' => 'آفلاین',
+            'online' => 'آنلاین',
+
+        ];
+
+        return $translations[$this->type] ?? $this->type;
+    }
+
+
 
 
 

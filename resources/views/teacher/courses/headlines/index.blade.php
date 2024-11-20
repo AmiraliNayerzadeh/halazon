@@ -42,7 +42,8 @@
                 <div class="row">
                     <div class="card">
 
-                        <form id="headlineForm" action="{{ route('teachers.headline.store', $course) }}" method="post" enctype="multipart/form-data" class="form-control">
+                        <form id="headlineForm" action="{{ route('teachers.headline.store', $course) }}" method="post"
+                              enctype="multipart/form-data" class="form-control">
                             @csrf
                             @method('POST')
                             <div class="card-body">
@@ -52,17 +53,32 @@
                                         <div class="form-group">
                                             <label class="form-label" for="title">عنوان سرفصل:</label>
                                             <input class="form-control" type="text" name="title" id="title"
-                                                   value="{{ old('title') }}" placeholder="مثال: آشنایی با تاریخچه ی ... ">
+                                                   value="{{ old('title') }}"
+                                                   placeholder="مثال: آشنایی با تاریخچه ی ... ">
                                         </div>
                                     </div>
+
+                                    @if($course->type == 'online')
+                                        <div class="form-group">
+                                            <label class="form-label" for="link">لینک ورود به جلسه:</label>
+
+                                            <small class="text-warning">در صورت اینکه لینک آماده ای ندارید، میتوانید این
+                                                فیلد را خالی رها کنید.</small>
+                                            <input class="form-control" type="text" name="link" id="link"
+                                                   value="{{ old('link') }}"
+                                                   placeholder="لینک ورود به جلسه انلاین را وارد کنید.">
+                                        </div>
+                                    @endif
 
                                     @if($course->type == 'offline')
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="form-label" for="is_free">این سرفصل رایگان است؟</label>
                                                 <select class="form-control" name="is_free" id="is_free">
-                                                    <option {{old('is_free' == 0 ? 'selected' : '')}} value="0">خیر</option>
-                                                    <option {{old('is_free' == 1 ? 'selected' : '')}} value="1">بله</option>
+                                                    <option {{old('is_free' == 0 ? 'selected' : '')}} value="0">خیر
+                                                    </option>
+                                                    <option {{old('is_free' == 1 ? 'selected' : '')}} value="1">بله
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -71,10 +87,12 @@
 
                                     @if($course->type == 'offline')
                                         <div class="col-lg-12">
-                                            <div class="alert alert-info text-white text-sm d-flex align-items-center mt-1" role="alert">
+                                            <div class="alert alert-info text-white text-sm d-flex align-items-center mt-1"
+                                                 role="alert">
                                                 <i class="fas fa-info-circle mx-2"></i>
                                                 <div>
-                                                    با توجه به اینکه معمولاً فایل‌های ویدیویی دارای حجم زیادی می‌باشند، لطفاً تا پایان بارگذاری ویدیو صبور باشید.
+                                                    با توجه به اینکه معمولاً فایل‌های ویدیویی دارای حجم زیادی می‌باشند،
+                                                    لطفاً تا پایان بارگذاری ویدیو صبور باشید.
                                                 </div>
                                             </div>
 
@@ -101,8 +119,6 @@
                 </div>
 
 
-
-
             </div>
 
             <div class="col-lg-3">
@@ -112,7 +128,6 @@
                 </div>
 
             </div>
-
 
 
             <div class="card mt-4">
@@ -162,7 +177,9 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        <form id="headlineForm" action="{{ route('teachers.headline.update', $headline) }}" method="post" class="form-control">
+                                                        <form id="headlineForm"
+                                                              action="{{ route('teachers.headline.update', $headline) }}"
+                                                              method="post" class="form-control">
                                                             @csrf
                                                             @method('PUT')
                                                             <div class="card-body">
@@ -170,55 +187,91 @@
 
                                                                     <div class="{{ $course->type == 'offline' ? 'col-lg-6' : 'col-lg-12' }}">
                                                                         <div class="form-group">
-                                                                            <label class="form-label" for="title">عنوان سرفصل:</label>
-                                                                            <input class="form-control" type="text" name="title" id="title"
-                                                                                   value="{{ old('title', $headline->title) }}" placeholder="مثال: آشنایی با تاریخچه ی ... ">
+                                                                            <label class="form-label" for="title">عنوان
+                                                                                سرفصل:</label>
+                                                                            <input class="form-control" type="text"
+                                                                                   name="title" id="title"
+                                                                                   value="{{ old('title', $headline->title) }}"
+                                                                                   placeholder="مثال: آشنایی با تاریخچه ی ... ">
                                                                         </div>
                                                                     </div>
+
+                                                                    @if($course->type == 'online')
+                                                                        <div class="form-group">
+                                                                            <label class="form-label" for="link">لینک
+                                                                                ورود به جلسه:</label>
+
+                                                                            <small class="text-warning">در صورت اینکه
+                                                                                لینک آماده ای ندارید، میتوانید این فیلد
+                                                                                را خالی رها کنید.</small>
+                                                                            <input class="form-control" type="text"
+                                                                                   name="link" id="link"
+                                                                                   value="{{ old('link', $headline->link) }}"
+                                                                                   placeholder="لینک ورود به جلسه انلاین را وارد کنید.">
+                                                                        </div>
+                                                                    @endif
+
 
                                                                     @if($course->type == 'offline')
                                                                         <div class="col-lg-6">
                                                                             <div class="form-group">
-                                                                                <label class="form-label" for="is_free">این سرفصل رایگان است؟</label>
-                                                                                <select class="form-control" name="is_free" id="is_free">
-                                                                                    <option {{$headline->is_free == 0 ? 'selected' : ''}} value="0">خیر</option>
-                                                                                    <option {{$headline->is_free == 1 ? 'selected' : ''}} value="1">بله</option>
+                                                                                <label class="form-label" for="is_free">این
+                                                                                    سرفصل رایگان است؟</label>
+                                                                                <select class="form-control"
+                                                                                        name="is_free" id="is_free">
+                                                                                    <option {{$headline->is_free == 0 ? 'selected' : ''}} value="0">
+                                                                                        خیر
+                                                                                    </option>
+                                                                                    <option {{$headline->is_free == 1 ? 'selected' : ''}} value="1">
+                                                                                        بله
+                                                                                    </option>
                                                                                 </select>
                                                                             </div>
                                                                         </div>
                                                                     @endif
 
-
-                                                                    @if($headline->video)
-                                                                        <div class="col-lg-12">
-                                                                            <div class="alert alert-warning text-white" role="alert">
-                                                                                امکان تغییر ویدیو وجود ندارد.
+                                                                    @if($course->type == 'offline')
+                                                                        @if($headline->video)
+                                                                            <div class="col-lg-12">
+                                                                                <div class="alert alert-warning text-white"
+                                                                                     role="alert">
+                                                                                    امکان تغییر ویدیو وجود ندارد.
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label>ویدیو:</label>
+                                                                                    <video width="100%" controls>
+                                                                                        <source src="{{ $headline->video }}"
+                                                                                                type="video/mp4">
+                                                                                        مرورگر شما از تگ ویدیو پشتیبانی
+                                                                                        نمی‌کند.
+                                                                                    </video>
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label>ویدیو:</label>
-                                                                                <video width="100%" controls>
-                                                                                    <source src="{{ $headline->video }}" type="video/mp4">
-                                                                                    مرورگر شما از تگ ویدیو پشتیبانی نمی‌کند.
-                                                                                </video>
+                                                                        @else
+                                                                            <div class="col-lg-12">
+                                                                                <div class="alert alert-danger text-white"
+                                                                                     role="alert">
+                                                                                    ویدیویی برای این سرفصل وجود ندارد.
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="col-lg-12">
-                                                                            <div class="alert text-white" role="alert">
-                                                                                ویدیویی برای این سرفصل وجود ندارد.
-                                                                            </div>
-                                                                        </div>
+                                                                        @endif
                                                                     @endif
 
                                                                     <div class="col-lg-12">
                                                                         <div class="form-group">
-                                                                            <label class="form-label" for="description">توضیحات سرفصل (اختیاری):</label>
-                                                                            <textarea class="form-control" name="description" id="description" cols="30" rows="4">{{ old('description', $headline->description) }}</textarea>
+                                                                            <label class="form-label" for="description">توضیحات
+                                                                                سرفصل (اختیاری):</label>
+                                                                            <textarea class="form-control"
+                                                                                      name="description"
+                                                                                      id="description" cols="30"
+                                                                                      rows="4">{{ old('description', $headline->description) }}</textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <button id="submit-button" class="btn btn-success" type="submit">به‌روزرسانی</button>
+                                                            <button id="submit-button" class="btn btn-success"
+                                                                    type="submit">به‌روزرسانی
+                                                            </button>
                                                         </form>
 
 
@@ -234,6 +287,18 @@
                                          aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             {{$headline->description}}
+
+                                            @if($course->type == 'online')
+                                                <div>
+                                                    <b>لینک ورود به جلسه: </b>
+                                                    @if(!is_null($headline->link))
+                                                        <a href="{{$headline->link}}">{{$headline->link}}</a>
+                                                    @else
+                                                        <a class="text-danger" href="#">هنوز وارد نشده است.</a>
+                                                    @endif
+                                                </div>
+                                            @endif
+
                                             @if(!is_null($headline->video))
 
                                                 <video class="img-fluid my-2" controls>
@@ -259,8 +324,6 @@
             </div>
 
 
-
-
         </div>
 
 
@@ -281,12 +344,12 @@
                         let submitButton = document.getElementById("submit-button");
                         submitButton.disabled = true;
 
-                        this.on("sending", function(file, xhr, formData) {
+                        this.on("sending", function (file, xhr, formData) {
                             submitButton.disabled = true;
                             submitButton.textContent = "در انتظار بارگذاری آپلود ویدیو...";
 
 
-                            xhr.upload.onprogress = function(event) {
+                            xhr.upload.onprogress = function (event) {
                                 if (event.lengthComputable) {
                                     const percent = (event.loaded / event.total) * 100;
                                     file.previewElement.querySelector("[data-dz-uploadprogress]").style.width = percent + "%";
@@ -295,7 +358,7 @@
                             };
                         });
 
-                        this.on("success", function(file, response) {
+                        this.on("success", function (file, response) {
                             const videoUrl = response.url;
 
                             // ذخیره لینک ویدیو در یک فیلد مخفی
@@ -309,7 +372,7 @@
                             submitButton.textContent = "ثبت";
                         });
 
-                        this.on("error", function(file, response) {
+                        this.on("error", function (file, response) {
                             console.error('Error uploading file: ', response);
                             submitButton.disabled = false;
                             submitButton.textContent = "ثبت";
@@ -317,10 +380,6 @@
                     }
                 };
             </script>
-
-
-
-
 
         @endsection
 

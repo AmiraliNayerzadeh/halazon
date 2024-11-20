@@ -28,6 +28,7 @@ Route::resource('/blogs' , \App\Http\Controllers\admin\BlogController::class);
 Route::resource('/degrees' , \App\Http\Controllers\admin\DegreeController::class);
 
 Route::resource('/supports' , \App\Http\Controllers\admin\SupportController::class);
+Route::put('/supports/status/{support}', [\App\Http\Controllers\admin\SupportController::class , 'supportUpdate'])->name('supports.status.update');
 
 Route::resource('/comments' , \App\Http\Controllers\admin\commentController::class);
 
