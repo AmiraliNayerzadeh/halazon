@@ -168,7 +168,14 @@ class OrderController extends Controller
 
                 if ($item->course->type == 'online') {
                     try {
-                        $remain = $item->course->remain_capacity - 1;
+
+                        if (is_null($item->course->remain_capacity)) {
+                            $fullRemain = 0 ;
+                        } else {
+                            $fullRemain = $item->course->remain_capacity;
+                        }
+
+                        $remain = $fullRemain - 1;
 
                         $item->course->update([
                             'remain_capacity' => $remain
