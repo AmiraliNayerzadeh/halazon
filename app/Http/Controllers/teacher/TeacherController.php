@@ -28,12 +28,12 @@ class TeacherController extends Controller
 
     }
 
-    public function completeInformation()
+
+    public function profile()
     {
+        $this->seo()->setTitle('اطلاعات حساب کاربری');
 
-        $this->seo()->setTitle('تکمیل ثبت نام') ;
-
-        $user = auth()->user() ;
+        $user = auth()->user();
 
 
         $mainCategories = $user->categories()->whereNull('parent_id')->pluck('categories.id')->toArray();
@@ -45,7 +45,27 @@ class TeacherController extends Controller
             return Category::all();
         });
 
-        return view('teacher.CompleteUser', compact( 'user' , 'categories','mainCategories' , 'subCategories'));
+        return view('teacher.CompleteUser', compact('user', 'categories', 'mainCategories', 'subCategories'));
+    }
+
+    public function completeInformation()
+    {
+
+        $this->seo()->setTitle('تکمیل ثبت نام');
+
+        $user = auth()->user();
+
+
+        $mainCategories = $user->categories()->whereNull('parent_id')->pluck('categories.id')->toArray();
+
+        $subCategories = $user->categories()->whereNotNull('parent_id')->pluck('categories.id')->toArray();
+
+
+        $categories = Cache::remember('categories_all', now()->addDay(), function () {
+            return Category::all();
+        });
+
+        return view('teacher.CompleteUser', compact('user', 'categories', 'mainCategories', 'subCategories'));
     }
 
     public function information(Request $request)
@@ -185,9 +205,6 @@ class TeacherController extends Controller
         // هدایت کاربر به صفحه قبلی یا نمایش پیام موفقیت
         return redirect()->back()->with('success', 'فایل‌ها با موفقیت آپلود و ذخیره شدند.');
     }
-
-
-
 
 
 }

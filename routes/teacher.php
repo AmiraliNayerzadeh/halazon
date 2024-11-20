@@ -20,17 +20,20 @@ Route::put('/courses/headlines/{headline}', [\App\Http\Controllers\teacher\Cours
 Route::post('/courses/headline/upload-video', [\App\Http\Controllers\teacher\CourseController::class, 'uploadVideo'])->name('headline.uploadVideo');
 
 
+Route::resource('/supports' , \App\Http\Controllers\teacher\SupportController::class);
+
+
+
+Route::get('/profile', [\App\Http\Controllers\teacher\TeacherController::class, 'profile'])->name('profile.edit');
+
 
 Route::get('/complete/register', [\App\Http\Controllers\teacher\TeacherController::class, 'completeInformation'])->name('register.complete');
-
 
 Route::get('/categories/main', [\App\Http\Controllers\teacher\TeacherController::class, 'getMainCategories'])->name('categories.main');
 Route::post('/categories/sub', [\App\Http\Controllers\teacher\TeacherController::class, 'getSubCategories'])->name('categories.sub');
 
 
-
 Route::put('/complete/information', [\App\Http\Controllers\teacher\TeacherController::class, 'information'])->name('information');
-
 Route::put('/complete/category', [\App\Http\Controllers\teacher\TeacherController::class, 'informationCategory'])->name('information.category');
 
 

@@ -4,130 +4,136 @@
         <div class="container ">
 
             <div class="row">
-                <div class="col-lg-5">
-                    <h4 class="text-center text-warning mb-4">تکمیل ثبت نام</h4>
-                    <p class="text-center">برای دسترسی به پنل ابتدا باید اطلاعات کاربری خود را کامل کنید. پس از تکمیل و
-                        تایید
-                        توسط تیم پشتیبانی، قادر به فعالیت در پنل کاربری خود خواهید بود.</p>
+                @if($user->is_verify == 0)
+                    <div class="col-lg-5">
+                        <h4 class="text-center text-warning mb-4">تکمیل ثبت نام</h4>
+                        <p class="text-center">برای دسترسی به پنل ابتدا باید اطلاعات کاربری خود را کامل کنید. پس از
+                            تکمیل و
+                            تایید
+                            توسط تیم پشتیبانی، قادر به فعالیت در پنل کاربری خود خواهید بود.</p>
 
-                    <div class="mt-2">
+                        <div class="mt-2">
 
-                        @php
-                            // بررسی اینکه آیا همه فیلدها تکمیل شده‌اند یا نه
-                            $isComplete = !is_null($user->name) && !is_null($user->family) && !is_null($user->email) &&
-                                          !is_null($user->nationalCode) && !is_null($user->gender) && !is_null($user->birthday) &&
-                                          !is_null($user->description) && !empty($mainCategories) && !empty($subCategories) &&
-                                          !is_null($user->avatar) && !is_null($user->id_card);
-                        @endphp
+                            @php
+                                // بررسی اینکه آیا همه فیلدها تکمیل شده‌اند یا نه
+                                $isComplete = !is_null($user->name) && !is_null($user->family) && !is_null($user->email) &&
+                                              !is_null($user->nationalCode) && !is_null($user->gender) && !is_null($user->birthday) &&
+                                              !is_null($user->description) && !empty($mainCategories) && !empty($subCategories) &&
+                                              !is_null($user->avatar) && !is_null($user->id_card);
+                            @endphp
 
-                        @if (!$isComplete)
-                            <div class="alert alert-light text-center my-3">
-                                <div>
-                                    <i class="fa fa-sad-cry text-white  fa-3x"></i>
-                                    <h5 class="text-secondary text-center">اطلاعات زیر را وارد کنید:</h5>
+                            @if (!$isComplete)
+                                <div class="alert alert-light text-center my-3">
+                                    <div>
+                                        <i class="fa fa-sad-cry text-white  fa-3x"></i>
+                                        <h5 class="text-secondary text-center">اطلاعات زیر را وارد کنید:</h5>
+                                    </div>
+
+                                    <ul>
+                                        @if(is_null($user->name))
+                                            <li>فیلد نام را وارد کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->family))
+                                            <li>فیلد نام خانوادگی را وارد کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->email))
+                                            <li>فیلد پست الکترونیک را وارد کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->nationalCode))
+                                            <li>فیلد کد ملی را وارد کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->gender))
+                                            <li>فیلد جنسیت را انتخاب کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->birthday))
+                                            <li>فیلد تاریخ تولد را وارد کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->description))
+                                            <li>فیلد توضیحات را وارد کنید.</li>
+                                        @endif
+
+                                        @if(empty($mainCategories))
+                                            <li>دسته‌بندی‌های اصلی را انتخاب کنید.</li>
+                                        @endif
+
+                                        @if(empty($subCategories))
+                                            <li>زیر دسته‌بندی‌ها را انتخاب کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->avatar))
+                                            <li>تصویر پروفایل را بارگذاری کنید.</li>
+                                        @endif
+
+                                        @if(is_null($user->id_card))
+                                            <li>کارت ملی را بارگذاری کنید.</li>
+                                        @endif
+
+                                    </ul>
                                 </div>
+                            @else
 
-                                <ul>
-                                    @if(is_null($user->name))
-                                        <li>فیلد نام را وارد کنید.</li>
-                                    @endif
+                                <div class="alert alert-success text-center  ">
+                                    <i class="fa fa-face-smile text-white fa-3x my-2"></i>
+                                    <h6>به نظر میرسد شما تمامی اطلاعات را به خوبی تکمیل کرده اید.</h6>
+                                    <p>وقتشه که درخواستت رو مکتوب اعلام کنی و بعد از پس از بررسی کارشناسان حلزون، حساب
+                                        کاربریتون تایید بشه.</p>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                        <i class="fa fa-user"></i>
+                                        درخواست تایید حساب
+                                    </button>
 
-                                    @if(is_null($user->family))
-                                        <li>فیلد نام خانوادگی را وارد کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->email))
-                                        <li>فیلد پست الکترونیک را وارد کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->nationalCode))
-                                        <li>فیلد کد ملی را وارد کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->gender))
-                                        <li>فیلد جنسیت را انتخاب کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->birthday))
-                                        <li>فیلد تاریخ تولد را وارد کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->description))
-                                        <li>فیلد توضیحات را وارد کنید.</li>
-                                    @endif
-
-                                    @if(empty($mainCategories))
-                                        <li>دسته‌بندی‌های اصلی را انتخاب کنید.</li>
-                                    @endif
-
-                                    @if(empty($subCategories))
-                                        <li>زیر دسته‌بندی‌ها را انتخاب کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->avatar))
-                                        <li>تصویر پروفایل را بارگذاری کنید.</li>
-                                    @endif
-
-                                    @if(is_null($user->id_card))
-                                        <li>کارت ملی را بارگذاری کنید.</li>
-                                    @endif
-
-                                </ul>
-                            </div>
-                        @else
-
-                            <div class="alert alert-success text-center  ">
-                                <i class="fa fa-face-smile text-white fa-3x my-2"></i>
-                                <h6>به نظر میرسد شما تمامی اطلاعات را به خوبی تکمیل کرده اید.</h6>
-                                <p>وقتشه که درخواستت رو مکتوب اعلام کنی و بعد از پس از بررسی کارشناسان حلزون، حساب
-                                    کاربریتون تایید بشه.</p>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                    <i class="fa fa-user"></i>
-                                    درخواست تایید حساب
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                    درخواست تایید حساب کاربری
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">
+                                                        درخواست تایید حساب کاربری
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{route('submit.support')}}" method="post">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="id" value="{{$user->id}}">
+                                                        <input type="hidden" name="type" value="{{get_class($user)}}">
+                                                        <input type="hidden" name="title"
+                                                               value="درخواست تایید حساب کاربری">
+                                                        <textarea name="message" class="form-control"
+                                                                  rows="5">اینجانب {{ $user->name }} {{ $user->family }}، با تکمیل اطلاعات و مدارک خواسته شده، به این‌وسیله درخواست تایید حساب کاربری خود را دارم.اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات و مدارکی که تکمیل کرده‌ام به درستی وارد شده است. همچنین می‌دانم که مسئولیت هرگونه اشتباه در اطلاعات وارد شده بر عهده خودم خواهد بود.</textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">بستن
+                                                        </button>
+                                                        <button type="submit" class="btn btn-success">ارسال درخواست
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <form action="{{route('submit.support')}}" method="post">
-                                                @csrf
-                                                @method('POST')
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="id" value="{{$user->id}}">
-                                                    <input type="hidden" name="type" value="{{get_class($user)}}">
-                                                    <input type="hidden" name="title" value="درخواست تایید حساب کاربری">
-                                                    <textarea name="message" class="form-control" rows="5">اینجانب {{ $user->name }} {{ $user->family }}، با تکمیل اطلاعات و مدارک خواسته شده، به این‌وسیله درخواست تایید حساب کاربری خود را دارم.اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات و مدارکی که تکمیل کرده‌ام به درستی وارد شده است. همچنین می‌دانم که مسئولیت هرگونه اشتباه در اطلاعات وارد شده بر عهده خودم خواهد بود.</textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">بستن
-                                                    </button>
-                                                    <button type="submit" class="btn btn-success">ارسال درخواست</button>
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        @endif
+                            @endif
+                        </div>
+
+
                     </div>
+                @endif
 
-
-                </div>
-
-                <div class="col-lg-7 p-4 rounded"
+                <div class=" p-4 rounded {{$user->is_verify == 0 ? "col-lg-7" : "col-lg-12"}}"
                      style="background: linear-gradient(180deg, rgba(81, 46, 136, 0.1) 21%, rgba(251, 137, 49, 0.1) 80%);">
 
                     <form method="post" action="{{route('teachers.information')}}" id="main_form">
@@ -237,6 +243,9 @@
                             </div>
                         </form>
                     </div>
+
+
+                    @if($user->is_verify == 0)
 
                     <!-- مدارک -->
                     <div class="bg-white p-4 rounded shadow mb-4">
@@ -376,6 +385,8 @@
 
 
                     </div>
+
+                        @endif
 
                     </form>
 

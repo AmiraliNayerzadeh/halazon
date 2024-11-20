@@ -1,4 +1,4 @@
-@component('.admin.layout.master')
+@component('.teacher.layout.master')
     @section('content')
 
         <div class="container-fluid">
@@ -8,20 +8,7 @@
             </div>
             <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
                 <div class="row gx-4">
-                    <div class="col-auto">
-                        <div class="avatar avatar-xl position-relative">
-                            <img src="{{$support->user->avatar}}" alt="profile_image"
-                                 class="w-100 border-radius-lg shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-auto my-auto">
-                        <div class="h-100">
-                            <h5 class="mb-1">
-                                {{$support->user->name}}  {{$support->user->family}}
-                            </h5>
 
-                        </div>
-                    </div>
                     <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3 p-4">
                         <div class="nav-wrapper position-relative end-0">
                             <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
@@ -49,52 +36,7 @@
         </div>
         <div class="container-fluid py-4">
             <div class="row">
-                <div class="col-4">
-                    <div class="card blur shadow-blur max-height-vh-70 overflow-auto overflow-x-hidden mb-5 mb-lg-0">
-
-                        <div class="card-body p-2">
-                            <form class="d-grid" action="{{route('admin.supports.status.update', $support)}}" method="post">
-                                @csrf
-                                @method('PUT')
-                                <h5>
-                                    وضعیت تیکت:
-                                </h5>
-                                <p>پس از ثبت پاسخ وضعیت تیکت به طور خودکار به پاسخ داده شده تغیر پیدا میکند.</p>
-
-                                <button class="btn btn-success grid my-2" name="status" value="closed" type="submit">
-                                    بستن
-                                </button>
-
-                                <button class="btn btn-info grid my-2" name="status" value="in-progress" type="submit">
-                                    در حال انجام
-                                </button>
-                            </form>
-                        </div>
-
-
-                        <div class="card-body p-2">
-                            <hr>
-
-                            @if($support->supportable_type == "App\Models\User")
-                                <form class="d-grid" action="" method="post">
-                                    برای بررسی و یا ویرایش کاربر میتوانید از این دکمه استفاده کنید.
-                                    <a class="btn btn-warning" href="{{route('admin.users.edit' , $support->supportable)}}">ویرایش کاربر</a>
-                                </form>
-                            @endif
-
-                            @if($support->supportable_type == "App\Models\Course")
-                                <form class="d-grid" action="" method="post">
-                                    برای بررسی و یا ویرایش این دوره میتوانید از این دکمه استفاده کنید.
-                                    <a class="btn btn-warning" href="{{route('admin.courses.edit' , $support->supportable)}}">مشاهده و ویرایش دوره</a>
-                                </form>
-                            @endif
-
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="col-8">
+                <div class="col-12">
                     <div class="card blur shadow-blur max-height-vh-70">
                         <div class="card-header shadow-lg">
                             <div class="row">
@@ -112,9 +54,9 @@
                         </div>
                         <div class="card-body overflow-auto overflow-x-hidden">
 
-                            <div class="row justify-content-end text-right mb-4">
+                            <div class="row justify-content-start mb-4">
                                 <div class="col-auto">
-                                    <div class="card bg-gray-200">
+                                    <div class="card ">
                                         <div class="card-body py-2 px-3">
                                             <p class="mb-1">
                                                 {{$support->message}}

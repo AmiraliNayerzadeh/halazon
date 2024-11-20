@@ -39,6 +39,27 @@
             </li>
 
 
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('panel/teacher/supports*') ? 'active' : '' }}" href="{{ route('teachers.supports.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-headset"></span>
+                    </div>
+                    <span class="nav-link-text me-1">پشتیبانی</span>
+                </a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('panel/teacher/profile*') ? 'active' : '' }}" href="{{ route('teachers.profile.edit') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-user-edit"></span>
+                    </div>
+                    <span class="nav-link-text me-1">حساب کاربری</span>
+                </a>
+            </li>
+
+
+
 
             <li class="nav-item">
                 <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-flex align-items-center">

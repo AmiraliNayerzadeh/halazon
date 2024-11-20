@@ -18,7 +18,7 @@ class CategoryController extends Controller
             $this->seo()->setTitle("$category->title");
         }
 
-        $courses = $category->courses()->paginate(12);
+        $courses = $category->courses()->where('status' , 'منتشر شده')->paginate(12);
 
 
         return view('home.categories.main' , compact('category' , 'courses'));
