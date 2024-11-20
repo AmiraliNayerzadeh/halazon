@@ -54,10 +54,10 @@
                                     <div class="form-group">
                                         <label class="form-label" for="type">نوع دوره</label>
                                         <select class="form-control" name="type" id="type">
-                                            <option {{$course->type == 'online' ? 'selected' : ''}} value="online">
+                                            <option {{ old('type', $course->type) == 'online' ? 'selected' : '' }} value="online">
                                                 آنلاین
                                             </option>
-                                            <option {{$course->type == 'offline' ? 'selected' : ''}} value="offline">
+                                            <option {{ old('type', $course->type) == 'online' ? 'offline' : '' }} value="offline">
                                                 آفلاین
                                             </option>
                                         </select>

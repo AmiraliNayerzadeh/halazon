@@ -57,10 +57,10 @@ class CourseController extends Controller
             'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
-            'class_duration' => 'required_unless:type,offline|integer|min:1',
-            'weeks' => 'required_unless:type,offline|integer|min:1',
-            'minutes' =>'required_unless:type,offline|integer|min:1',
-            'capacity' => 'required_unless:type,offline|integer|min:1',
+            'class_duration' => 'nullable|integer|min:1|required_unless:type,offline',
+            'weeks' => 'nullable|integer|min:1|required_unless:type,offline',
+            'minutes' =>'nullable|integer|min:1|required_unless:type,offline',
+            'capacity' => 'nullable|integer|min:1|required_unless:type,offline',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'is_draft' => 'required|boolean',
@@ -196,10 +196,10 @@ class CourseController extends Controller
             'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
-            'class_duration' => 'required_unless:type,offline|integer|min:1',
-            'weeks' => 'required_unless:type,offline|integer|min:1',
-            'minutes' =>'required_unless:type,offline|integer|min:1',
-            'capacity' => 'required_unless:type,offline|integer|min:1',
+            'class_duration' => 'nullable|integer|min:1|required_unless:type,offline',
+            'weeks' => 'nullable|integer|min:1|required_unless:type,offline',
+            'minutes' =>'nullable|integer|min:1|required_unless:type,offline',
+            'capacity' => 'nullable|integer|min:1|required_unless:type,offline',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'homework' => 'nullable|string',
@@ -221,9 +221,8 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
-        if ($request['is_draft'] == 1) {
-            $request['status'] = 'پیش نویس';
-        }
+        $request['status'] = 'پیش نویس';
+
 
 
         $course->update($request->all());

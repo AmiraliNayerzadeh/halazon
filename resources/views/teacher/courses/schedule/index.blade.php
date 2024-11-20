@@ -49,7 +49,7 @@
                                 ایجاد زمان جدید
                             </button>
 
-                            @include('teachers.courses.schedule.partCreate')
+{{--                            @include('teachers.courses.schedule.partCreate')--}}
                         @endif
                     </div>
 
