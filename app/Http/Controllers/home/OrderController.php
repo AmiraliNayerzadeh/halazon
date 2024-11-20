@@ -177,6 +177,8 @@ class OrderController extends Controller
 
                         $remain = $fullRemain - 1;
 
+                        dd($remain) ;
+
                         $item->course->update([
                             'remain_capacity' => $remain
                         ]);
