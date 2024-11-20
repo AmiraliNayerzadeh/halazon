@@ -338,7 +338,6 @@
                                             </form>
 
                                         @else
-
                                             <div class="mx-2 px-3 py-2 border bg-green-300 border-green-600 shadow  rounded-lg hover:bg-green-400 duration-500">
                                                 ثبت نام کرده اید
                                             </div>
