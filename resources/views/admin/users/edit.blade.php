@@ -185,7 +185,7 @@
                                     <div class="my-2">
                                         <label class="form-label" for="categories">دسته بندی:</label>
                                         <select class="form-control select2" name="categories[]" id="categories" multiple>
-                                            @foreach(\App\Models\Category::where('parent_id' , null)->get() as $category)
+                                            @foreach(\App\Models\Category::all() as $category)
                                                 <option {{in_array($category->id , $user->categories->pluck('id')->toArray()) ? 'selected ' : ''}} value="{{$category->id}}">{{$category->title}}</option>
                                             @endforeach
                                         </select>

@@ -10,7 +10,7 @@
     @endsection
 
 
-    <div class="bg-main25">
+    <div class="bg-main25 mt-3 p-3 rounded-2xl">
         <div class="container mx-auto">
             <div class="grid grid-cols-12 py-5">
                 <div class="col-span-12 sm:col-span-6">
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                            <div class="col-span-6 sm:col-span-3 ">
                                 <div class="flex h-full w-full items-center justify-center">
                                     @if( !is_null(auth()->user()) && Auth::user()->following->contains($user->id))
                                         <form class="w-full flex justify-center mt-3 " method="post"
@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="col-span-12 sm:col-span-6">
-                    <div class="flex items-center justify-end">
+                    <div class="flex items-center justify-end mt-4 sm:mt-0 mx-3">
                         <video class="h-80 rounded-3xl" controls>
                             <source src="{{$user->video}}" type="video/mp4">
                             <source src="{{$user->video}}" type="video/ogg">
@@ -89,7 +89,7 @@
 
 
     {{--description--}}
-    <div class="container mx-auto mt-8">
+    <div class="container mx-auto mt-8 p-3">
         <div class="grid grid-cols-12">
             <div class="col-span-12 sm:col-span-8">
                 <h2 class="font-extrabold text-2xl">درباره ی {{$user->name}} {{$user->family}}</h2>
@@ -151,7 +151,7 @@
 
 
     {{--Comment Section--}}
-    <div class="mt-7 bg-gray-100">
+    <div class="mt-7 p-2 bg-gray-100 rounded-3xl">
         <div class="container mx-auto py-4">
             <div class="flex justify-between items-center">
                 <h4 class="font-extrabold text-2xl py-5">
@@ -332,7 +332,7 @@
     {{--End Calender--}}
 
     {{--Course Section--}}
-    <div class="mt-7 bg-gray-100">
+    <div class="mt-7 p-3 rounded-3xl bg-gray-100">
         <div class="container mx-auto py-4">
             <div class="flex justify-between items-center">
                 <h4 class="font-extrabold text-2xl py-5">همه کلاس های {{$user->name}} {{$user->family}} </h4>

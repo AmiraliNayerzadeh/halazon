@@ -1,6 +1,6 @@
 <footer class="bg-main25 mt-4 ">
     <img class="w-full" src="/assets/home/splittop.svg" alt="split top">
-    <div class="container mx-auto  py-2 px-5 sm:px-0 ">
+    <div class="container mx-auto  py-2 px-5 sm:px-0 sm:max-w-7xl ">
         <div class="grid grid-cols-12 py-4">
 
             <div class="col-span-12 sm:col-span-6 mb-5 sm:mb-0"><a href="{{route('home')}}"><img class="w-[120px]" src="/assets/logo.png" alt="hlalazon Logo"></a>
@@ -60,15 +60,12 @@
                         <span class="text-lg"><b class="text-main50 font-extrabold">حلزون </b>را در شبکه‌های اجتماعی دنبال کنید:</span>
 
                         <div class="flex">
-                            <a class="text-4xl mx-1" href="#">
+                            <a target="_blank" class="text-4xl mx-1" href="https://t.me/halazoonadmin">
                                 <i class="fa-brands fa-telegram text-blue-700 hover:text-main duration-700"></i>
                             </a>
 
-                            <a class="text-4xl mx-1" href="#">
-                                <i class="fa-brands fa-youtube text-red-700 hover:text-main duration-700"></i>
-                            </a>
 
-                            <a class="text-4xl mx-1" href="#">
+                            <a target="_blank" class="text-4xl mx-1" href="https://www.instagram.com/halazoon_org/">
                                 <i class="fa-brands fa-instagram text-purple-700 hover:text-main duration-700"></i>
                             </a>
                         </div>
