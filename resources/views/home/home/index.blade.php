@@ -244,7 +244,7 @@
     {{--Section 6--}}
     <div class=" rounded-3xl container mx-auto mt-10">
 
-        <div class="bg-gray-200 p-5 mt-10">
+        <div class="bg-gray-200 p-5 mt-10 rounded-3xl">
             <div class=" rounded-3xl container mx-auto ">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="font-extrabold text-base sm:text-2xl  text-center  ">
