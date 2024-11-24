@@ -67,7 +67,6 @@
                                 <td class="align-middle text-center">
                                     <a class="text-secondary text-center" href="{{route('admin.users.show' , $user)}}"><li class="fa fa-eye"></li></a>
                                 </td>
-
                             </tr>
                             @endforeach
                             </tbody>
