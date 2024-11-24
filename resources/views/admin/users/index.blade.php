@@ -57,7 +57,7 @@
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">
-                                        {{jdate($user->creted_at)}}
+                                        {{jdate($user->created_at)}}
                                     </span>
                                 </td>
                                 <td class="align-middle text-center">
