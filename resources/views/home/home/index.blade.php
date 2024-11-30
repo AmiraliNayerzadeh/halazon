@@ -324,14 +324,14 @@
             <div class="swiper-wrapper">
                 @foreach($blogs as $blog)
                     <div class="swiper-slide">
-                        <div class="rounded-2xl p-2 border shadow my-3">
+                        <div class="rounded-2xl sm:p-2 border shadow my-3">
                             <div class="p-1">
                                 <div>
                                     <a href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}"><img
                                                 class="rounded-2xl" src="{{$blog->image}}" alt="{{$blog->title}}"></a>
                                 </div>
 
-                                <h3 class="mt-4 font-extrabold text-lg hover:text-main duration-500 truncate"><a
+                                <h3 class="mt-4 font-extrabold text-sm sm:text-lg hover:text-main duration-500 truncate"><a
                                             href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}">{{$blog->title}}</a>
                                 </h3>
 
@@ -339,12 +339,14 @@
                                 {{--Teacher--}}
                                 <div class="flex items-center mt-3 ">
                                     <a href="{{route('teacher.show' , $blog->user)}}"><img
-                                                class="rounded-full h-14 w-14 border border-2 border-main "
-                                                src="{{$blog->user->avatar}}" alt="{{$blog->user->name}}"></a>
-                                    <h4 class="mr-2 text-main50 text-sx sm:text-base truncate">نویسنده:
-                                        <a href="{{route('teacher.show' , $blog->user)}}">{{$blog->user->name}} {{$blog->user->family}}</a>
+                                                class="rounded-full h-8 w-8 sm:h-14 sm:w-14 border border-2 border-main "
+                                                src="{{$blog->user->avatar}}" alt=""></a>
+                                    <h4 class="mr-2 text-main50 text-xs sm:text-base truncate">استاد: <a
+                                                href="{{route('teacher.show' , $blog->user)}}">{{$blog->user->name}} {{$blog->user->family}}</a>
                                     </h4>
+
                                 </div>
+
                                 {{--End Teacher--}}
 
 

@@ -13,9 +13,10 @@
     <meta name="apple-mobile-web-app-title" content="Halazoon" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
 
-
-
     {!! SEO::generate() !!}
+
+    @yield('schema')
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="/assets/home/plugins/fontawesome/pro/v5-font-face.css">

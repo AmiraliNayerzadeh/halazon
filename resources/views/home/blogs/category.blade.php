@@ -45,18 +45,18 @@
                             <a href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}"><img
                                         class="rounded-2xl" src="{{$blog->image}}" alt="{{$blog->title}}"></a></div>
 
-                        <h3 class="mt-4 font-extrabold text-lg hover:text-main duration-500"><a href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}">{{$blog->title}}</a></h3>
+                        <h3 class="mt-4 font-extrabold text-lg hover:text-main duration-500"><a
+                                    href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}">{{$blog->title}}</a>
+                        </h3>
 
                         {{--Category--}}
                         <div class="flex items-center my-3 border-t pt-4">
                             <h5 class="font-extrabold ">
                                 <i class="fa fa-file"></i>
                                 دسته بندی:</h5>
-                            @foreach($blog->categories as $category)
-                                <span class="mx-1">
-                                <a class="text-sm bg-main25 p-1 rounded" href="{{route('blog.category' , $category)}}">{{$category->title}}</a>
+                            <span class="mx-1">
+                                <a class="text-sm bg-main25 p-1 rounded truncate" href="{{route('blog.category' , $blog->categories[0])}}">{{$blog->categories[0]->title}}</a>
                             </span>
-                            @endforeach
                         </div>
                         {{--End Category--}}
 

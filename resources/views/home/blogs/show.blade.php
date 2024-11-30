@@ -1,5 +1,101 @@
 @extends('home.layouts.main.master')
+
+
+@section('schema')
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "{{$blog->title}}",
+          "description": "{{$blog->meta_description ?? ''}}",
+          "author": {
+            "@type": "Person",
+            "name": "{{$blog->user->name}} {{$blog->user->family}}"
+          },
+          "datePublished": "{{$blog->created_at->toISOString()}}",
+          "dateModified": "{{$blog->updated_at->toISOString()}}",
+          "publisher": {
+            "@type": "Organization",
+            "name": "پلتفرم آموزشی حلزون",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://halazoon.org/assets/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{url()->current()}}"
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": "{{$blog->image}}",
+            "height": 602,
+            "width": 800
+          }
+        }
+    </script>
+
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "صفحه اصلی",
+            "item": "{{ url('/') }}"
+          },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "مجله",
+            "item": "{{route('blog.index')}}"
+          },{
+            "@type": "ListItem",
+            "position": 3,
+                "name": "{{ $blog->categories[0]->title ?? 'بدون دسته‌بندی' }}",
+            "item": "{{route('blog.category' , $blog->categories[0])}}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "{{$blog->title}}"
+          }]
+        }
+    </script>
+@endsection
+
 @section('content')
+    <div class="container mx-auto  ">
+        <div class="flex h-full w-full  items-center mt-4 ">
+            <div>
+                <nav aria-label="breadcrumb" class="w-full flex justify-center items-center">
+                    <ol class="flex flex-wrap items-center justify-center w-full py-2">
+                        <li class="flex items-center  text-sm  text-main50 hover:text-main">
+                            <a href="http://127.0.0.1:8000">صفحه اصلی</a>
+                        </li>
+                        <span class="text-sm mx-2 "><svg class="svg-inline--fa fa-angle-left" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg><!-- <li class="fa fa-angle-left"></li> --></span>
+
+                        <li class="flex items-center  text-sm  text-main50 hover:text-main ">
+                            <a href="{{route('blog.index')}}">مجله</a>
+                        </li>
+
+                        <span class="text-sm mx-2 "><svg class="svg-inline--fa fa-angle-left" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg><!-- <li class="fa fa-angle-left"></li> --></span>
+
+                        <li class="flex items-center  text-sm  text-main50 hover:text-main ">
+                            <a href="{{route('blog.category' , $blog->categories[0])}}">{{$blog->categories[0]->title}}</a>
+                        </li>
+
+                        <span class="text-sm mx-2 "><svg class="svg-inline--fa fa-angle-left" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path></svg><!-- <li class="fa fa-angle-left"></li> --></span>
+
+                        <li class="flex items-center  text-sm  text-gray-300 hover:text-main font-extrabold truncate ">
+                            <a href="#">{{$blog->title}}</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
     <div class="container mx-auto">
         <div class="grid grid-cols-12">
@@ -9,11 +105,11 @@
                     <div class="flex items-center my-1">
                         <div class="flex items-center">
                             <a href="{{route('teacher.show' , $blog->user)}}">
-                                <img class="rounded-3xl h-14" src="{{$blog->user->avatar}}"
+                                <img class="rounded-full h-8 w-8 sm:h-14 sm:w-14 object-cover" src="{{$blog->user->avatar}}"
                                      alt="{{$blog->user->name}} {{$blog->user->family}}">
                             </a>
                             <span class="text-gray-400 mx-1 hidden  sm:inline">نویسنده:</span>
-                            <a class="hover:text-primary duration-500"
+                            <a class="hover:text-primary duration-500 truncate"
                                href="{{route('teacher.show' , $blog->user)}}">{{$blog->user->name}} {{$blog->user->family}}</a>
                         </div>
 
@@ -26,9 +122,9 @@
 
                     </div>
                     <div class="flex items-center w-full justify-between mt-3">
-                        <div class="bg-main25 rounded mx-1">
+                        <div class="truncate">
                             @foreach($blog->categories as $category)
-                                <a class="text-sm"
+                                <a class="text-sm bg-main25 rounded mx-1 p-1"
                                    href="{{route('blog.category' , $category)}}">{{$category->title}}</a>
                             @endforeach
                         </div>
@@ -40,7 +136,7 @@
                                     @method('POST')
                                     <input type="hidden" name="type" value="{{get_class($blog)}}">
                                     <input type="hidden" name="id" value="{{$blog->id}}">
-                                    <button class="text-red-400 py-2 px-3 rounded-3xl border border-red-400 text-sm hover:bg-red-600 hover:text-white duration-700"
+                                    <button class="text-red-400 py-2 px-3 rounded-3xl border border-red-400 text-sm hover:bg-red-600 hover:text-white duration-700 truncate"
                                             type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
                                     </button>
                                 </form>
@@ -72,10 +168,13 @@
                     <img class="rounded-3xl w-full my-4 "
                          src="{{!is_null($blog->image) ? $blog->image : '/assets/default-image.jpg'}}"
                          alt="{{$blog->title}}">
+
+                    @if(!is_null($blog->meta_description))
                     <div class="bg-main25 my-7 py-7 px-2 rounded-3xl ">
                         <div class="mb-2 text-main100 font-extrabold">مقدمه:</div>
                         {{$blog->meta_description}}
                     </div>
+                    @endif
                 </div>
 
 
@@ -92,7 +191,7 @@
 
                 <div class="rounded-2xl border border-main100 shadow space-y-4 mb-3 sticky top-0 p-3 ">
                     <h5 class="font-extrabold text-main">مقاله های مرتبط:</h5>
-                    @foreach($blog->categories[0]->blogs->where('status' , 1)->take(3) as $relatedBlog )
+                    @foreach($blog->categories[0]->blogs->where('status' , 1)->where('id', '!=' ,$blog->id )->take(5) as $relatedBlog )
                         <div class="flex items-center my-4 border-b border-main pb-3">
                             <img class="h-16 rounded-2xl" src="{{$relatedBlog->image}}" alt="{{$relatedBlog->title}}">
                             <h4 class="mr-2 hover:text-primary duration-500"><a
