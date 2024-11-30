@@ -77,4 +77,10 @@ Route::middleware('auth')->prefix('order')->group(function () {
     Route::get('/status/{order}', [\App\Http\Controllers\home\OrderController::class, 'status'])->name('order.status');
 });
 
+
+
+
+Route::post('/editor/upload/image', [\App\Http\Controllers\admin\AdminController::class, 'UploadEditor'])->name('upload.image');
+
+
 require __DIR__ . '/auth.php';
