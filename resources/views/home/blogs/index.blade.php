@@ -36,7 +36,11 @@
                     <div class="swiper-slide">
                         <div class="flex h-full w-full items-center justify-center">
                             <div>
-                                <a class="my-2" href="{{route('blog.category' , $category)}}"><img class="h-24 w-24 rounded-full object-cover" src="{{$category->image}}" alt="{{$category->title}}"></a>
+                                <div class="flex justify-center">
+                                    <a class="my-2" href="{{route('blog.category' , $category)}}"><img
+                                                class="h-24 w-24 rounded-full object-cover" src="{{$category->image}}"
+                                                alt="{{$category->title}}"></a>
+                                </div>
                                 <h3 class="text-center mt-2 text-primary"><a
                                             href="{{route('blog.category' , $category)}}">{{$category->title}}</a></h3>
                             </div>
@@ -73,8 +77,9 @@
                             <h5 class="font-extrabold ">
                                 <i class="fa fa-file"></i>
                                 دسته بندی:</h5>
-                                <span class="mx-1">
-                                <a class="text-sm bg-main25 p-1 rounded truncate" href="{{route('blog.category' , $blog->categories[0])}}">{{$blog->categories[0]->title}}</a>
+                            <span class="mx-1">
+                                <a class="text-sm bg-main25 p-1 rounded truncate"
+                                   href="{{route('blog.category' , $blog->categories[0])}}">{{$blog->categories[0]->title}}</a>
                             </span>
                         </div>
                         {{--End Category--}}
