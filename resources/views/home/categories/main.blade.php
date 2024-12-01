@@ -68,7 +68,9 @@
 
                 <div class="col-span-12 border sm:col-span-6  my-10">
                     <div class="flex align-items-center justify-center items-center">
-                        <img class="rounded-3xl w-auto max-h-72 " src="{{!is_null($category->image) ? $category->image : '/assets/default-image.jpg'}}" alt="{{$category->title}}">
+                        <img class="rounded-3xl w-auto max-h-72 "
+                             src="{{!is_null($category->image) ? $category->image : '/assets/default-image.jpg'}}"
+                             alt="{{$category->title}}">
                     </div>
                 </div>
             </div>
@@ -86,7 +88,7 @@
                     <div class="p-1 ">
                         <div>
                             <a href="{{route('course.show' , $course)}}">
-                                <img class="rounded-2xl h-28 sm:h-60 w-full" src="{{$course->image}}"
+                                <img class="rounded-2xl h-28 sm:h-52 w-full object-cover" src="{{$course->image}}"
                                      alt="{{$course->title}}">
                             </a>
                         </div>
@@ -169,5 +171,101 @@
             @endforeach
         </div>
     </div>
+
+
+    <div class=" rounded-3xl container mx-auto mt-16 bg-gray-100 p-3">
+        <div class="flex items-center justify-between mb-3">
+            <h3 class="font-extrabold text-sm sm:text-2xl  text-center  ">
+                آخرین مقالات دسته بندی {{$category->title}}
+            </h3>
+            <a class="text-main" href="{{route('blog.category' , $category)}}">مشاهده همه
+                <i class="fa fa-angle-left"></i>
+            </a>
+        </div>
+
+        <div class="swiper" id="main">
+            <div class="swiper-wrapper">
+                @foreach($blogs as $blog)
+                    <div class="swiper-slide">
+                        <div class="rounded-2xl sm:p-2 border shadow my-3">
+                            <div class="p-1">
+                                <div>
+                                    <a href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}"><img
+                                                class="rounded-2xl" src="{{$blog->image}}" alt="{{$blog->title}}"></a>
+                                </div>
+
+                                <h3 class="mt-4 font-extrabold text-sm sm:text-lg hover:text-main duration-500 truncate">
+                                    <a
+                                            href="{{route('blog.show' , ['category' => $blog->categories[0]->slug, 'blog' => $blog->slug])}}">{{$blog->title}}</a>
+                                </h3>
+
+
+                                {{--Teacher--}}
+                                <div class="flex items-center mt-3 ">
+                                    <a href="{{route('teacher.show' , $blog->user)}}"><img
+                                                class="rounded-full h-8 w-8 sm:h-14 sm:w-14 border border-2 border-main "
+                                                src="{{$blog->user->avatar}}" alt=""></a>
+                                    <h4 class="mr-2 text-main50 text-xs sm:text-base truncate">استاد: <a
+                                                href="{{route('teacher.show' , $blog->user)}}">{{$blog->user->name}} {{$blog->user->family}}</a>
+                                    </h4>
+
+                                </div>
+
+                                {{--End Teacher--}}
+
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="relative mt-10">
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    @section('script')
+
+        <link rel="stylesheet" type="text/css" href="/assets/home/plugins/swiper/swiper-bundle.min.css"/>
+        <script type="text/javascript" src="/assets/home/plugins/swiper/swiper-bundle.min.js"></script>
+
+
+        <script>
+            var swiper = new Swiper("#main", {
+                slidesPerView: 2,
+                spaceBetween: 10,
+                loop: true,
+                autoplay: {
+                    delay: 4500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                    },
+                    900: {
+                        slidesPerView: 3,
+                        spaceBetween: 10,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 10,
+                    },
+                },
+            });
+        </script>
+
+    @endsection
 
 @endsection

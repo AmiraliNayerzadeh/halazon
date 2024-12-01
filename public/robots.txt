@@ -2,4 +2,11 @@ User-agent: *
 disallow: /cart
 disallow: /order
 disallow: /profile
+disallow: /auth*
+disallow: /login
+
+
+Sitemap: https://halazoon.org/sitemaps/static.xml
+Sitemap: https://halazoon.org/sitemaps/blogs.xml
+Sitemap: https://halazoon.org/sitemaps/blogs-category.xml
 

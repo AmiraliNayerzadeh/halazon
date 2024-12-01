@@ -14,7 +14,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class BlogController extends Controller
 {
-    use SEOTools ;
+    use SEOTools;
 
     public function index()
     {
@@ -23,35 +23,34 @@ class BlogController extends Controller
 
         SEOMeta::setCanonical(route('blog.index'));
 
-        $blogs = Blog::where('status' , 1)->latest()->paginate(24) ;
-        return view('home.blogs.index' , compact('blogs'));
+        $blogs = Blog::where('status', 1)->latest()->paginate(24);
+        return view('home.blogs.index', compact('blogs'));
     }
 
-    public function show(Category $category, Blog $blog )
+    public function show(Category $category, Blog $blog)
     {
 
-        if (!is_null($blog->meta_title)){
+        if (!is_null($blog->meta_title)) {
             $this->seo()->setTitle($blog->meta_title);
-        }else
+        } else
             $this->seo()->setTitle($blog->title);
 
-        $this->seo()->setDescription($blog->meta_description) ;
-        
-        SEOMeta::setCanonical(route('blog.show', [$blog->categories->first()->slug , $blog->slug]));
+        $this->seo()->setDescription($blog->meta_description);
+
+        SEOMeta::setCanonical(route('blog.show', [$blog->categories->first()->slug, $blog->slug]));
 
 
-
-        return view('home.blogs.show' , compact('blog')) ;
+        return view('home.blogs.show', compact('blog'));
     }
 
 
     public function category(Category $category)
     {
+        $this->seo()->setTitle("مقاله های $category->title");
+
         $blogs = $category->blogs()->paginate(24);
-        return view('home.blogs.category' , compact('category' , 'blogs'));
+        return view('home.blogs.category', compact('category', 'blogs'));
     }
 
 
-
-    
 }

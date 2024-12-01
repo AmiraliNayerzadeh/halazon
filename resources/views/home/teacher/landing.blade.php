@@ -1,4 +1,4 @@
-@extends('home.layouts.main.master')
+@extends('home.layouts.just-header.master')
 @section('content')
 
     <div class="mt-5 grid grid-cols-12 rounded-3xl container mx-auto"

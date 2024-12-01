@@ -71,5 +71,18 @@
     </script>
 
 
+<script>
+    document.addEventListener("submit", function (event) {
+        const submitButton = event.target.querySelector('button[type="submit"]');
+        if (submitButton) {
+            // تغییر متن دکمه
+            submitButton.textContent = "صبر کنید...";
+            // غیرفعال کردن دکمه برای جلوگیری از کلیک دوباره
+            submitButton.disabled = true;
+        }
+    });
+</script>
+
+
 </body>
 </html>

@@ -72,9 +72,15 @@ Route::middleware('auth')->prefix('cart')->group(function () {
 });
 
 Route::middleware('auth')->prefix('order')->group(function () {
-
     Route::post('/store/{cart}', [\App\Http\Controllers\home\OrderController::class, 'store'])->name('order.store');
     Route::get('/status/{order}', [\App\Http\Controllers\home\OrderController::class, 'status'])->name('order.status');
+});
+
+
+Route::prefix('sitemaps')->group(function () {
+    Route::get('/static.xml', [\App\Http\Controllers\SitemapController::class, 'static'])->name('sitemap.static');
+    Route::get('/blogs.xml', [\App\Http\Controllers\SitemapController::class, 'blogs'])->name('sitemap.blogs');
+    Route::get('/blogs-category.xml', [\App\Http\Controllers\SitemapController::class, 'blogCategory'])->name('sitemap.blogs.category');
 });
 
 

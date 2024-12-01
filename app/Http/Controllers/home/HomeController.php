@@ -9,6 +9,7 @@ use App\Models\Contact;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\User;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -21,7 +22,12 @@ class HomeController extends Controller
     public function home()
     {
 
-        $this->seo()->setTitle('پلتفرم آموزشی حلزون') ;
+        $this->seo()->setTitle('پلتفرم آموزشی حلزون 🐌 | دوره‌های آنلاین و آفلاین برای کودک و نوجوان') ;
+        $this->seo()->setDescription("پلتفرم آموزشی حلزون، ارائه‌دهنده دوره‌های آنلاین و آفلاین تخصصی برای کودکان و نوجوانان. با بهترین معلمان و محتوای آموزشی با کیفیت، یادگیری را به تجربه‌ای جذاب و موثر تبدیل کنید.") ;
+
+
+        SEOMeta::setCanonical(route('home'));
+
 
         $countTeacher = Cache::remember('countTeacher' , '720' , function () {
             return count(User::where('is_teacher' , 1)->where('is_verify' , 1)->take(6)->get()) ;
@@ -53,6 +59,8 @@ class HomeController extends Controller
         $blogs = Cache::remember('lastBlog' ,'2880' , function (){
             return Blog::where('status' , 1)->take(6)->get();
         });
+
+
 
 
         return view('home.home.index' , compact('degrees' , 'mainCategory' , 'courses' , 'teachers' , 'countTeacher' , 'blogs'));
