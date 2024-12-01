@@ -125,7 +125,7 @@ class CourseController extends Controller
             'learning_goal' => 'هدف یادگیری این دوره چیست؟',
             'assessment_method' => 'چگونه قصد دارید پیشرفت دانش‌آموزان را ارزیابی کنید؟',
             'requirements' => 'چه مواردی برای شرکت در این دوره مورد نیاز است؟',
-            'duration_needed' => 'برای تکمیل این دوره چقدر زمان نیاز است؟',
+            'duration_needed' => 'برای مطالعه در هر هفته به چه میزان زمان نیاز است؟',
         ];
 
 

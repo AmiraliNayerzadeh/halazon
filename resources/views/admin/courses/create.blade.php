@@ -255,7 +255,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="questions[duration_needed]">برای تکمیل این دوره چقدر زمان نیاز است؟</label>
+                                    <label for="questions[duration_needed]">برای مطالعه در هر هفته به چه میزان زمان نیاز است؟</label>
                                     <input type="text" name="questions[duration_needed]" id="questions_duration_needed" class="form-control" value="{{ old('questions.duration_needed') }}">
                                 </div>
 

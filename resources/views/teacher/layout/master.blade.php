@@ -100,6 +100,7 @@
 
 {{--<script src="/assets/admin/js/core/popper.min.js"></script>--}}
 <script src="/assets/admin/js/core/bootstrap.min.js"></script>
+<script src="/assets/admin/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/admin/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="/assets/admin/js/plugins/smooth-scrollbar.min.js"></script>
 

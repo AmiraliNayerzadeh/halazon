@@ -145,6 +145,28 @@
                 </div>
 
 
+
+                @if(count($questions) )
+                    @foreach($questions as $question)
+                        <div class="w-full mt-7">
+                            <div class="accordion">
+                                <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
+                                    <button class="accordion-header w-full text-right flex justify-between items-center p-4"
+                                            onclick="toggleAccordion(event)">
+                                        <h5 class="text-main font-extrabold">{{$question->question}}</h5>
+                                        <i class="fas fa-chevron-down text-main"></i>
+                                    </button>
+                                    <div class="accordion-content bg-main25 rounded-b-2xl p-4 hidden">
+                                        <p>{{$question->answer}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+                @endif
+
+
                 <div class="w-full mt-7">
                     <div class="accordion">
                         <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
@@ -173,25 +195,6 @@
                     </div>
                 </div>
 
-                @if(count($questions) )
-                    @foreach($questions as $question)
-                        <div class="w-full mt-7">
-                            <div class="accordion">
-                                <div class="accordion-item shadow-md mb-4 border border-main rounded-2xl">
-                                    <button class="accordion-header w-full text-right flex justify-between items-center p-4"
-                                            onclick="toggleAccordion(event)">
-                                        <h5 class="text-main font-extrabold">{{$question->question}}</h5>
-                                        <i class="fas fa-chevron-down text-main"></i>
-                                    </button>
-                                    <div class="accordion-content bg-main25 rounded-b-2xl p-4 hidden">
-                                        <p>{{$question->answer}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    @endforeach
-                @endif
 
 
             </div>

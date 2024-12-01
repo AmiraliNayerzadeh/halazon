@@ -7,7 +7,8 @@
 
                     <ol class="breadcrumb  mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5"
-                                                               href="{{route('teachers.courses.index')}}">دوره ها</a></li>
+                                                               href="{{route('teachers.courses.index')}}">دوره ها</a>
+                        </li>
                         <li class="breadcrumb-item text-sm active" aria-current="page">ایجاد</li>
                     </ol>
                 </div>
@@ -44,13 +45,19 @@
                         </div>
                         <div class="card-body p-4">
                             <div class="row">
+
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
                                         <label class="form-label" for="title">نام دوره</label>
+                                        <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                              title="از وارد کردن عنوان‌های تکراری که بر روی سایت وجود دارد خودداری کنید. برای جلوگیری از این کار می‌توانید به عنوان کلاس خود مخاطبین هدف (شامل سن و یا پایه تحصیلی آنها)، مشخص کردن دوره آنلاین و یا آفلاین بودن و یا تعداد جلسات تشکیل‌دهنده را اضافه کنید (مثال: دوره آفلاین 21 جلسه‌ای برای گروه سنی 3 تا 5 سال).">
+            <i class="fa fa-circle-info text-info"></i>
+        </span>
                                         <input type="text" name="title" id="title" class="form-control"
-                                               placeholder="عنوان دوره را وارد کنید." value="{{old('title')}}">
+                                               placeholder="عنوان دوره را وارد کنید." value="{{ old('title') }}">
                                     </div>
                                 </div>
+
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
@@ -209,7 +216,9 @@
                                 <div class="form-group">
                                     <div>
                                         <p>
-                                            ابتدا مقدمه ای کوتاه درباره درس و با مهارتی که میخواهید تدریس کنید  + مشخص کردن آنلاین و یا آفلاین بودن + تعداد جلسات کلاس + آنچه در نهایت دانش آموزان از کلاس شما یاد میگیرند آورده شود.
+                                            ابتدا مقدمه ای کوتاه درباره درس و با مهارتی که میخواهید تدریس کنید + مشخص
+                                            کردن آنلاین و یا آفلاین بودن + تعداد جلسات کلاس + آنچه در نهایت دانش آموزان
+                                            از کلاس شما یاد میگیرند آورده شود.
                                         </p>
                                     </div>
                                     <label class="form-label" for="description">توضیحات </label>
@@ -234,26 +243,30 @@
 
                                 <div class="form-group">
                                     <label for="questions[learning_goal]">هدف یادگیری این دوره چیست؟</label>
-                                    <textarea name="questions[learning_goal]" id="questions_learning_goal" class="form-control">{{ old('questions.learning_goal') }}</textarea>
+                                    <textarea name="questions[learning_goal]" id="questions_learning_goal"
+                                              class="form-control">{{ old('questions.learning_goal') }}</textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="questions[assessment_method]">چگونه قصد دارید پیشرفت دانش‌آموزان را ارزیابی کنید؟</label>
-                                    <textarea name="questions[assessment_method]" id="questions_assessment_method" class="form-control">{{ old('questions.assessment_method') }}</textarea>
+                                    <label for="questions[assessment_method]">چگونه قصد دارید پیشرفت دانش‌آموزان را
+                                        ارزیابی کنید؟</label>
+                                    <textarea name="questions[assessment_method]" id="questions_assessment_method"
+                                              class="form-control">{{ old('questions.assessment_method') }}</textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="questions[requirements]">چه مواردی برای شرکت در این دوره مورد نیاز است؟</label>
-                                    <textarea name="questions[requirements]" id="questions_requirements" class="form-control">{{ old('questions.requirements') }}</textarea>
+                                    <label for="questions[requirements]">چه مواردی برای شرکت در این دوره مورد نیاز
+                                        است؟</label>
+                                    <textarea name="questions[requirements]" id="questions_requirements"
+                                              class="form-control">{{ old('questions.requirements') }}</textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="questions[duration_needed]">برای تکمیل این دوره چقدر زمان نیاز است؟</label>
-                                    <input type="text" name="questions[duration_needed]" id="questions_duration_needed" class="form-control" value="{{ old('questions.duration_needed') }}">
+                                    <label for="questions[duration_needed]">برای مطالعه در هر هفته به چه میزان زمان نیاز
+                                        است؟</label>
+                                    <input type="text" name="questions[duration_needed]" id="questions_duration_needed"
+                                           class="form-control" value="{{ old('questions.duration_needed') }}">
                                 </div>
-
-
-
 
                             </div>
                         </div>
@@ -304,48 +317,6 @@
                     </div>
 
 
-                    <div class="card mb-3 ">
-                        <div class="card-header bg-light">
-                            <h5 class="text-primary fw-bold">
-                                <li class="mx-2 fa fa-search mx-2"></li>
-                                موتور های جستجو
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="my-3">
-                                <label class="form-label" for="slug">اسلاگ (نامک):</label>
-                                <input class="form-control" type="text" name="slug" id="slug"
-                                       value="{{old('slug')}}"
-                                       placeholder="آدرس  صفحه ی دسته بندی را وارد کنید...">
-                            </div>
-
-
-                            <div class="my-3">
-                                <label class="form-label" for="meta_title">مِتا تایل:</label>
-                                <input class="form-control" type="text" name="meta_title"
-                                       id="meta_title"
-                                       value="{{old('meta_title')}}"
-                                       placeholder="متا تایتل صفحه ی دسته بندی را وارد کنید...">
-                            </div>
-
-                            <div class="my-3">
-                                <label class="form-label" for="meta_keywords">کلمات کلیدی:</label>
-                                <input class="form-control" type="text" name="meta_keywords"
-                                       id="meta_keywords"
-                                       value="{{old('meta_keywords')}}"
-                                       placeholder="با استفاده از , جدا کنید.">
-                            </div>
-
-                            <div class="my-3">
-                                <label class="form-label" for="meta_description">مِتا دیسکرپشن:</label>
-                                <textarea class="form-control" name="meta_description"
-                                          id="meta_description"
-                                          cols="30"
-                                          rows="3">{{old('meta_description')}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="card position-sticky fixed-top">
                         <div class="card-header bg-success">
                             <h5>
@@ -369,6 +340,7 @@
         </form>
         @section('script')
 
+
             <script>
                 jalaliDatepicker.startWatch();
             </script>
@@ -388,6 +360,21 @@
                     });
                 });
             </script>
+
+            <script>
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                })
+            </script>
+
+            <style>
+                .tooltip-inner {
+                    max-width: 400px; /* تنظیم عرض حداکثر */
+                    white-space: normal; /* امکان نمایش چند خطی */
+                }
+
+            </style>
 
         @endsection
 
