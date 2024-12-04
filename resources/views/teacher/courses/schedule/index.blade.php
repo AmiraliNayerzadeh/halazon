@@ -110,8 +110,8 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div class="card-body">
-                                                                <div class="table-responsive p-0">
+                                                            <div class="card-body overflow-auto">
+                                                                <div class="table-responsive p-0 ">
                                                                     <table class="table mb-0">
 
                                                                         <thead>
