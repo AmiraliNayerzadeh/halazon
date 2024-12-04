@@ -28,10 +28,10 @@
 
 
                 <div class="row">
-                    <div class="card">
+                    <div class="card border-0">
 
                         <form id="headlineForm" action="{{ route('teachers.headline.store', $course) }}" method="post"
-                              enctype="multipart/form-data" class="form-control">
+                              enctype="multipart/form-data" class="">
                             @csrf
                             @method('POST')
                             <div class="card-body">
