@@ -14,8 +14,10 @@ use App\Models\Question;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Morilog\Jalali\Jalalian;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -28,7 +30,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::where('teacher_id' , auth()->user()->id)->paginate(12);
+        $courses = Course::where('teacher_id', auth()->user()->id)->paginate(12);
         $this->seo()->setTitle('دوره ها');
         return view('teacher.courses.index', compact('courses'));
     }
@@ -39,7 +41,22 @@ class CourseController extends Controller
     public function create()
     {
         $this->seo()->setTitle('ایجاد دوره جدید');
-        return view('teacher.courses.create');
+
+        $allCategories = auth()->user()->categories()->where('parent_id' , '!=' , null)->get();
+        $categories = null;
+        if (!is_null($allCategories)) {
+            foreach ($allCategories as $item) {
+                if ($item->children) {
+                    foreach ($item->children as $child) {
+                        $categories[] = $child ;
+                    }
+                }
+            }
+        }
+
+
+
+        return view('teacher.courses.create', compact('categories'));
     }
 
     /**
@@ -58,8 +75,8 @@ class CourseController extends Controller
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
             'class_duration' => 'nullable|integer|min:1|required_unless:type,offline',
-            'weeks' => 'nullable|integer|min:1|required_unless:type,offline',
-            'minutes' =>'nullable|integer|min:1|required_unless:type,offline',
+            'weeks' => 'nullable|integer|min:1|max:7|required_unless:type,offline',
+            'minutes' => 'nullable|integer|min:1|required_unless:type,offline',
             'capacity' => 'nullable|integer|min:1|required_unless:type,offline',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
@@ -90,25 +107,35 @@ class CourseController extends Controller
         }
 
 
+        $request['slug'] = Str::slug($request['title']);
 
-        /*Slug Handler*/
-        if (!is_null($request['slug'])) {
-            $request['slug'] = str_replace([' ', '‌'], '-', $request->slug);
-        } else {
-            $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
-            /*End Slug Handler*/
-        }
-
-        $request['teacher_id'] = auth()->user()->id ;
+        $request['teacher_id'] = auth()->user()->id;
 
 
         $course = Course::create($request->all());
 
+
         try {
-            $course->categories()->sync($request['category']);
+            $categoryIds = (array) $request->category; // اطمینان از اینکه یک آرایه است
+            $parents = $categoryIds;
+            foreach ($categoryIds as $categoryId) {
+                $category = Category::find($categoryId);
+
+                // اطمینان از وجود دسته‌بندی
+                while ($category && $category->parent_id !== null) {
+                    // بررسی ایمن
+                    if ($category->parent) {
+                        $parents[] = $category->parent->id;
+                        $category = $category->parent;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            $course->categories()->sync($parents);
         } catch (\Exception $exception) {
-            alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
-            return back()->withInput();
+            var_dump($exception->getMessage());
         }
 
 
@@ -116,7 +143,6 @@ class CourseController extends Controller
             $course->degrees()->sync($request['degrees']);
         } catch (\Exception $exception) {
             alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
-            return back()->withInput();
         }
 
         $questions = $request->input('questions');
@@ -144,19 +170,17 @@ class CourseController extends Controller
         }
 
 
-        Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
+        Alert::success(" دوره  $course->title با موفقیت ایجاد شد. ");
 
         if ($course->type == "offline") {
-            return redirect(route('teachers.headline.index' , $course));
+            return redirect(route('teachers.headline.index', $course));
         }
 
         if ($course->type == "online") {
-            return redirect(route('teachers.schedules.index' , $course));
+            return redirect(route('teachers.schedules.index', $course));
         }
 
         return redirect(route('teachers.courses.index'));
-
-
 
     }
 
@@ -177,7 +201,19 @@ class CourseController extends Controller
 
         $questions = $course->questions;
 
-        return view('teacher.courses.edit', compact('course', 'questions'));
+        $allCategories = auth()->user()->categories()->where('parent_id' , '!=' , null)->get();
+        $categories = null;
+        if (!is_null($allCategories)) {
+            foreach ($allCategories as $item) {
+                if ($item->children) {
+                    foreach ($item->children as $child) {
+                        $categories[] = $child ;
+                    }
+                }
+            }
+        }
+
+        return view('teacher.courses.edit', compact('course', 'questions' , 'categories'));
     }
 
     /**
@@ -197,18 +233,14 @@ class CourseController extends Controller
             'age_from' => 'required_if:is_draft,0|integer|min:0',
             'age_to' => 'required_if:is_draft,0|integer|gte:age_from',
             'class_duration' => 'nullable|integer|min:1|required_unless:type,offline',
-            'weeks' => 'nullable|integer|min:1|required_unless:type,offline',
-            'minutes' =>'nullable|integer|min:1|required_unless:type,offline',
+            'weeks' => 'nullable|integer|min:1|max:7|required_unless:type,offline',
+            'minutes' => 'nullable|integer|min:1|required_unless:type,offline',
             'capacity' => 'nullable|integer|min:1|required_unless:type,offline',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'homework' => 'nullable|string',
             'is_draft' => 'required|boolean',
             'category' => ['required_if:is_draft,0', 'exists:categories,id'],
-            'slug' => ['required', 'string'],
-            'meta_title' => ['nullable', 'string'],
-            'meta_keywords' => ['nullable', 'string'],
-            'meta_description' => ['nullable', 'string'],
             /*Questions*/
             'questions' => 'nullable|array',
             'questions.*.id' => 'required|exists:questions,id',
@@ -223,9 +255,7 @@ class CourseController extends Controller
 
         $request['status'] = 'پیش نویس';
 
-        $request['teacher_id'] = auth()->user()->id ;
-
-
+        $request['teacher_id'] = auth()->user()->id;
 
 
         $course->update($request->all());
@@ -241,10 +271,26 @@ class CourseController extends Controller
 
 
         try {
-            $course->categories()->sync($request['category']);
+            $categoryIds = (array) $request->category;
+            $parents = $categoryIds;
+            foreach ($categoryIds as $categoryId) {
+                $category = Category::find($categoryId);
+
+                // اطمینان از وجود دسته‌بندی
+                while ($category && $category->parent_id !== null) {
+                    // بررسی ایمن
+                    if ($category->parent) {
+                        $parents[] = $category->parent->id;
+                        $category = $category->parent;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            $course->categories()->sync($parents);
         } catch (\Exception $exception) {
-            alert()->error('خطا', "دوره ثبت شد اما مشکلی دسته بندی آن ثبت نشد.");
-            return back()->withInput();
+            var_dump($exception->getMessage());
         }
 
 
@@ -267,8 +313,7 @@ class CourseController extends Controller
         }
 
 
-
-        Alert::success("دوره  $course->title با موفقیت ایجاد شد. ");
+        Alert::success(" دوره  $course->title با موفقیت ایجاد شد. ");
         return back();
     }
 
@@ -280,7 +325,7 @@ class CourseController extends Controller
         if ($course->type == "offline") {
             Alert::info("دوره آفلاین نیازی به زمان بندی ندارد");
 
-            return redirect(route('teachers.headline.index' , $course));
+            return redirect(route('teachers.headline.index', $course));
         }
 
         return view('teacher.courses.schedule.index', compact('course'));
@@ -394,7 +439,7 @@ class CourseController extends Controller
         }
 
 
-        Alert::success("زمان بندی برای$course->title با موفقیت ایجاد شد. ");
+        Alert::success(" زمان بندی برای$course->title با موفقیت ایجاد شد. ");
         return back();
 
     }

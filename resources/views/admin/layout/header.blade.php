@@ -1,4 +1,4 @@
-<nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky"
+<nav class="navbar navbar-main navbar-expand-lg  mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl "
      id="navbarBlur" data-scroll="true">
     <div class="container-fluid py-1 px-3">
 
@@ -22,6 +22,13 @@
                         <i class="fa fa-user me-sm-1"></i>
                         <span class="d-sm-inline d-none">{{auth()->user()->name}} {{auth()->user()->family}}</span>
                     </a>
+                </li>
+
+
+                <li class="nav-item d-flex align-items-center">
+                    <a class="mx-4 nav-link text-body font-weight-bold px-0" target="_blank" href="{{route('home')}}">
+                        <i class="fa fa-home me-sm-1"></i>
+                        مشاهده سایت</a>
                 </li>
 
 

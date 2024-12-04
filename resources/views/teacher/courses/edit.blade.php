@@ -7,24 +7,15 @@
 
                     <ol class="breadcrumb  mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5"
-                                                               href="{{route('teachers.courses.index')}}">دوره ها</a></li>
+                                                               href="{{route('teachers.courses.index')}}">دوره ها</a>
+                        </li>
                         <li class="breadcrumb-item text-sm " aria-current="page">ویرایش</li>
                         <li class="breadcrumb-item text-sm active" aria-current="page">{{$course->title}}</li>
                     </ol>
                 </div>
 
                 <div class="card-body">
-                    <ul class="nav nav-pills nav-fill bg-transparent">
-                        <li class="nav-item">
-                            <a class="nav-link bg-primary text-white" aria-current="page" href="#">مشخصات کلّی</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="{{route('teachers.schedules.index', $course)}}">زمان بندی کلاس</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link  " href="{{route('teachers.headline.index', $course)}}">سرفصل ها</a>
-                        </li>
-                    </ul>
+                    @include('.teacher.courses.stepper')
                 </div>
 
             </div>
@@ -37,13 +28,17 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="card">
-                        <div class="card-header bg-light"><h4 class="text-primary">
-                                <i class="mx-2 fa fa-info"></i>مشخصات کلّی</h4></div>
+                        <div class="card-header bg-light"><h5 class="text-primary">
+                                <i class="mx-2 fa fa-info"></i>مشخصات کلّی</h5></div>
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
                                         <label class="form-label" for="title">نام دوره</label>
+                                        <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="از وارد کردن عنوان‌های تکراری که بر روی سایت وجود دارد خودداری کنید. برای جلوگیری از این کار می‌توانید به عنوان کلاس خود مخاطبین هدف (شامل سن و یا پایه تحصیلی آنها)، مشخص کردن دوره آنلاین و یا آفلاین بودن و یا تعداد جلسات تشکیل‌دهنده را اضافه کنید (مثال: دوره آفلاین 21 جلسه‌ای برای گروه سنی 3 تا 5 سال).">
+                                            <i class="fa fa-circle-info text-info"></i>
+                                        </a>
                                         <input type="text" name="title" id="title" class="form-control"
                                                placeholder="عنوان دوره را وارد کنید."
                                                value="{{old('title') ? old('title') : $course->title }}">
@@ -65,9 +60,6 @@
                                 </div>
 
 
-
-
-
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
                                         <label class="form-label" for="capacity">ظرفیت کلاس </label>
@@ -80,7 +72,11 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
-                                        <label class="form-label" for="price">قیمت دوره: </label>
+                                        <label class="form-label" for="price">قیمت دوره (تومان): </label>
+                                        <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="پایین بودن قیمت کلاس موجب جذب بیشتر دانش‌آموزان می‌شود. با توجه به درصد قرارداد، مبلغ مربوطه به طور خودکار کم می‌شود.">
+                                            <i class="fa fa-circle-info text-info"></i>
+                                        </a>
                                         <input type="number" name="price" id="price" class="form-control"
                                                placeholder="قیمت دوره را به تومان وارد کنید"
                                                value="{{old('price') ? old('price') : $course->price }}">
@@ -108,8 +104,32 @@
                                     </div>
                                 </div>
 
+
+                                <div class="col-lg-4 mt-4">
+                                    <div class="form-group">
+                                        <label class="form-label" for="category">دسته بندی:</label>
+                                        <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="در صورتی که دسته بندی مورد نظر شما در لیست موجود نمی باشد، به بخش حساب کاربری > دسته‌بندی تدریس مراجعه کنید و دسته بندی های مورد نظر خود را اضافه کنید.">
+                                            <i class="fa fa-circle-info text-info"></i>
+                                        </a>
+                                        <select class="form-control " name="category" id="category">
+                                            <option>دسته بندی کلاس را انتخاب کنید.</option>
+                                            @if(is_null($categories))
+                                                <option disabled>دسته بندی برای نمایش وجود ندارد.</option>
+                                            @endif
+                                            @foreach($categories as $category)
+                                                <option {{$course->categories[0]->id == $category->id  ? 'selected' : ''}} value="{{$category->id}}">{{$category->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-4 mt-4">
                                     <label class="form-label" for="thumbnail">عکس پروفایل کلاس:</label>
+                                    <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="این عکس باید از طریق برنامه Canva طراحی شود، که توضیحات آن در کانال آمده است. اگر شما در کلاستان مطالبی را آموزش می‌دهید که شامل یک محصول نهایی است (مثل پخت یک غذا یا نقاشی)، از تصویر محصول نهایی خود در پروفایل استفاده کنید. اگر تصویر شما کیفیت مناسبی نداشته باشد، کارشناسان حلزون آن را بازطراحی خواهند کرد.">
+                                        <i class="fa fa-circle-info text-info"></i>
+                                    </a>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -126,6 +146,10 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <label class="form-label" for="video">ویدیو معرفی کلاس:</label>
+                                    <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="در این ویدیو حداکثر در 90 ثانیه به دانش‌آموزان توضیح دهید که از کلاس شما چه مطالبی یاد می‌گیرند. همچنین می‌توانید مواردی که قبل از شروع کلاس باید تهیه کنند را نشان دهید تا با آمادگی کامل وارد کلاس شوند. توجه: از پوشیدن لباس مشکی و مقنعه خودداری کنید. از بک‌گراند مناسب استفاده کنید و با انرژی، صمیمانه و پرنشاط با دانش‌آموزان صحبت کنید.">
+                                        <i class="fa fa-circle-info text-info"></i>
+                                    </a>
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfv" data-input="video" data-preview="holder"
@@ -146,10 +170,10 @@
 
                     <div class="card my-3">
                         <div class="card-header bg-light">
-                            <h4 class="text-primary">
+                            <h5 class="text-primary">
                                 <li class="mx-2 fa fa-sort-numeric-asc"></li>
                                 بازه سنی
-                            </h4>
+                            </h5>
                         </div>
                         <div class="card-body">
 
@@ -157,13 +181,13 @@
                                 <i class="fa fa-warning"></i>
                                 در صورتی که این دوره تنها مختص یک سن خاص است، هر دو مقدار را با همان عدد تکمیل کنید.
                             </div>
-                            <div class="col-lg-12 d-flex align-items-center mt-4">
+                            <div class="col-lg-12 d-flex flex-wrap align-items-center mt-4">
                                 <bdi>این کلاس مناسب بازه سنی</bdi>
-                                <input type="number" name="age_from" id="age_from" class="form-control w-auto mx-2"
+                                <input type="number" name="age_from" id="age_from" class="form-control  w-100 w-md-auto mx-2 "
                                        placeholder="بازه شروع"
                                        value="{{old('age_from') ? old('age_from') : $course->age_from }}">
                                 <bdi>تا</bdi>
-                                <input type="number" name="age_to" id="age_to" class="form-control w-auto mx-2"
+                                <input type="number" name="age_to" id="age_to" class="form-control  w-100 w-md-auto mx-2"
                                        placeholder="بازه پایان"
                                        value="{{old('age_to') ? old('age_to') : $course->age_to }}">
                                 <bdi>می باشد.</bdi>
@@ -173,23 +197,23 @@
 
                     <div class="card my-3">
                         <div class="card-header bg-light">
-                            <h4 class="text-primary">
+                            <h5 class="text-primary">
                                 <li class="mx-2 fa fa-calendar-alt"></li>
                                 اطلاعات زمانی
-                            </h4>
+                            </h5>
                         </div>
                         <div class="card-body">
-                            <div class="col-lg-12 d-flex align-items-center mt-4">
+                            <div class="col-lg-12 d-flex flex-wrap align-items-center mt-4">
                                 <span class="mx-2">این کلاس در </span>
                                 <input type="number" name="class_duration" id="class_duration"
-                                       class="form-control w-auto" placeholder="تعداد جلسات "
+                                       class="form-control w-100 w-md-auto" placeholder="تعداد جلسات "
                                        value="{{old('class_duration') ? old('class_duration') : $course->class_duration }}">
                                 <span class="mx-2"> جلسه و در هفته </span>
-                                <input type="number" name="weeks" id="weeks" class="form-control w-auto"
+                                <input type="number" name="weeks" id="weeks" class="form-control w-100 w-md-auto"
                                        placeholder="تعداد هفته"
                                        value="{{old('weeks') ? old('weeks') : $course->weeks }}">
                                 <span class="mx-2">بار برگذار میشود که مدّت هر جلسه  </span>
-                                <input type="number" name="minutes" id="minutes" class="form-control w-auto"
+                                <input type="number" name="minutes" id="minutes" class="form-control w-100 w-md-auto"
                                        placeholder="مثال 30 "
                                        value="{{old('minutes') ? old('minutes') : $course->minutes }}">
                                 <span class="mx-2"> دقیقه میباشد.  </span>
@@ -200,17 +224,19 @@
 
                     <div class="card my-3">
                         <div class="card-header bg-light">
-                            <h4 class="text-primary">
+                            <h5 class="text-primary">
                                 <li class="mx-2 fa fa-paragraph"></li>
                                 توضیحات دوره
-                            </h4>
+                            </h5>
                         </div>
                         <div class="card-body">
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <div>
                                         <p>
-                                            ابتدا مقدمه ای کوتاه درباره درس و با مهارتی که میخواهید تدریس کنید  + مشخص کردن آنلاین و یا آفلاین بودن + تعداد جلسات کلاس + آنچه در نهایت دانش آموزان از کلاس شما یاد میگیرند آورده شود.
+                                            ابتدا مقدمه ای کوتاه درباره درس و با مهارتی که میخواهید تدریس کنید + مشخص
+                                            کردن آنلاین و یا آفلاین بودن + تعداد جلسات کلاس + آنچه در نهایت دانش آموزان
+                                            از کلاس شما یاد میگیرند آورده شود.
                                         </p>
                                     </div>
                                     <label class="form-label" for="description">توضیحات </label>
@@ -226,10 +252,10 @@
 
                         <div class="card my-3">
                             <div class="card-header bg-light">
-                                <h4 class="text-primary">
+                                <h5 class="text-primary">
                                     <li class="mx-2 fa fa-question-circle"></li>
                                     سوالات متداول
-                                </h4>
+                                </h5>
                             </div>
                             <div class="card-body">
                                 <div class="col-lg-12">
@@ -239,7 +265,8 @@
                                                    class="block text-gray-700">
                                                 {{ $question->question }}
                                             </label>
-                                            <input type="hidden" name="questions[{{ $loop->index }}][id]" value="{{ $question->id }}">
+                                            <input type="hidden" name="questions[{{ $loop->index }}][id]"
+                                                   value="{{ $question->id }}">
                                             <textarea id="questions[{{ $loop->index }}][answer]"
                                                       name="questions[{{ $loop->index }}][answer]"
                                                       class="form-control w-full">{{ old("questions.$loop->index.answer", $question->answer) }}</textarea>
@@ -262,136 +289,12 @@
                         <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
                     </div>
 
-
-                    <div class="card mb-3 ">
-                        <div class="card-header bg-light">
-                            <h5 class="text-primary fw-bold">
-                                <li class="mx-2 fa fa-network-wired mx-2"></li>
-                                دسته بندی
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="my-3" style="height: 18rem ; overflow-x: hidden; overflow-y: scroll">
-                                @foreach(\App\Models\Category::where('parent_id' , null)->get() as $parent)
-                                    <div class="form-check ">
-                                        <input name="category[]" value="{{$parent->id}}" class="form-check-input"
-                                               type="checkbox"
-                                               id="{{$parent->id}}" {{in_array($parent->id , $course->categories->pluck('id')->toArray()) ? 'checked ' : ''}}>
-                                        <label class="form-check-label fw-bold"
-                                               for="{{$parent->id}}">{{$parent->title}}</label>
-                                    </div>
-                                    @foreach($parent->children as $child)
-                                        <div class="form-check  me-3">
-                                            <input name="category[]" value="{{$child->id}}" class="form-check-input"
-                                                   type="checkbox"
-                                                   id="{{$child->id}}" {{in_array($child->id , $course->categories->pluck('id')->toArray()) ? 'checked ' : ''}}>
-                                            <label class="form-check-label"
-                                                   for="{{$child->id}}">{{$child->title}}</label>
-                                        </div>
-
-                                        @foreach($child->children as $child2)
-                                            <div class="form-check mb-2 me-5">
-                                                <input name="category[]" value="{{$child2->id}}"
-                                                       class="form-check-input" type="checkbox"
-                                                       id="{{$child2->id}}" {{in_array($child2->id , $course->categories->pluck('id')->toArray()) ? 'checked ' : ''}}>
-                                                <label class="form-check-label"
-                                                       for="{{$child2->id}}">{{$child2->title}}</label>
-                                            </div>
-                                        @endforeach
-
-                                    @endforeach
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    @if($course->status != "منتشر شده")
-                    <div class="card position-sticky fixed-top">
-                        <div class="card-header bg-success">
-                            <h5>
-                                <li class="mx-2 fa fa-save mx-2"></li>
-                                انتشار
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row p-2">
-                                <ul>
-                                    <li>قبل از درخواست انتشار توجه داشته باشید که تغیرات خود را ذخیره کرده باشید.</li>
-                                    <li>توجه داشته باشید بعد از انتشار، امکان ویرایش مشخصات کلی نمی باشد.</li>
-                                </ul>
-                                <div class="col-lg-6">
-                                    <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره
-                                        پیش نویس
-                                    </button>
-                                </div>
-                                <div class="col-lg-6">
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal">
-                                        <i class="fa fa-check"></i>
-                                        درخواست انتشار
-                                    </button>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @else
-                        <div class="card position-sticky fixed-top">
-                            <div class="card-header bg-success">
-                                <h5>
-                                    <li class="mx-2 fa fa-save mx-2"></li>
-                                    دوره منتشر شده است.
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    پس از انتشار دوره، امکان ویرایش دوره وجود ندارد.
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                    @include('teacher.courses.publishBox')
 
                 </div>
             </div>
             <!-- Modal -->
         </form>
-        <div class="modal fade " id="exampleModal" tabindex="-1"
-             aria-labelledby="exampleModalLabel" aria-hidden="true" >
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            درخواست تایید حساب کاربری
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <form action="{{route('submit.support')}}" method="post">
-                        @csrf
-                        @method('POST')
-                        <div class="modal-body">
-                            <input type="hidden" name="id" value="{{$course->id}}">
-                            <input type="hidden" name="type" value="{{get_class($course)}}">
-                            <input type="hidden" name="title" value="درخواست تایید دوره {{$course->title}}">
-                            <textarea name="message" class="form-control" rows="5">
-اینجانب {{ auth()->user()->name }} {{ auth()->user()->family }}، درخواست تایید دوره "{{ $course->title }}" را دارم. اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات واردشده مربوط به این دوره را به‌درستی تکمیل کرده‌ام. همچنین تعهد می‌نمایم پس از تایید این دوره، پشتیبانی کامل آن را بر عهده بگیرم.</textarea>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">بستن
-                            </button>
-                            <button type="submit" class="btn btn-success">ارسال درخواست</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
         @section('script')
 
@@ -415,6 +318,15 @@
                     });
                 });
             </script>
+
+
+            <style>
+                .tooltip-inner {
+                    max-width: 400px; /* تنظیم عرض حداکثر */
+                    white-space: normal; /* امکان نمایش چند خطی */
+                }
+
+            </style>
 
         @endsection
 

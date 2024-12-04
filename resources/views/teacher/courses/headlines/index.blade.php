@@ -16,20 +16,8 @@
                 </div>
 
                 <div class="card-body">
-                    <ul class="nav nav-pills nav-fill bg-transparent">
-                        <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="{{route('teachers.courses.edit' , $course)}}">مشخصات
-                                کلّی</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link"
-                               href="{{route('teachers.schedules.index', $course)}}">زمان بندی کلاس</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link bg-primary text-white "
-                               href="{{route('teachers.headline.index', $course)}}">سرفصل ها</a>
-                        </li>
-                    </ul>
+                    @include('.teacher.courses.stepper')
+
                 </div>
 
             </div>

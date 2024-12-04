@@ -16,19 +16,7 @@
                 </div>
 
                 <div class="card-body">
-                    <ul class="nav nav-pills nav-fill bg-transparent">
-                        <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="{{route('teachers.courses.edit' , $course)}}">مشخصات
-                                کلّی</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link  bg-primary text-white "
-                               href="{{route('teachers.schedules.index', $course)}}">زمان بندی کلاس</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('teachers.headline.index', $course)}}">سرفصل ها</a>
-                        </li>
-                    </ul>
+                    @include('.teacher.courses.stepper')
                 </div>
 
             </div>
@@ -48,8 +36,6 @@
                                     data-bs-target="#exampleModal">
                                 ایجاد زمان جدید
                             </button>
-
-{{--                            @include('teachers.courses.schedule.partCreate')--}}
                         @endif
                     </div>
 
@@ -237,6 +223,9 @@
                 <div class="card mb-3">
                     <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
                 </div>
+
+                @include('teacher.courses.publishBox')
+
 
             </div>
         </div>

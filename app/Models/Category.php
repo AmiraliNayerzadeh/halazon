@@ -28,6 +28,11 @@ class Category extends Model
         return $this->hasMany(Category::class, 'parent_id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Category::class , 'parent_id') ;
+    }
+
     public function courses()
     {
         return $this->belongsToMany(Course::class);
@@ -38,6 +43,4 @@ class Category extends Model
         return $this->belongsToMany(Blog::class);
 
     }
-
-
 }

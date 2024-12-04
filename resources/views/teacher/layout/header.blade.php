@@ -24,6 +24,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item d-flex align-items-center">
+                    <a class="mx-4 nav-link text-body font-weight-bold px-0" target="_blank" href="{{route('home')}}">
+                        <i class="fa fa-home me-sm-1"></i>
+                        مشاهده سایت</a>
+                </li>
+
+
 
                 <li class="nav-item d-xl-none pe-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">

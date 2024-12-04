@@ -68,7 +68,7 @@
 
                                                 <div class="col-lg-12">
                                                     <label class="form-label" for="description">توضیحات:</label>
-                                                    <textarea class="form-control my-editor" name="description" id="" cols="30" rows="10">{!! old('description') !!}</textarea>
+                                                    <textarea class="form-control" name="description" id="editor" cols="30" rows="10">{!! old('description') !!}</textarea>
                                                 </div>
 
                                             </div>

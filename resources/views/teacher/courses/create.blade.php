@@ -14,17 +14,27 @@
                 </div>
 
                 <div class="card-body">
-                    <ul class="nav nav-pills nav-fill bg-transparent">
-                        <li class="nav-item">
-                            <a class="nav-link bg-primary text-white" aria-current="page" href="#">مشخصات کلّی</a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link disabled text-light" href="#">زمان بندی کلاس</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled text-light" href="#">سرفصل ها</a>
-                        </li>
-                    </ul>
+
+                    <div class="container mt-5">
+                        <div class="stepper">
+                            <!-- Step 1 -->
+                            <div class="step active">
+                                <div class="circle">1</div>
+                                <div class="label">اطلاعات دوره</div>
+                            </div>
+                            <!-- Step 2 -->
+                            <div class="step">
+                                <div class="circle">2</div>
+                                <div class="label">زمان بندی</div>
+                            </div>
+                            <!-- Step 3 -->
+                            <div class="step">
+                                <div class="circle">3</div>
+                                <div class="label">سرفصل ها</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -49,10 +59,10 @@
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
                                         <label class="form-label" for="title">نام دوره</label>
-                                        <span class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
-                                              title="از وارد کردن عنوان‌های تکراری که بر روی سایت وجود دارد خودداری کنید. برای جلوگیری از این کار می‌توانید به عنوان کلاس خود مخاطبین هدف (شامل سن و یا پایه تحصیلی آنها)، مشخص کردن دوره آنلاین و یا آفلاین بودن و یا تعداد جلسات تشکیل‌دهنده را اضافه کنید (مثال: دوره آفلاین 21 جلسه‌ای برای گروه سنی 3 تا 5 سال).">
-            <i class="fa fa-circle-info text-info"></i>
-        </span>
+                                        <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="از وارد کردن عنوان‌های تکراری که بر روی سایت وجود دارد خودداری کنید. برای جلوگیری از این کار می‌توانید به عنوان کلاس خود مخاطبین هدف (شامل سن و یا پایه تحصیلی آنها)، مشخص کردن دوره آنلاین و یا آفلاین بودن و یا تعداد جلسات تشکیل‌دهنده را اضافه کنید (مثال: دوره آفلاین 21 جلسه‌ای برای گروه سنی 3 تا 5 سال).">
+                                            <i class="fa fa-circle-info text-info"></i>
+                                        </a>
                                         <input type="text" name="title" id="title" class="form-control"
                                                placeholder="عنوان دوره را وارد کنید." value="{{ old('title') }}">
                                     </div>
@@ -84,11 +94,16 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
-                                        <label class="form-label" for="price">قیمت دوره(تومان): </label>
+                                        <label class="form-label" for="price">قیمت دوره (تومان):</label>
+                                        <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="پایین بودن قیمت کلاس موجب جذب بیشتر دانش‌آموزان می‌شود. با توجه به درصد قرارداد، مبلغ مربوطه به طور خودکار کم می‌شود.">
+                                            <i class="fa fa-circle-info text-info"></i>
+                                        </a>
                                         <input type="number" name="price" id="price" class="form-control"
-                                               placeholder="قیمت دوره را به تومان وارد کنید" value="{{old('price')}}">
+                                               placeholder="قیمت دوره را به تومان وارد کنید" value="{{ old('price') }}">
                                     </div>
                                 </div>
+
 
                                 <div class="col-lg-4 mt-4">
                                     <div class="form-group">
@@ -105,7 +120,28 @@
                                         <label class="form-label" for="degrees">مقطع:</label>
                                         <select class="form-control select2" name="degrees[]" id="degrees" multiple>
                                             @foreach(\App\Models\Degree::all() as $degree)
-                                                <option value="{{$degree->id}}">{{$degree->title}}</option>
+                                                <option value="{{$degree->id}}"
+                                                        @if(in_array($degree->id, old('degrees', []))) selected @endif>
+                                                    {{$degree->title}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 mt-4">
+                                    <div class="form-group">
+                                        <label class="form-label" for="category">دسته بندی:</label>
+                                        <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                           title="در صورتی که دسته بندی مورد نظر شما در لیست موجود نمی باشد، به بخش حساب کاربری > دسته‌بندی تدریس مراجعه کنید و دسته بندی های مورد نظر خود را اضافه کنید.">
+                                            <i class="fa fa-circle-info text-info"></i>
+                                        </a>
+                                        <select class="form-control " name="category" id="category">
+                                            <option>دسته بندی کلاس را انتخاب کنید.</option>
+                                            @if(is_null($categories))
+                                                <option disabled>دسته بندی برای نمایش وجود ندارد.</option>
+                                            @endif
+                                            @foreach($categories as $category)
+                                                <option {{old('category') == $category->id  ? 'selected' : ''}} value="{{$category->id}}">{{$category->title}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -114,6 +150,12 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <label class="form-label" for="thumbnail">عکس پروفایل کلاس:</label>
+                                    <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="این عکس باید از طریق برنامه Canva طراحی شود، که توضیحات آن در کانال آمده است. اگر شما در کلاستان مطالبی را آموزش می‌دهید که شامل یک محصول نهایی است (مثل پخت یک غذا یا نقاشی)، از تصویر محصول نهایی خود در پروفایل استفاده کنید. اگر تصویر شما کیفیت مناسبی نداشته باشد، کارشناسان حلزون آن را بازطراحی خواهند کرد.">
+                                        <i class="fa fa-circle-info text-info"></i>
+                                    </a>
+
+
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -131,6 +173,11 @@
 
                                 <div class="col-lg-4 mt-4">
                                     <label class="form-label" for="video">ویدیو معرفی کلاس:</label>
+                                    <a class="text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="در این ویدیو حداکثر در 90 ثانیه به دانش‌آموزان توضیح دهید که از کلاس شما چه مطالبی یاد می‌گیرند. همچنین می‌توانید مواردی که قبل از شروع کلاس باید تهیه کنند را نشان دهید تا با آمادگی کامل وارد کلاس شوند. توجه: از پوشیدن لباس مشکی و مقنعه خودداری کنید. از بک‌گراند مناسب استفاده کنید و با انرژی، صمیمانه و پرنشاط با دانش‌آموزان صحبت کنید.">
+                                        <i class="fa fa-circle-info text-info"></i>
+                                    </a>
+
                                     <div class="input-group">
                                                        <span class="input-group-btn">
                                                          <a id="lfv" data-input="video" data-preview="holder"
@@ -161,12 +208,12 @@
                                 <i class="fa fa-warning"></i>
                                 در صورتی که این دوره تنها مختص یک سن خاص است، هر دو مقدار را با همان عدد تکمیل کنید.
                             </div>
-                            <div class="col-lg-12 d-flex align-items-center mt-4">
+                            <div class="col-lg-12 d-flex flex-wrap  align-items-center mt-4">
                                 <bdi>این کلاس مناسب بازه سنی</bdi>
-                                <input type="number" name="age_from" id="age_from" class="form-control w-auto mx-2"
+                                <input type="number" name="age_from" id="age_from" class="form-control w-100 w-md-auto mx-2 my-2"
                                        placeholder="بازه شروع" value="{{old('age_from')}}">
                                 <bdi>تا</bdi>
-                                <input type="number" name="age_to" id="age_to" class="form-control w-auto mx-2"
+                                <input type="number" name="age_to" id="age_to" class="form-control w-100 w-md-auto mx-2 my-2"
                                        placeholder="بازه پایان" value="{{old('age_to')}}">
                             </div>
                         </div>
@@ -187,16 +234,16 @@
                             </div>
 
 
-                            <div class="col-lg-12 d-flex align-items-center mt-4">
+                            <div class="col-lg-12 d-flex flex-wrap align-items-center mt-4">
                                 <span class="mx-2">این کلاس در </span>
                                 <input type="number" name="class_duration" id="class_duration"
-                                       class="form-control w-auto" placeholder="تعداد جلسات "
+                                       class="form-control w-100 w-md-auto my-2" placeholder="تعداد جلسات "
                                        value="{{old('class_duration')}}">
                                 <span class="mx-2"> جلسه و در هفته</span>
-                                <input type="number" name="weeks" id="weeks" class="form-control w-auto"
+                                <input type="number" name="weeks" id="weeks" class="form-control w-100 w-md-auto my-2"
                                        placeholder="تعداد هفته" value="{{old('weeks')}}">
                                 <span class="mx-2">بار برگذار میشود که مدّت هر جلسه  </span>
-                                <input type="number" name="minutes" id="minutes" class="form-control w-auto"
+                                <input type="number" name="minutes" id="minutes" class="form-control w-100 w-md-auto my-2"
                                        placeholder="مثال 30 " value="{{old('minutes')}}">
                                 <span class="mx-2"> دقیقه میباشد.  </span>
                             </div>
@@ -277,47 +324,9 @@
 
 
                 <div class="col-lg-3">
-                    <div class="card mb-3 ">
-                        <div class="card-header bg-light">
-                            <h5 class="text-primary fw-bold">
-                                <li class="mx-2 fa fa-network-wired mx-2"></li>
-                                دسته بندی
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="my-3" style="height: 18rem ; overflow-x: hidden; overflow-y: scroll">
-                                @foreach(\App\Models\Category::where('parent_id' , null)->get() as $parent)
-                                    <div class="form-check ">
-                                        <input name="category[]" value="{{$parent->id}}" class="form-check-input"
-                                               type="checkbox" id="{{$parent->id}}">
-                                        <label class="form-check-label fw-bold"
-                                               for="{{$parent->id}}">{{$parent->title}}</label>
-                                    </div>
-                                    @foreach($parent->children as $child)
-                                        <div class="form-check  me-3">
-                                            <input name="category[]" value="{{$child->id}}" class="form-check-input"
-                                                   type="checkbox" id="{{$child->id}}">
-                                            <label class="form-check-label"
-                                                   for="{{$child->id}}">{{$child->title}}</label>
-                                        </div>
-
-                                        @foreach($child->children as $child2)
-                                            <div class="form-check mb-2 me-5">
-                                                <input name="category[]" value="{{$child2->id}}"
-                                                       class="form-check-input" type="checkbox" id="{{$child2->id}}">
-                                                <label class="form-check-label"
-                                                       for="{{$child2->id}}">{{$child2->title}}</label>
-                                            </div>
-                                        @endforeach
-
-                                    @endforeach
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
 
 
-                    <div class="card position-sticky fixed-top">
+                    <div class="card position-sticky  fixed-top">
                         <div class="card-header bg-success">
                             <h5>
                                 <li class="mx-2 fa fa-save mx-2"></li>
@@ -339,7 +348,6 @@
             </div>
         </form>
         @section('script')
-
 
             <script>
                 jalaliDatepicker.startWatch();
@@ -374,6 +382,52 @@
                     white-space: normal; /* امکان نمایش چند خطی */
                 }
 
+            </style>
+            <style>
+                .stepper {
+                    display: flex;
+                    justify-content: space-between;
+                    position: relative;
+                }
+                .stepper::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    right: 0;
+                    height: 4px;
+                    background-color: #ddd;
+                    z-index: 0;
+                    transform: translateY(-50%);
+                }
+                .step {
+                    text-align: center;
+                    position: relative;
+                    z-index: 1;
+                }
+                .step .circle {
+                    width: 40px;
+                    height: 40px;
+                    background-color: #ddd;
+                    color: white;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto;
+                    font-weight: bold;
+                }
+                .step.active .circle {
+                    background-color: #fbcf33;
+                }
+                .step .label {
+                    margin-top: 10px;
+                    font-size: 14px;
+                    color: #555;
+                }
+                .step.active .label {
+                    color: #fbcf33;
+                }
             </style>
 
         @endsection
