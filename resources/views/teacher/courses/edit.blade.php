@@ -52,7 +52,7 @@
                                             <option {{ old('type', $course->type) == 'online' ? 'selected' : '' }} value="online">
                                                 آنلاین
                                             </option>
-                                            <option {{ old('type', $course->type) == 'online' ? 'offline' : '' }} value="offline">
+                                            <option {{ old('type', $course->type) == 'offline' ? 'offline' : '' }} value="offline">
                                                 آفلاین
                                             </option>
                                         </select>
