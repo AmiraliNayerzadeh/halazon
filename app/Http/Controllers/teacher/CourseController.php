@@ -225,7 +225,7 @@ class CourseController extends Controller
 
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'type' => 'required_if:is_draft,0|string|in:online,offline',
+            'type' => 'required|in:online,offline',
             'image' => 'nullable',
             'video' => 'nullable',
             'description' => 'nullable',
@@ -313,7 +313,7 @@ class CourseController extends Controller
         }
 
 
-        Alert::success(" دوره  $course->title با موفقیت ایجاد شد. ");
+        Alert::success(" دوره  $course->title با موفقیت بروزرسانی شد. ");
         return back();
     }
 

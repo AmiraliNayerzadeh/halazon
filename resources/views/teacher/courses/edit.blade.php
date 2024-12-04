@@ -49,15 +49,17 @@
                                     <div class="form-group">
                                         <label class="form-label" for="type">نوع دوره</label>
                                         <select class="form-control" name="type" id="type">
-                                            <option {{ old('type', $course->type) == 'online' ? 'selected' : '' }} value="online">
+                                            <option value="online" {{ old('type', $course->type) == 'online' ? 'selected' : '' }}>
                                                 آنلاین
                                             </option>
-                                            <option {{ old('type', $course->type) == 'offline' ? 'offline' : '' }} value="offline">
+                                            <option value="offline" {{ old('type', $course->type) == 'offline' ? 'selected' : '' }}>
                                                 آفلاین
                                             </option>
                                         </select>
+
                                     </div>
                                 </div>
+
 
 
                                 <div class="col-lg-4 mt-4">
