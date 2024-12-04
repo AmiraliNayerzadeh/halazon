@@ -223,7 +223,7 @@
                     <div class="table-responsive">
                         <table class="table align-items-center ">
                             <tbody>
-                            @foreach(\App\Models\Payment::all() as $lastPay)
+                            @foreach(\App\Models\Payment::take(6)->get() as $lastPay)
 {{--                                @dd($lastBlog)--}}
                                 <tr>
                                     <td>

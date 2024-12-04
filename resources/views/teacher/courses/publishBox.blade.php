@@ -37,18 +37,6 @@
                 </ul>
 
 
-                <div class="my-3">
-                    <div class="progress-wrapper">
-                        <div class="progress-info">
-                            <div class="progress-percentage">
-                                <span class="text-sm font-weight-bold">60%</span>
-                            </div>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                        </div>
-                    </div>
-                </div>
 
 
 
@@ -88,58 +76,3 @@
 @endif
 
 
-<div class="modal fade " id="exampleModal" tabindex="-1"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    درخواست انتشار  {{$course->title}}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-            </div>
-            @if(count($course->headlines) == 0 || $course->type== 'online' && count($course->schedules) == 0)
-                <ul class="p-5">
-
-                    @if(count($course->headlines) == 0 || $course->type== 'online' && count($course->schedules) == 0)
-                        <b>ابتدا موارد مشخص شده را کامل کنید.</b>
-                    @endif
-
-                    @if(count($course->headlines) == 0)
-                        <li class="text-danger">هنوز سرفصلی برای دوره خود ایجاد نکرده اید.</li>
-                    @endif
-
-                    @if($course->type== 'online' && count($course->schedules) == 0)
-                        <li class="text-danger">برای دوره های آنلاین باید زمان بندی مشخص کنید.</li>
-                    @endif
-
-
-
-                </ul>
-
-            @else
-            <form action="{{route('submit.support')}}" method="post">
-                @csrf
-                @method('POST')
-                <div class="modal-body">
-                    <input type="hidden" name="id" value="{{$course->id}}">
-                    <input type="hidden" name="type" value="{{get_class($course)}}">
-                    <input type="hidden" name="title" value="درخواست تایید دوره {{$course->title}}">
-                    <textarea name="message" class="form-control" rows="5">
-اینجانب {{ auth()->user()->name }} {{ auth()->user()->family }}، درخواست تایید دوره "{{ $course->title }}" را دارم. اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات واردشده مربوط به این دوره را به‌درستی تکمیل کرده‌ام. همچنین تعهد می‌نمایم پس از تایید این دوره، پشتیبانی کامل آن را بر عهده بگیرم.</textarea>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                            data-bs-dismiss="modal">بستن
-                    </button>
-                    <button type="submit" class="btn btn-success">ارسال درخواست</button>
-                </div>
-            </form>
-
-            @endif
-        </div>
-    </div>
-</div>
