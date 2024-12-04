@@ -98,8 +98,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="my-3 d-flex justify-content-end">
+                                    <button class="btn btn-success" id="submit-button" type="submit"> ثبت </button>
+
+                                </div>
                             </div>
-                            <button class="btn btn-success" id="submit-button" type="submit">ثبت</button>
+
                         </form>
 
                     </div>
