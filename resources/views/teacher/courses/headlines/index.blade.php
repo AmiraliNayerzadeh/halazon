@@ -115,6 +115,9 @@
                     <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
                 </div>
 
+                @include('teacher.courses.publishBox')
+
+
             </div>
 
 
