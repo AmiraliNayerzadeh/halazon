@@ -23,7 +23,25 @@
         </div>
 
         <div class="row">
+
+
+
+
             <div class="col-lg-9">
+
+                <div class="alert alert-info text-white" role="alert">
+                    <h4 class="alert-heading">راهنمای تنظیم زمان‌بندی برای کلاس‌ها</h4>
+                    <p>شما می‌توانید برای هر کلاس آنلاین خود، <strong>چندین زمان‌بندی متفاوت</strong> ایجاد کنید تا دانش‌آموزان بتوانند بر اساس برنامه خود یکی از آنها را انتخاب کنند.</p>
+                    <hr>
+                    <p class="mb-0"><strong>مثال:</strong></p>
+                    <ul>
+                        <li><strong>زمان‌بندی اول:</strong> روزهای زوج (شنبه، دوشنبه و چهارشنبه) از ساعت 18:00</li>
+                        <li><strong>زمان‌بندی دوم:</strong> روزهای فرد (یکشنبه و سه‌شنبه) از ساعت 16:00</li>
+                    </ul>
+                    <p class="mb-0">برای جلوگیری از هرگونه تداخل، لطفاً زمان‌بندی‌های خود را با دقت تنظیم کنید.</p>
+                </div>
+
+
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h6> زمان بندی ها</h6>
