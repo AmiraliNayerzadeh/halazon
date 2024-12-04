@@ -87,7 +87,7 @@
 
                                         </label>
                                         <input type="number" name="capacity" id="capacity" class="form-control"
-                                               placeholder="کلاس در چند هفته برگزار میشود؟" value="{{old('capacity')}}">
+                                               placeholder="به لاتین وارد شود." value="{{old('capacity')}}">
                                     </div>
                                 </div>
 
@@ -211,10 +211,10 @@
                             <div class="col-lg-12 d-flex flex-wrap  align-items-center mt-4">
                                 <bdi>این کلاس مناسب بازه سنی</bdi>
                                 <input type="number" name="age_from" id="age_from" class="form-control w-100 w-md-auto mx-2 my-2"
-                                       placeholder="بازه شروع" value="{{old('age_from')}}">
+                                       placeholder=" بازه شروع به لاتین" value="{{old('age_from')}}">
                                 <bdi>تا</bdi>
                                 <input type="number" name="age_to" id="age_to" class="form-control w-100 w-md-auto mx-2 my-2"
-                                       placeholder="بازه پایان" value="{{old('age_to')}}">
+                                       placeholder=" بازه پایان به لاتین" value="{{old('age_to')}}">
                             </div>
                         </div>
                     </div>
@@ -237,14 +237,14 @@
                             <div class="col-lg-12 d-flex flex-wrap align-items-center mt-4">
                                 <span class="mx-2">این کلاس در </span>
                                 <input type="number" name="class_duration" id="class_duration"
-                                       class="form-control w-100 w-md-auto my-2" placeholder="تعداد جلسات "
+                                       class="form-control w-100 w-md-auto my-2" placeholder="تعداد جلسات به لاتین"
                                        value="{{old('class_duration')}}">
                                 <span class="mx-2"> جلسه و در هفته</span>
                                 <input type="number" name="weeks" id="weeks" class="form-control w-100 w-md-auto my-2"
-                                       placeholder="تعداد هفته" value="{{old('weeks')}}">
+                                       placeholder="تعداد هفته به لاتین" value="{{old('weeks')}}">
                                 <span class="mx-2">بار برگذار میشود که مدّت هر جلسه  </span>
                                 <input type="number" name="minutes" id="minutes" class="form-control w-100 w-md-auto my-2"
-                                       placeholder="مثال 30 " value="{{old('minutes')}}">
+                                       placeholder="(به لاتین) مثال 30 " value="{{old('minutes')}}">
                                 <span class="mx-2"> دقیقه میباشد.  </span>
                             </div>
                         </div>

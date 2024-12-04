@@ -33,9 +33,11 @@
 
                             <!-- Button trigger modal -->
                             <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
+                                    data-bs-target="#newSch">
                                 ایجاد زمان جدید
                             </button>
+
+                            @include('teacher.courses.schedule.partCreate')
                         @endif
                     </div>
 
