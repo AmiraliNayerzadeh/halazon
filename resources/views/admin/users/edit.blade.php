@@ -130,6 +130,26 @@
                                     </div>
                                 </div>
 
+
+                                <div class="col-lg-4">
+                                    <div class="my-2">
+                                        <label class="form-label" for="id_card">کارت ملی:</label>
+
+                                        <div class="input-group">
+                                           <span class="input-group-btn">
+                                             <a id="lfm-id-card" data-input="thumbnail" data-preview="holder"
+                                                class="btn btn-primary">
+                                               <i class="fa fa-picture-o"></i>
+                                                 انتخاب
+                                             </a>
+                                           </span>
+                                            <input id="thumbnail" class="form-control" type="text" name="id_card"
+                                                   value="{{old('id_card') ? old('id_card') : $user->id_card }}">
+                                        </div>
+                                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-4">
                                     <div class="my-2">
                                         <label class="form-label" for="password">ویدیو:</label>
@@ -208,6 +228,78 @@
 
                 </div>
             </div>
+
+
+            <div class="card">
+                <div class="card-header">موارد بارگذاری شده:</div>
+                <div class="card-body">
+                    <div class="row">
+
+                        @if(!is_null($user->avatar))
+                        <div class="col-lg-3">
+                            <div class="card h-100 border shadow">
+                                <div class="card-header bg-secondary text-white">تصویر پروفایل</div>
+                                <div class="card-body">
+                                    <img src="{{$user->avatar}}" class="img-fluid ">
+                                </div>
+                                <div class="card-footer">
+                                    <a class="btn btn-sm btn-secondary" href="{{$user->avatar}}">مشاهده</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+
+                            @if(!is_null($user->id_card))
+                                <div class="col-lg-3">
+                                    <div class="card h-100 border shadow">
+                                        <div class="card-header bg-secondary text-white">کارت ملی</div>
+                                        <div class="card-body">
+                                            <img src="{{$user->id_card}}" class="img-fluid ">
+                                        </div>
+                                        <div class="card-footer">
+                                            <a class="btn btn-sm btn-secondary" href="{{$user->id_card}}">مشاهده</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+
+                            @if(!is_null($user->last_certificate))
+                                <div class="col-lg-3">
+                                    <div class="card h-100 border shadow">
+                                        <div class="card-header bg-secondary text-white">آخرین مدرک تحصیلی</div>
+                                        <div class="card-body">
+                                            <img src="{{$user->last_certificate}}" class="img-fluid ">
+                                        </div>
+                                        <div class="card-footer">
+                                            <a class="btn btn-sm btn-secondary" href="{{$user->last_certificate}}">مشاهده</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if(!is_null($user->resume))
+                                <div class="col-lg-3">
+                                    <div class="card h-100 border shadow">
+                                        <div class="card-header bg-secondary text-white">رزومه</div>
+                                        <div class="card-body">
+                                            <img src="{{$user->resume}}" class="img-fluid ">
+                                        </div>
+                                        <div class="card-footer">
+                                            <a class="btn btn-sm btn-secondary" href="{{$user->resume}}">مشاهده</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         @section('script')
@@ -219,6 +311,7 @@
             <script>
                 $('#lfm').filemanager('image');
                 $('#lfm-video').filemanager('image');
+                $('#lfm-id-card').filemanager('image');
 
             </script>
 

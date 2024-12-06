@@ -19,11 +19,36 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->seo()->setTitle("همه کاربران");
 
-        $users = User::latest()->paginate(22);
+        $title= $request['title'];
+        $type= $request['type'];
+        $confirm= $request['confirm'];
+
+        $item = User::query();
+
+        if (!is_null($title)) {
+            $item->where('name' , 'LIKE' , "%$title%")
+                ->orWhere('family' , 'LIKE' , "%$title%")
+                ->orWhere('phone' , 'LIKE' , "%$title%");
+        }
+
+
+        if (!is_null($type)) {
+            $item->where('is_teacher' , "%$type%");
+        }
+
+        if (!is_null($confirm)) {
+            $item->where('is_verify' , "%$confirm%");
+        }
+
+
+        $users = $item->latest()->paginate(16)->withQueryString();
+
+
+
         return view('admin.users.index' , compact('users'));
     }
 
@@ -140,6 +165,7 @@ class UserController extends Controller
             'address' => ['nullable'],
             'postalCode' => ['nullable', 'numeric'],
             'avatar' => ['nullable'],
+            'id_card' => ['nullable'],
             'video' => ['nullable'],
             'description' => ['nullable'],
             'password' => ['nullable'],

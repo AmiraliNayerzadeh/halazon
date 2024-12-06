@@ -225,7 +225,8 @@ return [
         "passport_no" => "شماره پاسپورت",
 		"sheba_number" => "شماره شبا",
 		"iban" => "شماره شبا",
-		"accountـnumber" => "شماره حساب"		
+		"accountـnumber" => "شماره حساب",
+        'nationalCode' => 'کُد ملی'
     ],
 
 

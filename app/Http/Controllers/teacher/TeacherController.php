@@ -70,6 +70,7 @@ class TeacherController extends Controller
 
     public function information(Request $request)
     {
+
         $user = auth()->user();
 
         $valid = Validator::make($request->all(), [
@@ -78,7 +79,7 @@ class TeacherController extends Controller
             'gender' => ['required', 'in:male,female,other'],
             'email' => ['nullable', 'unique:users,email,' . $user->id, 'email', 'lowercase', 'max:255'],
             'birthday' => ['required'],
-            'nationalCode' => ['required', 'numeric',],
+            'nationalCode' => ['required', 'numeric'],
             'description' => ['nullable'],
 
         ]);
@@ -164,10 +165,10 @@ class TeacherController extends Controller
 
 
         $valid = Validator::make($request->all(), [
-            'avatar' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
-            'id_card' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'last_certificate' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'resume' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'avatar' => 'nullable|file|max:2048',
+            'id_card' => 'nullable|file|max:2048',
+            'last_certificate' => 'nullable|file|max:2048',
+            'resume' => 'nullable|file|max:2048',
         ]);
 
         if ($valid->fails()) {
@@ -177,23 +178,49 @@ class TeacherController extends Controller
 
 
         if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->storeAs('public/uploads/avatar', $request->file('avatar')->getClientOriginalName());
-            $user->avatar = $avatarPath;
+            $directory = "/storage/photos/avatar/";
+            $fileName = 'photo_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('avatar')->getClientOriginalExtension();
+
+            // ذخیره فایل در مسیر مشخص شده
+            $path = $request->file('avatar')->storeAs("public/photos/avatar", $fileName);
+
+            // ذخیره مسیر کامل در دیتابیس
+            $user->avatar = $directory . $fileName;
         }
 
+
+
         if ($request->hasFile('id_card')) {
-            $idCardPath = $request->file('id_card')->storeAs('public/uploads/id_card', $request->file('id_card')->getClientOriginalName());
-            $user->id_card = $idCardPath;
+            $directory = "/storage/photos/id_card/";
+            $fileName = 'idcard_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('id_card')->getClientOriginalExtension();
+
+            // ذخیره فایل در مسیر مشخص شده
+            $path = $request->file('id_card')->storeAs("public/photos/id_card", $fileName);
+
+            // ذخیره مسیر کامل در دیتابیس
+            $user->id_card = $directory . $fileName;
         }
 
         if ($request->hasFile('last_certificate')) {
-            $certificatePath = $request->file('last_certificate')->storeAs('public/uploads/last_certificate', $request->file('last_certificate')->getClientOriginalName());
-            $user->last_certificate = $certificatePath;
+            $directory = "/storage/photos/last_certificate/";
+            $fileName = 'certificate_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('last_certificate')->getClientOriginalExtension();
+
+            // ذخیره فایل در مسیر مشخص شده
+            $path = $request->file('last_certificate')->storeAs("public/photos/last_certificate", $fileName);
+
+            // ذخیره مسیر کامل در دیتابیس
+            $user->last_certificate = $directory . $fileName;
         }
 
         if ($request->hasFile('resume')) {
-            $resumePath = $request->file('resume')->storeAs('public/uploads/resume', $request->file('resume')->getClientOriginalName());
-            $user->resume = $resumePath;
+            $directory = "/storage/photos/resume/";
+            $fileName = 'resume_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('resume')->getClientOriginalExtension();
+
+            // ذخیره فایل در مسیر مشخص شده
+            $path = $request->file('resume')->storeAs("public/photos/resume", $fileName);
+
+            // ذخیره مسیر کامل در دیتابیس
+            $user->resume = $directory . $fileName;
         }
 
         // ذخیره اطلاعات به‌روز شده

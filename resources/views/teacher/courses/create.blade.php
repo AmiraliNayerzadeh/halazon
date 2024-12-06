@@ -336,9 +336,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره
-                                        پیش نویس
-                                    </button>
+                                    <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">مرحله بعد</button>
                                 </div>
 
                             </div>

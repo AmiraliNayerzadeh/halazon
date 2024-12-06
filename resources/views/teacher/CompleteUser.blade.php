@@ -247,148 +247,149 @@
 
                     @if($user->is_verify == 0)
 
-                    <!-- مدارک -->
-                    <div class="bg-white p-4 rounded shadow mb-4">
-                        <form action="{{ route('teachers.files.upload.complete') }}" method="POST"
-                              enctype="multipart/form-data">
-                            @csrf
+                        <!-- مدارک -->
+                        <div class="bg-white p-4 rounded shadow mb-4">
+                            <form action="{{ route('teachers.files.upload.complete') }}" method="POST"
+                                  enctype="multipart/form-data">
+                                @csrf
 
-                            <!-- مدارک -->
-                            <div class="bg-white p-4 rounded shadow mb-4">
-                                <form action="{{ route('teachers.files.upload.complete') }}" method="POST"
-                                      enctype="multipart/form-data">
-                                    @csrf
+                                <!-- مدارک -->
+                                <div class="bg-white p-4 rounded shadow mb-4">
+                                    <form action="{{ route('teachers.files.upload.complete') }}" method="POST"
+                                          enctype="multipart/form-data">
+                                        @csrf
 
-                                    <!-- تصویر پروفایل -->
-                                    <div class="mb-4">
-                                        <h5 class="mb-3">تصویر پروفایل <span class="text-danger">*</span></h5>
-                                        <div class="row">
-                                            @if($user->avatar)
-                                                <!-- بررسی اینکه آیا تصویر پروفایل وجود دارد -->
-                                                <div class="col-12 col-md-2">
-                                                    <div class="card">
-                                                        <img src="{{ Storage::url($user->avatar) }}"
-                                                             class="card-img-top" alt="تصویر پروفایل"
-                                                             style="height: 100px; object-fit: cover;">
-                                                        <div class="card-body">
-                                                            <a href="{{ Storage::url($user->avatar) }}" target="_blank"
-                                                               class="btn btn-primary btn-sm">مشاهده</a>
+                                        <!-- تصویر پروفایل -->
+                                        <div class="mb-4">
+                                            <h5 class="mb-3">تصویر پروفایل <span class="text-danger">*</span></h5>
+                                            <div class="row">
+                                                @if($user->avatar)
+                                                    <!-- بررسی اینکه آیا تصویر پروفایل وجود دارد -->
+                                                    <div class="col-12 col-md-2">
+                                                        <div class="card">
+                                                            <img src="{{ $user->avatar }}"
+                                                                 class="card-img-top" alt="تصویر پروفایل"
+                                                                 style="height: 100px; object-fit: cover;">
+                                                            <div class="card-body">
+                                                                <a href="{{$user->avatar}}" target="_blank"
+                                                                   class="btn btn-primary btn-sm">مشاهده</a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-9">
-                                                    <input type="file" name="avatar" class="form-control"
-                                                           placeholder="تصویر جدید را انتخاب کنید">
-                                                </div>
-                                            @else
-                                                <div class="col-12">
-                                                    <input type="file" name="avatar" class="form-control">
-                                                </div>
-                                            @endif
+                                                    <div class="col-12 col-md-9">
+                                                        <input type="file" name="avatar" class="form-control"
+                                                               placeholder="تصویر جدید را انتخاب کنید">
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <input type="file" name="avatar" class="form-control">
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- کارت ملی -->
-                                    <div class="mb-4">
-                                        <h5 class="mb-3">کارت ملی <span class="text-danger">*</span></h5>
-                                        <div class="row">
-                                            @if($user->id_card)
-                                                <!-- بررسی اینکه آیا کارت ملی وجود دارد -->
-                                                <div class="col-12 col-md-2">
-                                                    <div class="card">
-                                                        <img src="{{ Storage::url($user->id_card) }}"
-                                                             class="card-img-top" alt="کارت ملی"
-                                                             style="height: 100px; object-fit: cover;">
-                                                        <div class="card-body">
-                                                            <a href="{{ Storage::url($user->id_card) }}" target="_blank"
-                                                               class="btn btn-primary btn-sm">مشاهده</a>
+                                        <!-- کارت ملی -->
+                                        <div class="mb-4">
+                                            <h5 class="mb-3">کارت ملی <span class="text-danger">*</span></h5>
+                                            <div class="row">
+                                                @if($user->id_card)
+                                                    <!-- بررسی اینکه آیا کارت ملی وجود دارد -->
+                                                    <div class="col-12 col-md-2">
+                                                        <div class="card">
+                                                            <img src="{{ $user->id_card}}"
+                                                                 class="card-img-top" alt="کارت ملی"
+                                                                 style="height: 100px; object-fit: cover;">
+                                                            <div class="card-body">
+                                                                <a href="{{$user->id_card}}" target="_blank"
+                                                                   class="btn btn-primary btn-sm">مشاهده</a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-9">
-                                                    <input type="file" name="id_card" class="form-control"
-                                                           placeholder="کارت ملی جدید را انتخاب کنید">
-                                                </div>
-                                            @else
-                                                <div class="col-12">
-                                                    <input type="file" name="id_card" class="form-control">
-                                                </div>
-                                            @endif
+                                                    <div class="col-12 col-md-9">
+                                                        <input type="file" name="id_card" class="form-control"
+                                                               placeholder="کارت ملی جدید را انتخاب کنید">
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <input type="file" name="id_card" class="form-control">
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- آخرین مدرک تحصیلی -->
-                                    <div class="mb-4">
-                                        <h5 class="mb-3">آخرین مدرک تحصیلی</h5>
-                                        <div class="row">
-                                            @if($user->last_certificate)
-                                                <!-- بررسی اینکه آیا مدرک تحصیلی وجود دارد -->
-                                                <div class="col-12 col-md-2">
-                                                    <div class="card">
-                                                        <img src="{{ Storage::url($user->last_certificate) }}"
-                                                             class="card-img-top" alt="مدرک تحصیلی"
-                                                             style="height: 100px; object-fit: cover;">
-                                                        <div class="card-body">
-                                                            <a href="{{ Storage::url($user->last_certificate) }}"
-                                                               target="_blank" class="btn btn-primary btn-sm">مشاهده</a>
+                                        <!-- آخرین مدرک تحصیلی -->
+                                        <div class="mb-4">
+                                            <h5 class="mb-3">آخرین مدرک تحصیلی</h5>
+                                            <div class="row">
+                                                @if($user->last_certificate)
+                                                    <!-- بررسی اینکه آیا مدرک تحصیلی وجود دارد -->
+                                                    <div class="col-12 col-md-2">
+                                                        <div class="card">
+                                                            <img src="{{ $user->last_certificate}}"
+                                                                 class="card-img-top" alt="مدرک تحصیلی"
+                                                                 style="height: 100px; object-fit: cover;">
+                                                            <div class="card-body">
+                                                                <a href="{{$user->last_certificate }}"
+                                                                   target="_blank"
+                                                                   class="btn btn-primary btn-sm">مشاهده</a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-9">
-                                                    <input type="file" name="last_certificate" class="form-control"
-                                                           placeholder="مدرک تحصیلی جدید را انتخاب کنید">
-                                                </div>
-                                            @else
-                                                <div class="col-12">
-                                                    <input type="file" name="last_certificate" class="form-control">
-                                                </div>
-                                            @endif
+                                                    <div class="col-12 col-md-9">
+                                                        <input type="file" name="last_certificate" class="form-control"
+                                                               placeholder="مدرک تحصیلی جدید را انتخاب کنید">
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <input type="file" name="last_certificate" class="form-control">
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- رزومه کاری -->
-                                    <div class="mb-4">
-                                        <h5 class="mb-3">رزومه کاری</h5>
-                                        <div class="row">
-                                            @if($user->resume)
-                                                <!-- بررسی اینکه آیا رزومه کاری وجود دارد -->
-                                                <div class="col-12 col-md-2">
-                                                    <div class="card">
-                                                        <img src="{{ Storage::url($user->resume) }}"
-                                                             class="card-img-top" alt="رزومه کاری"
-                                                             style="height: 100px; object-fit: cover;">
-                                                        <div class="card-body">
-                                                            <a href="{{ Storage::url($user->resume) }}" target="_blank"
-                                                               class="btn btn-primary btn-sm">مشاهده</a>
+                                        <!-- رزومه کاری -->
+                                        <div class="mb-4">
+                                            <h5 class="mb-3">رزومه کاری</h5>
+                                            <div class="row">
+                                                @if($user->resume)
+                                                    <!-- بررسی اینکه آیا رزومه کاری وجود دارد -->
+                                                    <div class="col-12 col-md-2">
+                                                        <div class="card">
+                                                            <img src="{{$user->resume}}"
+                                                                 class="card-img-top" alt="رزومه کاری"
+                                                                 style="height: 100px; object-fit: cover;">
+                                                            <div class="card-body">
+                                                                <a href="{{$user->resume}}" target="_blank"
+                                                                   class="btn btn-primary btn-sm">مشاهده</a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-md-9">
-                                                    <input type="file" name="resume" class="form-control"
-                                                           placeholder="رزومه جدید را انتخاب کنید">
-                                                </div>
-                                            @else
-                                                <div class="col-12">
-                                                    <input type="file" name="resume" class="form-control">
-                                                </div>
-                                            @endif
+                                                    <div class="col-12 col-md-9">
+                                                        <input type="file" name="resume" class="form-control"
+                                                               placeholder="رزومه جدید را انتخاب کنید">
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <input type="file" name="resume" class="form-control">
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
 
 
-                                    <div class="d-flex justify-content-end w-100 mt-3">
-                                        <button type="submit" class="btn  btn-success ">ثبت مدارک</button>
-                                    </div>
+                                        <div class="d-flex justify-content-end w-100 mt-3">
+                                            <button type="submit" class="btn  btn-success ">ثبت مدارک</button>
+                                        </div>
 
-                                </form>
-                            </div>
+                                    </form>
+                                </div>
 
 
-                    </div>
+                        </div>
 
                         @endif
 
-                    </form>
+                        </form>
 
                 </div>
 
