@@ -137,16 +137,16 @@
 
                                         <div class="input-group">
                                            <span class="input-group-btn">
-                                             <a id="lfm-id-card" data-input="thumbnail" data-preview="holder"
+                                             <a id="lfm-id-card" data-input="idcard" data-preview="holderid"
                                                 class="btn btn-primary">
                                                <i class="fa fa-picture-o"></i>
                                                  انتخاب
                                              </a>
                                            </span>
-                                            <input id="thumbnail" class="form-control" type="text" name="id_card"
+                                            <input id="idcard" class="form-control" type="text" name="id_card"
                                                    value="{{old('id_card') ? old('id_card') : $user->id_card }}">
                                         </div>
-                                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                                        <div id="holderid" style="margin-top:15px;max-height:100px;"></div>
                                     </div>
                                 </div>
 

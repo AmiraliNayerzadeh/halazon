@@ -200,6 +200,7 @@ class UserController extends Controller
             'address' => $request->address,
             'postalCode' => $request->postalCode,
             'avatar' => $request->avatar,
+            'id_card' => $request->id_card,
             'video' => $request->video,
             'description' => $request->description,
             'password' => Hash::make($request->password),
