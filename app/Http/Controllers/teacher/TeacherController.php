@@ -165,10 +165,10 @@ class TeacherController extends Controller
 
 
         $valid = Validator::make($request->all(), [
-            'avatar' => 'nullable|file|max:2048',
-            'id_card' => 'nullable|file|max:2048',
-            'last_certificate' => 'nullable|file|max:2048',
-            'resume' => 'nullable|file|max:2048',
+            'avatar' => 'nullable|file',
+            'id_card' => 'nullable|file',
+            'last_certificate' => 'nullable|file',
+            'resume' => 'nullable|file',
         ]);
 
         if ($valid->fails()) {
