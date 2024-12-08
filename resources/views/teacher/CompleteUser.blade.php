@@ -91,34 +91,77 @@
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                                            <div class="modal-content">
+                                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
+                                        <div class="modal-dialog  modal-dialog-centered modal-fullscreen" role="document">
+                                            <div class="modal-content ">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">
-                                                        درخواست تایید حساب کاربری
+                                                        درخواست تایید حساب کاربری و تایید قرارداد
                                                     </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                 </div>
-                                                <form action="{{route('submit.support')}}" method="post">
+                                                <form class="h-100" style="overflow-y: auto" action="{{route('submit.support')}}" method="post">
                                                     @csrf
                                                     @method('POST')
-                                                    <div class="modal-body">
+                                                    <div class="modal-body text-end">
                                                         <input type="hidden" name="id" value="{{$user->id}}">
                                                         <input type="hidden" name="type" value="{{get_class($user)}}">
-                                                        <input type="hidden" name="title"
-                                                               value="درخواست تایید حساب کاربری">
-                                                        <textarea name="message" class="form-control"
-                                                                  rows="5">اینجانب {{ $user->name }} {{ $user->family }}، با تکمیل اطلاعات و مدارک خواسته شده، به این‌وسیله درخواست تایید حساب کاربری خود را دارم.اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات و مدارکی که تکمیل کرده‌ام به درستی وارد شده است. همچنین می‌دانم که مسئولیت هرگونه اشتباه در اطلاعات وارد شده بر عهده خودم خواهد بود.</textarea>
+                                                        <input type="hidden" name="title" value="درخواست تایید حساب کاربری">
+                                                        <div class="card">
+                                                            <div class="card-body text-right">
+                                                                <h5>طرفین قرارداد</h5>
+                                                                <p>
+                                                                    طرف اول (کارفرما): پلتفرم آموزشی حلزون که از این پس <b>کارفرما</b> نامیده می‌شود.
+                                                                </p>
+                                                                <p>
+                                                                    طرف دوم قرارداد (مدرس): آقا/خانم <b class="text-primary">{{ auth()->user()->name }} {{ auth()->user()->family }}</b>
+                                                                    با کد ملی <b class="text-primary">{{ $user->nationalCode }}</b>، تاریخ تولد <b class="text-primary">{{ jdate($user->birthday)->toDateString() }}</b>،
+                                                                    نشانی <b class="text-primary">{{ $user->address }}</b> و تلفن <b class="text-primary">{{ $user->phone }}</b>
+                                                                    که از این پس <b>مدرس</b> نامیده می‌شود.
+                                                                </p>
+
+                                                                <h5>موضوع قرارداد</h5>
+                                                                <p>
+                                                                    طرفین قرارداد توافق کرده‌اند که مدرس وظایف زیر را بر عهده داشته باشد:
+                                                                </p>
+                                                                <ul>
+                                                                    <li>آموزش مجازی.</li>
+                                                                    <li>پشتیبانی در کانال تلگرامی.</li>
+                                                                    <li>تعیین تکالیف، رسیدگی به تکالیف و پاسخ به پرسش‌های دانش‌آموزان.</li>
+                                                                </ul>
+                                                                <p>
+                                                                    همچنین:
+                                                                </p>
+                                                                <ul>
+                                                                    <li>
+                                                                        اگر آموزش به صورت آنلاین باشد، مدرس موظف است لینک کلاس خود را قبل از برگزاری کلاس روی سایت در اختیار دانش‌آموزان قرار دهد.
+                                                                        مدرس موظف است حتی در صورت ثبت‌نام یک دانش‌آموز، کلاس خود را برگزار کند.
+                                                                    </li>
+                                                                    <li>
+                                                                        اگر آموزش به صورت آفلاین (از طریق ارسال ویدئو) باشد، مدرس موظف است ویدئوهای آموزشی خود را روی سایت بارگذاری کند. در صورتی که ویدئوها آماده نباشند، مدرس باید هر هفته این کار را انجام دهد تا ویدئوها به موقع در اختیار دانش‌آموزان قرار گیرد.
+                                                                    </li>
+                                                                </ul>
+
+                                                                <h5>تعهدات کارفرما</h5>
+                                                                <p>
+                                                                    کارفرما موظف است پس از تعیین هزینه کلاس توسط مدرس و ثبت‌نام دانش‌آموزان، ۶۵ درصد از هزینه را در هر زمانی که مدرس تقاضا کند، در اختیار وی قرار دهد.
+                                                                </p>
+
+                                                                <h5>مدت قرارداد</h5>
+                                                                <p>
+                                                                    این قرارداد تا زمانی که دوره‌های مدرس بر روی سایت حلزون وجود دارد دارای اعتبار می‌باشد و پس از آن از درجه اعتبار خارج خواهد شد.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <textarea name="message" class="form-control" rows="3">اینجانب {{ $user->name }} {{ $user->family }}، با تکمیل اطلاعات و مدارک خواسته شده، به این‌وسیله درخواست تایید حساب کاربری خود را دارم.اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات و مدارکی که تکمیل کرده‌ام به درستی وارد شده است. همچنین می‌دانم که مسئولیت هرگونه اشتباه در اطلاعات وارد شده بر عهده خودم خواهد بود.</textarea>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">بستن
                                                         </button>
-                                                        <button type="submit" class="btn btn-success">ارسال درخواست
-                                                        </button>
+                                                        <button type="submit" class="btn btn-success">ارسال درخواست</button>
                                                     </div>
                                                 </form>
                                             </div>

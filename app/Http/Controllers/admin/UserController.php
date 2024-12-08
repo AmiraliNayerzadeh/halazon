@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Morilog\Jalali\Jalalian;
 use RealRashid\SweetAlert\Facades\Alert;
+use Kavenegar ;
 
 class UserController extends Controller
 {
@@ -189,6 +190,8 @@ class UserController extends Controller
         $fullName = $request['name'].' '.$request['family'];
         $slug=$request['slug'] = str_replace([' ','‌'] , '-' ,$fullName);
 
+        $oldStatus = $user->is_verify ;
+
         $user->update([
             'name' => $request->name,
             'family' => $request->family,
@@ -212,7 +215,32 @@ class UserController extends Controller
 
         $user->categories()->sync($request->categories);
 
-        Alert::success("کاربر $user->name $user->family  با موفقیت بروز رسانی شد.");
+        if ($user->is_teacher == 1) {
+            if ( $oldStatus == null  || $oldStatus == 0 && $user->is_verify == 1 ) {
+                try{
+                    $receptor = $user->phone;
+                    $token2 = null;
+                    $token3 = null;
+                    $token20 = $user->name;
+                    $token = "عزیز";
+                    $template= "TeacherConfirmInformation";
+                    $type = 'sms';
+
+                    $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3,$token20 ,  $template, $type);
+                }
+                catch(\Kavenegar\Exceptions\ApiException $e){
+                    var_dump($e->getMessage());
+                }
+                catch(\Kavenegar\Exceptions\HttpException $e){
+                    var_dump($e->getMessage());
+                }
+            }
+
+        }
+
+
+
+        Alert::success(" کاربر $user->name $user->family  با موفقیت بروز رسانی شد. ");
         return back();
     }
 
