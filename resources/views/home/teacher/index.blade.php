@@ -26,13 +26,13 @@
                         <div class="col-span-4">
                             <div class="flex h-full items-center">
                                 <a href="{{route('teacher.show', $teacher)}}">
-                                    <img class="rounded-3xl" src="{{$teacher->avatar}}"
+                                    <img class="rounded-3xl h-24 w-24 object-cover" src="{{$teacher->avatar}}"
                                          alt="{{$teacher->name}} {{$teacher->family}}">
                                 </a>
                             </div>
                         </div>
                         <div class="col-span-8 p-3">
-                            <h3 class="text-main font-extrabold text-lg "><a
+                            <h3 class="text-main font-extrabold text-lg truncate"><a
                                         href="{{route('teacher.show' , $teacher)}}">{{$teacher->name}} {{$teacher->family}}</a>
                             </h3>
                             <ul class="mt-2">
@@ -40,7 +40,7 @@
                                     <span><i class="fa fa-book"></i><b class="mr-2 ">{{count($teacher->courses)}} دوره </b></span>
                                 </li>
                                 <li>
-                                    <span><i class="fa fa-calendar"></i><b
+                                    <span class="truncate"><i class="fa fa-calendar"></i><b
                                                 class="mr-2 ">فعالیت از  {{jdate($teacher->created_at)->ago()}}</b></span>
                                 </li>
                             </ul>

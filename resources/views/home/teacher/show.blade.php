@@ -9,6 +9,25 @@
               media='print'>
     @endsection
 
+    <nav aria-label="breadcrumb" class="w-max my-4 ">
+        <ol class="flex flex-wrap items-center w-full py-2">
+            <li class="flex items-center  text-sm  text-main50 hover:text-main">
+                <a href="{{route('home')}}">صفحه اصلی</a>
+            </li>
+            <span class="text-sm mx-2 "><li class="fa fa-angle-left"></li></span>
+
+            <li class="flex items-center  text-sm  text-main50 hover:text-main ">
+                <a href="{{route('teacher.index')}}">معلمین</a>
+            </li>
+
+            <span class="text-sm mx-2 "><li class="fa fa-angle-left"></li></span>
+
+            <li class="flex items-center  text-sm  text-main50 hover:text-main font-extrabold">
+                <a href="{{route('teacher.index')}}">{{$user->name}} {{$user->family}}</a>
+            </li>
+
+        </ol>
+    </nav>
 
     <div class="bg-main25 mt-3 p-3 rounded-2xl">
         <div class="container mx-auto">
@@ -21,7 +40,7 @@
                                 <div class="flex items-center justify-center h-full ">
                                     <div>
                                         <div class="flex items-center justify-center">
-                                            <img class="rounded-3xl h-40 border border-2 border-main" src="{{$user->avatar}}"
+                                            <img class="rounded-3xl h-40 w-40 object-cover border border-2 border-main" src="{{$user->avatar}}"
                                                  alt="{{$user->name}} {{$user->family}}">
                                         </div>
                                         <h1 class="text-main100 font-extrabold text-2xl text-center my-3">{{$user->name}} {{$user->family}}</h1>

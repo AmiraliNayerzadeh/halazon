@@ -8,6 +8,8 @@ use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Kavenegar ;
+
 
 class SupportController extends Controller
 {
@@ -65,17 +67,40 @@ class SupportController extends Controller
      */
     public function update(Request $request, Support $support)
     {
+
         $support->update([
             'status' => 'open'
         ]) ;
 
-        Support::create([
+
+        $newSupport= Support::create([
             'parent_id' => $request['parent_id'] ,
             'message' => $request['message'] ,
             'user_id' => auth()->user()->id  ,
             'supportable_id' => $support->supportable_id  ,
             'supportable_type' => $support->supportable_type  ,
         ]);
+
+
+        if (!is_null($request['sms']) && $request['sms'] == "on") {
+            try{
+                $receptor = $support->user->phone;
+                $token2 = null;
+                $token3 = null;
+                $token20 = $support->user->name;
+                $token = "عزیز";
+                $template= "submitSupport";
+                $type = 'sms';
+
+                $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3,$token20 ,  $template, $type);
+            }
+            catch(\Kavenegar\Exceptions\ApiException $e){
+                var_dump($e->getMessage());
+            }
+            catch(\Kavenegar\Exceptions\HttpException $e){
+                var_dump($e->getMessage());
+            }
+        }
 
 
         Alert::success("پاسخ با موفقیت ثبت شد.");

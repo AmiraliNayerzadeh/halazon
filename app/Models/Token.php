@@ -110,9 +110,10 @@ class Token extends Model
             $token = $this->code;
             $token2 = null;
             $token3 = null;
+            $token20 = null;
             $template= $sessionType;
             $type = 'sms';
-            $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null);
+            $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3, $token20, $template, $type = null);
         }
         catch(\Kavenegar\Exceptions\ApiException $e){
             // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
@@ -136,11 +137,12 @@ class Token extends Model
             $token = 'profile';
             $token2 = null;
             $token3 = null;
+            $token20 = null;
             $template= 'completeRegister';
             $type = 'sms';
             //Send null for tokens not defined in the template
             //Pass token10 and token20 as parameter 6th and 7th
-            $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null);
+            $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3,$token20, $template, $type = null);
         }
         catch(\Kavenegar\Exceptions\ApiException $e){
             // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد

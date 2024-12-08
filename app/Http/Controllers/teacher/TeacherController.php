@@ -19,7 +19,7 @@ class TeacherController extends Controller
 
     public function index()
     {
-        $this->seo()->setTitle('داشبورد پنل معمین');
+        $this->seo()->setTitle('داشبورد پنل معلمین');
 
         $user = auth()->user();
         $countCourse = count(auth()->user()->courses);

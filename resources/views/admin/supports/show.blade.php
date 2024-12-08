@@ -19,7 +19,6 @@
                             <h5 class="mb-1">
                                 {{$support->user->name}}  {{$support->user->family}}
                             </h5>
-
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3 p-4">
@@ -53,7 +52,8 @@
                     <div class="card blur shadow-blur max-height-vh-70 overflow-auto overflow-x-hidden mb-5 mb-lg-0">
 
                         <div class="card-body p-2">
-                            <form class="d-grid" action="{{route('admin.supports.status.update', $support)}}" method="post">
+                            <form class="d-grid" action="{{route('admin.supports.status.update', $support)}}"
+                                  method="post">
                                 @csrf
                                 @method('PUT')
                                 <h5>
@@ -78,14 +78,17 @@
                             @if($support->supportable_type == "App\Models\User")
                                 <form class="d-grid" action="" method="post">
                                     برای بررسی و یا ویرایش کاربر میتوانید از این دکمه استفاده کنید.
-                                    <a class="btn btn-warning" href="{{route('admin.users.edit' , $support->supportable)}}">ویرایش کاربر</a>
+                                    <a class="btn btn-warning"
+                                       href="{{route('admin.users.edit' , $support->supportable)}}">ویرایش کاربر</a>
                                 </form>
                             @endif
 
                             @if($support->supportable_type == "App\Models\Course")
                                 <form class="d-grid" action="" method="post">
                                     برای بررسی و یا ویرایش این دوره میتوانید از این دکمه استفاده کنید.
-                                    <a class="btn btn-warning" href="{{route('admin.courses.edit' , $support->supportable)}}">مشاهده و ویرایش دوره</a>
+                                    <a class="btn btn-warning"
+                                       href="{{route('admin.courses.edit' , $support->supportable)}}">مشاهده و ویرایش
+                                        دوره</a>
                                 </form>
                             @endif
 
@@ -143,7 +146,9 @@
                                                         <i class="ni ni-check-bold text-sm me-1"></i>
                                                         <small>{{jdate($child->created_at)->ago()}}</small>
                                                         |
-                                                        <small>توسط: {{$child->user->name}} {{$child->user->family}}  </small>
+                                                        @if($child->user)
+                                                            <small>توسط: {{$child->user->name}} {{$child->user->family}}  </small>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,6 +165,14 @@
                                   action="{{route('admin.supports.update' , $support)}}">
                                 @csrf
                                 @method('PUT')
+
+
+                                <div class="form-check form-switch ps-0">
+                                    <input class="form-check-input ms-auto" name="sms" type="checkbox" id="flexSwitchCheckDefault" checked >
+                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">ارسال پیام بعد از پاسخ؟</label>
+                                </div>
+
+
                                 <div class="d-flex">
                                     <div class="input-group">
                                         <input type="hidden" name="parent_id" value="{{$support->id}}">
@@ -167,6 +180,7 @@
                                                placeholder="پاسخ خود را اینجا بنویسید."
                                                aria-label="Message example input">
                                     </div>
+
                                     <button type="submit" class="btn bg-gradient-primary mb-0 ms-2">
                                         <i class="ni ni-send"></i>
                                     </button>

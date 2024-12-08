@@ -57,7 +57,7 @@ class HomeController extends Controller
 
 
         $blogs = Cache::remember('lastBlog' ,'2880' , function (){
-            return Blog::where('status' , 1)->take(6)->get();
+            return Blog::latest()->where('status' , 1)->take(6)->get();
         });
 
 
