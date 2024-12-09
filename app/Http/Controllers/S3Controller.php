@@ -11,7 +11,7 @@ class S3Controller extends Controller
     public function uploadVideo(Request $request , Course $course)
     {
         $request->validate([
-            'file' => 'required|mimes:mp4,mov,avi|max:20480'
+            'file' => 'required|mimes:mp4,mov,avi|max:75000'
         ]);
 
         $file = $request->file('file');
