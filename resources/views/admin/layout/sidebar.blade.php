@@ -112,7 +112,9 @@
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
                         <span class="fa fa-headset"></span>
                     </div>
-                    <span class="nav-link-text me-1">پشتیبانی</span>
+                    <span class="nav-link-text me-1"> پشتیبانی </span>
+                    <small class="text-info"> ({{count(\App\Models\Support::where('parent_id' , null)->where('status' , '!=' , 'closed')->get())}})</small>
+
                 </a>
             </li>
 

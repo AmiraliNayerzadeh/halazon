@@ -21,8 +21,6 @@
                                 <th>عنوان</th>
                                 <th>نوع</th>
                                 <th>وضعیت</th>
-                                <th>معلم</th>
-                                <th>دسته بندی</th>
                                 <th>زمان ایجاد</th>
                                 <th>ویرایش</th>
                                 <th>مشاهده</th>
@@ -55,19 +53,6 @@
                                             @endif
                                         </td>
 
-                                        <td>
-                                            <a href="{{route('teacher.show', $course->teacher)}}">{{$course->teacher->name}} {{$course->teacher->family}}</a>
-                                        </td>
-
-                                        <td>
-                                            @if(count($course->categories))
-                                                @foreach($course->categories as $category)
-                                                    {{$category->title}},
-                                                @endforeach
-                                            @else
-                                                ثبت نشده
-                                            @endif
-                                        </td>
 
                                         <td>{{jdate($course->created_at)->toDateString()}}</td>
 

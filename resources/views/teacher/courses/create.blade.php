@@ -155,20 +155,14 @@
                                         <i class="fa fa-circle-info text-info"></i>
                                     </a>
 
+                                    <input type="file" name="image" id="image" class="form-control" accept="image/*">
 
-                                    <div class="input-group">
-                                                       <span class="input-group-btn">
-                                                         <a id="lfm" data-input="thumbnail" data-preview="holder"
-                                                            class="btn btn-primary">
-                                                           <i class="fa fa-image"></i>
-                                                             انتخاب
-                                                         </a>
-                                          </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="image"
-                                               value="{{old('image')}}">
-                                    </div>
-                                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+
+
+
                                 </div>
+
+
 
 
                                 <div class="col-lg-4 mt-4">
@@ -178,17 +172,8 @@
                                         <i class="fa fa-circle-info text-info"></i>
                                     </a>
 
-                                    <div class="input-group">
-                                                       <span class="input-group-btn">
-                                                         <a id="lfv" data-input="video" data-preview="holder"
-                                                            class="btn btn-primary">
-                                                           <i class="fa fa-video"></i>
-                                                             انتخاب
-                                                         </a>
-                                          </span>
-                                        <input id="video" class="form-control" type="text" name="video"
-                                               value="{{old('video')}}">
-                                    </div>
+                                    <input type="file" name="video" id="video" class="form-control" accept="image/*">
+
                                 </div>
 
 
@@ -352,9 +337,28 @@
             </script>
 
             <script>
-                $('#lfm').filemanager('image');
+                document.getElementById('image').addEventListener('change', function (event) {
+                    const previewDiv = document.getElementById('preview-image-course');
+                    previewDiv.innerHTML = ""; // پاک کردن محتوای قبلی پیش‌نمایش
+                    const file = event.target.files[0];
 
-                $('#lfv').filemanager('video');
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = "پیش‌نمایش تصویر";
+                            img.classList.add('img-thumbnail');
+                            img.style.maxWidth = "300px";
+                            img.style.maxHeight = "300px";
+                            previewDiv.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        previewDiv.innerHTML = "<p class='text-danger'>لطفاً یک فایل تصویر انتخاب کنید.</p>";
+                    }
+                });
+
             </script>
 
             <script>

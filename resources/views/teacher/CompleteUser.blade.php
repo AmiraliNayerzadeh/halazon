@@ -91,8 +91,10 @@
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
-                                        <div class="modal-dialog  modal-dialog-centered modal-fullscreen" role="document">
+                                    <div class="modal fade " id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
+                                        <div class="modal-dialog  modal-dialog-centered modal-fullscreen"
+                                             role="document">
                                             <div class="modal-content ">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">
@@ -101,67 +103,94 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                 </div>
-                                                <form class="h-100" style="overflow-y: auto" action="{{route('submit.support')}}" method="post">
+                                                <form class="h-100" style="overflow-y: auto"
+                                                      action="{{route('submit.support')}}" method="post">
                                                     @csrf
                                                     @method('POST')
                                                     <div class="modal-body text-end">
                                                         <input type="hidden" name="id" value="{{$user->id}}">
                                                         <input type="hidden" name="type" value="{{get_class($user)}}">
-                                                        <input type="hidden" name="title" value="درخواست تایید حساب کاربری">
+                                                        <input type="hidden" name="title"
+                                                               value="درخواست تایید حساب کاربری">
                                                         <div class="card">
                                                             <div class="card-body text-right">
                                                                 <h5>طرفین قرارداد</h5>
                                                                 <p>
-                                                                    طرف اول (کارفرما): پلتفرم آموزشی حلزون که از این پس <b>کارفرما</b> نامیده می‌شود.
+                                                                    طرف اول (کارفرما): پلتفرم آموزشی حلزون که از این پس
+                                                                    <b>کارفرما</b> نامیده می‌شود.
                                                                 </p>
                                                                 <p>
-                                                                    طرف دوم قرارداد (مدرس): آقا/خانم <b class="text-primary">{{ auth()->user()->name }} {{ auth()->user()->family }}</b>
-                                                                    با کد ملی <b class="text-primary">{{ $user->nationalCode }}</b>، تاریخ تولد <b class="text-primary">{{ jdate($user->birthday)->toDateString() }}</b>،
-                                                                    نشانی <b class="text-primary">{{ $user->address }}</b> و تلفن <b class="text-primary">{{ $user->phone }}</b>
+                                                                    طرف دوم قرارداد (مدرس): آقا/خانم <b
+                                                                            class="text-primary">{{ auth()->user()->name }} {{ auth()->user()->family }}</b>
+                                                                    با کد ملی <b
+                                                                            class="text-primary">{{ $user->nationalCode }}</b>،
+                                                                    تاریخ تولد <b
+                                                                            class="text-primary">{{ jdate($user->birthday)->toDateString() }}</b>،
+                                                                    نشانی <b
+                                                                            class="text-primary">{{ $user->address }}</b>
+                                                                    و تلفن <b
+                                                                            class="text-primary">{{ $user->phone }}</b>
                                                                     که از این پس <b>مدرس</b> نامیده می‌شود.
                                                                 </p>
 
                                                                 <h5>موضوع قرارداد</h5>
                                                                 <p>
-                                                                    طرفین قرارداد توافق کرده‌اند که مدرس وظایف زیر را بر عهده داشته باشد:
+                                                                    طرفین قرارداد توافق کرده‌اند که مدرس وظایف زیر را بر
+                                                                    عهده داشته باشد:
                                                                 </p>
                                                                 <ul>
                                                                     <li>آموزش مجازی.</li>
                                                                     <li>پشتیبانی در کانال تلگرامی.</li>
-                                                                    <li>تعیین تکالیف، رسیدگی به تکالیف و پاسخ به پرسش‌های دانش‌آموزان.</li>
+                                                                    <li>تعیین تکالیف، رسیدگی به تکالیف و پاسخ به
+                                                                        پرسش‌های دانش‌آموزان.
+                                                                    </li>
                                                                 </ul>
                                                                 <p>
                                                                     همچنین:
                                                                 </p>
                                                                 <ul>
                                                                     <li>
-                                                                        اگر آموزش به صورت آنلاین باشد، مدرس موظف است لینک کلاس خود را قبل از برگزاری کلاس روی سایت در اختیار دانش‌آموزان قرار دهد.
-                                                                        مدرس موظف است حتی در صورت ثبت‌نام یک دانش‌آموز، کلاس خود را برگزار کند.
+                                                                        اگر آموزش به صورت آنلاین باشد، مدرس موظف است
+                                                                        لینک کلاس خود را قبل از برگزاری کلاس روی سایت در
+                                                                        اختیار دانش‌آموزان قرار دهد.
+                                                                        مدرس موظف است حتی در صورت ثبت‌نام یک دانش‌آموز،
+                                                                        کلاس خود را برگزار کند.
                                                                     </li>
                                                                     <li>
-                                                                        اگر آموزش به صورت آفلاین (از طریق ارسال ویدئو) باشد، مدرس موظف است ویدئوهای آموزشی خود را روی سایت بارگذاری کند. در صورتی که ویدئوها آماده نباشند، مدرس باید هر هفته این کار را انجام دهد تا ویدئوها به موقع در اختیار دانش‌آموزان قرار گیرد.
+                                                                        اگر آموزش به صورت آفلاین (از طریق ارسال ویدئو)
+                                                                        باشد، مدرس موظف است ویدئوهای آموزشی خود را روی
+                                                                        سایت بارگذاری کند. در صورتی که ویدئوها آماده
+                                                                        نباشند، مدرس باید هر هفته این کار را انجام دهد
+                                                                        تا ویدئوها به موقع در اختیار دانش‌آموزان قرار
+                                                                        گیرد.
                                                                     </li>
                                                                 </ul>
 
                                                                 <h5>تعهدات کارفرما</h5>
                                                                 <p>
-                                                                    کارفرما موظف است پس از تعیین هزینه کلاس توسط مدرس و ثبت‌نام دانش‌آموزان، ۶۵ درصد از هزینه را در هر زمانی که مدرس تقاضا کند، در اختیار وی قرار دهد.
+                                                                    کارفرما موظف است پس از تعیین هزینه کلاس توسط مدرس و
+                                                                    ثبت‌نام دانش‌آموزان، ۶۵ درصد از هزینه را در هر زمانی
+                                                                    که مدرس تقاضا کند، در اختیار وی قرار دهد.
                                                                 </p>
 
                                                                 <h5>مدت قرارداد</h5>
                                                                 <p>
-                                                                    این قرارداد تا زمانی که دوره‌های مدرس بر روی سایت حلزون وجود دارد دارای اعتبار می‌باشد و پس از آن از درجه اعتبار خارج خواهد شد.
+                                                                    این قرارداد تا زمانی که دوره‌های مدرس بر روی سایت
+                                                                    حلزون وجود دارد دارای اعتبار می‌باشد و پس از آن از
+                                                                    درجه اعتبار خارج خواهد شد.
                                                                 </p>
                                                             </div>
                                                         </div>
 
-                                                        <textarea name="message" class="form-control" rows="3">اینجانب {{ $user->name }} {{ $user->family }}، با تکمیل اطلاعات و مدارک خواسته شده، به این‌وسیله درخواست تایید حساب کاربری خود را دارم.اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات و مدارکی که تکمیل کرده‌ام به درستی وارد شده است. همچنین می‌دانم که مسئولیت هرگونه اشتباه در اطلاعات وارد شده بر عهده خودم خواهد بود.</textarea>
+                                                        <textarea name="message" class="form-control"
+                                                                  rows="3">اینجانب {{ $user->name }} {{ $user->family }}، با تکمیل اطلاعات و مدارک خواسته شده، به این‌وسیله درخواست تایید حساب کاربری خود را دارم.اینجانب قوانین سایت را مطالعه کرده‌ام و تمام اطلاعات و مدارکی که تکمیل کرده‌ام به درستی وارد شده است. همچنین می‌دانم که مسئولیت هرگونه اشتباه در اطلاعات وارد شده بر عهده خودم خواهد بود.</textarea>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">بستن
                                                         </button>
-                                                        <button type="submit" class="btn btn-success">ارسال درخواست</button>
+                                                        <button type="submit" class="btn btn-success">ارسال درخواست
+                                                        </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -288,15 +317,13 @@
                     </div>
 
 
-                    @if($user->is_verify == 0)
 
-                        <!-- مدارک -->
                         <div class="bg-white p-4 rounded shadow mb-4">
                             <form action="{{ route('teachers.files.upload.complete') }}" method="POST"
                                   enctype="multipart/form-data">
                                 @csrf
 
-                                <!-- مدارک -->
+
                                 <div class="bg-white p-4 rounded shadow mb-4">
                                     <form action="{{ route('teachers.files.upload.complete') }}" method="POST"
                                           enctype="multipart/form-data">
@@ -330,6 +357,14 @@
                                                 @endif
                                             </div>
                                         </div>
+
+
+
+
+
+
+                                        @if($user->is_verify == 0)
+
 
                                         <!-- کارت ملی -->
                                         <div class="mb-4">
@@ -419,6 +454,41 @@
                                             </div>
                                         </div>
 
+                                        @endif
+
+
+                                        <div class="mb-4">
+                                            <h5 class="mb-3">ویدیو معرفی </h5>
+                                            <div class="row">
+                                                <p>با آپلود ویدیو معرفی خود، پروفایل شما برجسته‌تر از همیشه خواهد شد! این ویدیو در پروفایل عمومی شما نمایش داده می‌شود و به دیگران کمک می‌کند تا بهتر با شما و مهارت‌هایتان آشنا شوند. این کار کاملاً اختیاری است، اما فرصتی عالی برای دیده شدن بیشتر است!</p>
+
+                                                @if($user->video)
+                                                    <div class="col-12 col-md-2">
+                                                        <div class="card">
+                                                            <video class="card-img-top" width="320" height="240" controls>
+                                                                <source src="{{ $user->video}}" type="video/mp4">
+                                                                <source src="{{ $user->video}}" type="video/ogg">
+                                                                Your browser does not support the video tag.
+                                                            </video>
+                                                            <div class="card-body">
+                                                                <a href="{{$user->video}}" target="_blank"
+                                                                   class="btn btn-primary btn-sm">مشاهده</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-9">
+                                                        <input type="file" name="video" class="form-control"
+                                                               placeholder="فایل ویدیو معرفی خود را وارد کنید.">
+                                                    </div>
+                                                @else
+                                                    <div class="col-12">
+                                                        <input type="file" name="video" class="form-control">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+
 
                                         <div class="d-flex justify-content-end w-100 mt-3">
                                             <button type="submit" class="btn  btn-success ">ثبت مدارک</button>
@@ -428,13 +498,12 @@
                                 </div>
 
 
+                            </form>
                         </div>
 
-                        @endif
-
-                        </form>
 
                 </div>
+
 
                 @section('script')
                     <script>

@@ -160,7 +160,6 @@ class TeacherController extends Controller
 
     public function upload(Request $request)
     {
-        // گرفتن کاربر لاگین شده
         $user = auth()->user();
 
 
@@ -169,6 +168,7 @@ class TeacherController extends Controller
             'id_card' => 'nullable|file',
             'last_certificate' => 'nullable|file',
             'resume' => 'nullable|file',
+            'video' => 'nullable|file',
         ]);
 
         if ($valid->fails()) {
@@ -216,11 +216,19 @@ class TeacherController extends Controller
             $directory = "/storage/photos/resume/";
             $fileName = 'resume_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('resume')->getClientOriginalExtension();
 
-            // ذخیره فایل در مسیر مشخص شده
             $path = $request->file('resume')->storeAs("public/photos/resume", $fileName);
 
-            // ذخیره مسیر کامل در دیتابیس
             $user->resume = $directory . $fileName;
+        }
+
+
+        if ($request->hasFile('video')) {
+            $directory = "/storage/users/video/";
+            $fileName = 'video_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('video')->getClientOriginalExtension();
+
+            $path = $request->file('video')->storeAs("public/users/video", $fileName);
+
+            $user->video = $directory . $fileName;
         }
 
         // ذخیره اطلاعات به‌روز شده
