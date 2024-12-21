@@ -285,7 +285,7 @@ class CourseController extends Controller
             'title' => $request->input('title'),
             'type' => $request->input('type'),
             'image' => isset($image) ? $image : $course->image ,
-            'video' => isset($video) ? $video : $course->$video ,
+            'video' => isset($video) ? $video : $course->video ,
             'description' => $request->input('description'),
             'age_from' => $request->input('age_from'),
             'age_to' => $request->input('age_to'),
