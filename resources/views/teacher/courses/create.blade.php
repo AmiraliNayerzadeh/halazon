@@ -41,7 +41,7 @@
         </div>
 
 
-        <form action="{{route('teachers.courses.store')}}" method="post" autocomplete="off">
+        <form action="{{route('teachers.courses.store')}}" method="post" autocomplete="off"  enctype="multipart/form-data">
             @csrf
             @method('POST')
             <div class="row">
@@ -73,8 +73,8 @@
                                     <div class="form-group">
                                         <label class="form-label" for="type">نوع دوره</label>
                                         <select class="form-control" name="type" id="type">
-                                            <option value="online">آنلاین</option>
-                                            <option value="offline">آفلاین</option>
+                                            <option {{ old('type') == 'online' ? 'selected' : '' }} value="online">آنلاین</option>
+                                            <option {{ old('type') == 'offline' ? 'selected' : '' }} value="offline">آفلاین</option>
                                         </select>
                                     </div>
                                 </div>
@@ -156,9 +156,6 @@
                                     </a>
 
                                     <input type="file" name="image" id="image" class="form-control" accept="image/*">
-
-
-
 
                                 </div>
 
@@ -310,6 +307,11 @@
 
                 <div class="col-lg-3">
 
+                    <section id="image-preview" class="my-4">
+                        <!-- تصویر بارگذاری‌شده اینجا نمایش داده می‌شود -->
+                    </section>
+
+
 
                     <div class="card position-sticky  fixed-top">
                         <div class="card-header bg-success">
@@ -332,34 +334,45 @@
         </form>
         @section('script')
 
+
+            <script>
+                document.getElementById('image').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const previewSection = document.getElementById('image-preview');
+
+                    // اطمینان از اینکه فایل یک تصویر است
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            // پاک کردن محتوای قبلی
+                            previewSection.innerHTML = '';
+
+                            // ایجاد یک عنصر img و تنظیم تصویر
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = "پیش‌نمایش تصویر";
+                            img.style.maxWidth = '100%';
+                            img.style.maxHeight = '300px';
+                            img.className = "img-fluid rounded";
+
+                            // افزودن تصویر به بخش preview
+                            previewSection.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        previewSection.innerHTML = '<p class="text-danger">فایلی که انتخاب شده تصویر نیست.</p>';
+                    }
+                });
+            </script>
+
+
+
             <script>
                 jalaliDatepicker.startWatch();
             </script>
 
-            <script>
-                document.getElementById('image').addEventListener('change', function (event) {
-                    const previewDiv = document.getElementById('preview-image-course');
-                    previewDiv.innerHTML = ""; // پاک کردن محتوای قبلی پیش‌نمایش
-                    const file = event.target.files[0];
 
-                    if (file && file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.alt = "پیش‌نمایش تصویر";
-                            img.classList.add('img-thumbnail');
-                            img.style.maxWidth = "300px";
-                            img.style.maxHeight = "300px";
-                            previewDiv.appendChild(img);
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        previewDiv.innerHTML = "<p class='text-danger'>لطفاً یک فایل تصویر انتخاب کنید.</p>";
-                    }
-                });
 
-            </script>
 
             <script>
                 $.fn.select2.defaults.set("theme", "bootstrap");

@@ -64,12 +64,11 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'type' => 'required|in:online,offline',
-            'image' => 'nullable',
-            'video' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,heic,heif',
+            'video' => 'nullable|mimes:mp4,mov,hevc,quicktime,mkv,avi,webm,flv' ,
             'description' => 'nullable',
             'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
@@ -80,12 +79,8 @@ class CourseController extends Controller
             'capacity' => 'nullable|integer|min:1|required_unless:type,offline',
             'price' => 'required_if:is_draft,0|numeric|min:0',
             'discount_price' => 'nullable|numeric|lt:price|min:0',
-            'is_draft' => 'required|boolean',
             'category' => ['required_if:is_draft,0', 'exists:categories,id'],
-            'slug' => ['nullable', 'string'],
-            'meta_title' => ['nullable', 'string'],
-            'meta_keywords' => ['nullable', 'string'],
-            'meta_description' => ['nullable', 'string'],
+
             /*Questions*/
             'questions.learning_goal' => 'required|string',
             'questions.assessment_method' => 'required|string',
@@ -99,20 +94,39 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
-
-        if ($request['is_draft'] == 1) {
-            $request['status'] = 'پیش نویس';
-        } else {
-            $request['status'] = 'در انتظار تایید اولیه';
+        if ($request->hasFile('image')) {
+            $directory = "/storage/photos/course/";
+            $fileName = 'photo_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = $request->file('image')->storeAs("public/photos/course", $fileName);
+            $image = $directory . $fileName ;
         }
 
+        if ($request->hasFile('video')) {
+            $directory = "/storage/video/course/";
+            $fileName = 'video_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('video')->getClientOriginalExtension();
+            $path = $request->file('video')->storeAs("public/video/course", $fileName);
+            $video = $directory . $fileName ;
+        }
 
-        $request['slug'] = Str::slug($request['title']);
+        $course = Course::create([
+            'title' => $request->input('title'),
+            'type' => $request->input('type'),
+            'image' => isset($image) ? $image : null,
+            'video' => isset($video) ? $video : null,
+            'description' => $request->input('description'),
+            'age_from' => $request->input('age_from'),
+            'age_to' => $request->input('age_to'),
+            'class_duration' => $request->input('class_duration'),
+            'weeks' => $request->input('weeks'),
+            'minutes' => $request->input('minutes'),
+            'capacity' => $request->input('capacity'),
+            'price' => $request->input('price'),
+            'discount_price' => $request->input('discount_price'),
+            'teacher_id' => auth()->user()->id,
+            'slug' =>str_replace(' ' , '-' , $request['title']),
+            'is_draft' => 1,
+        ]);
 
-        $request['teacher_id'] = auth()->user()->id;
-
-
-        $course = Course::create($request->all());
 
 
         try {
@@ -221,13 +235,11 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-
-
         $valid = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'type' => 'required|in:online,offline',
-            'image' => 'nullable',
-            'video' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg,heic,heif',
+            'video' => 'nullable|mimes:mp4,mov,hevc,quicktime,mkv,avi,webm,flv' ,
             'description' => 'nullable',
             'degrees' => 'required_if:is_draft,0|exists:degrees,id|array',
             'age_from' => 'required_if:is_draft,0|integer|min:0',
@@ -253,18 +265,46 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
-        $request['status'] = 'پیش نویس';
 
-        $request['teacher_id'] = auth()->user()->id;
+        if ($request->hasFile('image')) {
+            $directory = "/storage/photos/course/";
+            $fileName = 'photo_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = $request->file('image')->storeAs("public/photos/course", $fileName);
+            $image = $directory . $fileName ;
+        }
+
+        if ($request->hasFile('video')) {
+            $directory = "/storage/video/course/";
+            $fileName = 'video_' . now()->format('Y-m-d_H-i-s') . '.' . $request->file('video')->getClientOriginalExtension();
+            $path = $request->file('video')->storeAs("public/video/course", $fileName);
+            $video = $directory . $fileName ;
+        }
 
 
-        $course->update($request->all());
+        $course->update([
+            'title' => $request->input('title'),
+            'type' => $request->input('type'),
+            'image' => isset($image) ? $image : $course->image ,
+            'video' => isset($video) ? $video : $course->$video ,
+            'description' => $request->input('description'),
+            'age_from' => $request->input('age_from'),
+            'age_to' => $request->input('age_to'),
+            'class_duration' => $request->input('class_duration'),
+            'weeks' => $request->input('weeks'),
+            'minutes' => $request->input('minutes'),
+            'capacity' => $request->input('capacity'),
+            'price' => $request->input('price'),
+            'discount_price' => $request->input('discount_price'),
+            'teacher_id' => auth()->user()->id,
+
+        ]);
+
 
 
         if (count($course->schedules) > 0) {
             foreach ($course->schedules as $time) {
                 $time->update([
-                    'teacher_id' => $request['teacher_id']
+                    'teacher_id' => auth()->user()->id
                 ]);
             }
         }
@@ -276,9 +316,7 @@ class CourseController extends Controller
             foreach ($categoryIds as $categoryId) {
                 $category = Category::find($categoryId);
 
-                // اطمینان از وجود دسته‌بندی
                 while ($category && $category->parent_id !== null) {
-                    // بررسی ایمن
                     if ($category->parent) {
                         $parents[] = $category->parent->id;
                         $category = $category->parent;
@@ -311,7 +349,6 @@ class CourseController extends Controller
                 }
             }
         }
-
 
         Alert::success(" دوره  $course->title با موفقیت بروزرسانی شد. ");
         return back();

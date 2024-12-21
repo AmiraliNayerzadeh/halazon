@@ -226,7 +226,15 @@ return [
 		"sheba_number" => "شماره شبا",
 		"iban" => "شماره شبا",
 		"accountـnumber" => "شماره حساب",
-        'nationalCode' => 'کُد ملی'
+        'nationalCode' => 'کُد ملی' ,
+        'class_duration' => 'تعداد جلسات' ,
+        'weeks' => 'هفته' ,
+        'minutes' => 'دقیقه' ,
+        'age_from' => 'شروع بازه سنی' ,
+        'age_to' => 'پایان بازه سنی' ,
+        'type ' => 'نوع' ,
+        'online' => 'آنلاین' ,
+        'offline' => 'آفلاین' ,
     ],
 
 

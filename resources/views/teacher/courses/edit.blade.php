@@ -22,7 +22,7 @@
         </div>
 
 
-        <form action="{{route('teachers.courses.update' , $course)}}" method="post" autocomplete="off">
+        <form action="{{route('teachers.courses.update' , $course)}}" method="post" autocomplete="off" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
@@ -132,17 +132,8 @@
                                        title="این عکس باید از طریق برنامه Canva طراحی شود، که توضیحات آن در کانال آمده است. اگر شما در کلاستان مطالبی را آموزش می‌دهید که شامل یک محصول نهایی است (مثل پخت یک غذا یا نقاشی)، از تصویر محصول نهایی خود در پروفایل استفاده کنید. اگر تصویر شما کیفیت مناسبی نداشته باشد، کارشناسان حلزون آن را بازطراحی خواهند کرد.">
                                         <i class="fa fa-circle-info text-info"></i>
                                     </a>
-                                    <div class="input-group">
-                                                       <span class="input-group-btn">
-                                                         <a id="lfm" data-input="thumbnail" data-preview="holder"
-                                                            class="btn btn-primary">
-                                                           <i class="fa fa-image"></i>
-                                                             انتخاب
-                                                         </a>
-                                          </span>
-                                        <input id="thumbnail" class="form-control" type="text" name="image"
-                                               value="{{old('image') ? old('image') : $course->image }}">
-                                    </div>
+                                    <input type="file" name="image" id="image" class="form-control" accept="image/*">
+
                                 </div>
 
 
@@ -152,17 +143,10 @@
                                        title="در این ویدیو حداکثر در 90 ثانیه به دانش‌آموزان توضیح دهید که از کلاس شما چه مطالبی یاد می‌گیرند. همچنین می‌توانید مواردی که قبل از شروع کلاس باید تهیه کنند را نشان دهید تا با آمادگی کامل وارد کلاس شوند. توجه: از پوشیدن لباس مشکی و مقنعه خودداری کنید. از بک‌گراند مناسب استفاده کنید و با انرژی، صمیمانه و پرنشاط با دانش‌آموزان صحبت کنید.">
                                         <i class="fa fa-circle-info text-info"></i>
                                     </a>
-                                    <div class="input-group">
-                                                       <span class="input-group-btn">
-                                                         <a id="lfv" data-input="video" data-preview="holder"
-                                                            class="btn btn-primary">
-                                                           <i class="fa fa-video"></i>
-                                                             انتخاب
-                                                         </a>
-                                          </span>
-                                        <input id="video" class="form-control" type="text" name="video"
-                                               value="{{old('video') ? old('video') : $course->video }}">
-                                    </div>
+
+                                    <input type="file" name="video" id="video" class="form-control" accept="video/mp4,video/quicktime">
+
+
                                 </div>
 
 
@@ -287,7 +271,11 @@
 
                 <div class="col-lg-3">
 
-                    <div class="card mb-3">
+                    <section id="image-preview" class="my-4">
+                        <!-- تصویر بارگذاری‌شده اینجا نمایش داده می‌شود -->
+                    </section>
+
+                    <div class="card mb-3" id="selected-image">
                         <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
                     </div>
 
@@ -305,9 +293,39 @@
             </script>
 
             <script>
-                $('#lfm').filemanager('image');
-                $('#lfv').filemanager('video');
+                document.getElementById('image').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const previewSection = document.getElementById('image-preview');
+
+                    // اطمینان از اینکه فایل یک تصویر است
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            // پاک کردن محتوای قبلی
+                            previewSection.innerHTML = '';
+
+                            // ایجاد یک عنصر img و تنظیم تصویر
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = "پیش‌نمایش تصویر";
+                            img.style.maxWidth = '100%';
+                            img.style.maxHeight = '300px';
+                            img.className = "img-fluid rounded";
+
+                            // افزودن تصویر به بخش preview
+                            previewSection.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+
+                        const selected = document.getElementById('selected-image') ;
+                        selected.classList.add('d-none')
+
+                    } else {
+                        previewSection.innerHTML = '<p class="text-danger">فایلی که انتخاب شده تصویر نیست.</p>';
+                    }
+                });
             </script>
+
 
             <script>
                 $.fn.select2.defaults.set("theme", "bootstrap");
