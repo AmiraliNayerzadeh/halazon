@@ -29,6 +29,7 @@ class Course extends Model
         'meta_title',
         'meta_keywords',
         'meta_description',
+        'revenue',
         ];
 
     public function categories()

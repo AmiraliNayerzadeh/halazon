@@ -27,10 +27,33 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::latest()->paginate('12');
+
         $this->seo()->setTitle('دوره ها');
+
+
+        $title= $request['title'];
+        $teacher= $request['teacher'];
+        $type= $request['type'];
+
+        $item = Course::query() ;
+
+        if (!is_null($title)) {
+            $item->where('title' , 'LIKE' , "%$title%");
+        }
+
+        if (!is_null($teacher)) {
+            $item->where('teacher_id'  , $teacher);
+        }
+
+        if (!is_null($type)) {
+            $item->where('type'  , $type);
+        }
+
+        $courses = $item->latest()->paginate(12)->withQueryString();
+
+
         return view('admin.courses.index', compact('courses'));
     }
 
@@ -68,6 +91,7 @@ class CourseController extends Controller
             'discount_price' => 'nullable|numeric|lt:price|min:0',
             'is_draft' => 'required|boolean',
             'category' => ['required_if:is_draft,0', 'exists:categories,id'],
+            'revenue' => ['required', 'integer', 'min:0', 'max:100'],
             'slug' => ['nullable', 'string'],
             'meta_title' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
@@ -195,6 +219,7 @@ class CourseController extends Controller
             'homework' => 'nullable|string',
             'is_draft' => 'required|boolean',
             'category' => ['required_if:is_draft,0', 'exists:categories,id'],
+            'revenue' => ['required', 'integer', 'min:0', 'max:100'],
             'slug' => ['required', 'string'],
             'meta_title' => ['nullable', 'string'],
             'meta_keywords' => ['nullable', 'string'],
@@ -222,8 +247,8 @@ class CourseController extends Controller
         if (!is_null($request['slug'])) {
             $request['slug'] = str_replace([' ', '‌'], '-', $request->slug);
         } else {
-//            $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
-            Str::slug($request['slug']) ;
+            $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
+//            Str::slug($request['slug']) ;
             /*End Slug Handler*/
         }
 
@@ -430,11 +455,11 @@ class CourseController extends Controller
     public function uploadVideo(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:mp4,mov,ogg,qt|max:51200', // 50MB
+            'file' => 'required|file|mimes:mp4,mov,ogg,qt,hevc,avi,mkv,webm,flv,3gp,3g2|max:409600',
         ]);
 
         $file = $request->file('file');
-        $filePath = $file->store('videos', 'liara'); // مسیر و دیسک ذخیره
+        $filePath = $file->store('videos', 'liara');
 
         if ($filePath) {
             return response()->json(['filePath' => $filePath], 200);
@@ -450,7 +475,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'link' => 'nullable',
             'description' => 'nullable|string|max:255',
-            'video_url' => 'nullable', // 50MB
+            'video_url' => 'nullable',
             'is_free' => 'nullable',
         ]);
 

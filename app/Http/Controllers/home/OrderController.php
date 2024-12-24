@@ -114,6 +114,7 @@ class OrderController extends Controller
                 'course_id' => $item->course->id,
                 'part_id' => !is_null($item->part) ? $item->part->id : null,
                 'total' => $item->course->price - $discount,
+                'revenue' => $item->course->revenue
             ]);
         }
 

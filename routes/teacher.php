@@ -36,6 +36,7 @@ Route::post('/categories/sub', [\App\Http\Controllers\teacher\TeacherController:
 Route::put('/complete/information', [\App\Http\Controllers\teacher\TeacherController::class, 'information'])->name('information');
 Route::put('/complete/category', [\App\Http\Controllers\teacher\TeacherController::class, 'informationCategory'])->name('information.category');
 
+Route::get('/financial' , [\App\Http\Controllers\teacher\FinancialController::class , 'index'])->name('financial.index') ;
 
 
 Route::post('/complete/upload-files', [\App\Http\Controllers\teacher\TeacherController::class, 'upload'])->name('files.upload.complete');

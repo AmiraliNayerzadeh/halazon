@@ -13,6 +13,8 @@ class CourseOrder extends Model
        'course_id',
        'part_id',
        'total',
+       'revenue',
+       'is_settled',
     ];
 
     public function user()

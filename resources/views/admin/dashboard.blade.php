@@ -108,7 +108,7 @@
                             <div class="table-responsive">
                                 <table class="table align-items-center ">
                                     <tbody>
-                                    @foreach(\App\Models\Support::latest()->where('parent_id' , null)->get() as $lastTicket)
+                                    @foreach(\App\Models\Support::latest()->where('parent_id' , null)->take(5)->get() as $lastTicket)
                                     <tr>
                                         <td class="w-30">
                                             <div class="d-flex px-2 py-1 align-items-center">
@@ -224,7 +224,7 @@
                         <table class="table align-items-center ">
                             <tbody>
                             @foreach(\App\Models\Payment::take(6)->get() as $lastPay)
-{{--                                @dd($lastBlog)--}}
+
                                 <tr>
                                     <td>
                                         <div class="">

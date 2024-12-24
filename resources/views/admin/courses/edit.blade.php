@@ -358,7 +358,39 @@
                         </div>
                     </div>
 
+
                     <div class="card position-sticky fixed-top">
+                        <div class="card-header bg-light">
+                            <h5>
+                                <li class="mx-2 fa fa-money-bills mx-2"></li>
+                                درصد مشارکت
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="alert alert-light">
+                                            <b>درصد ها به طور معمول به شرح زیر است:</b>
+                                            <ul>
+                                                <li>دوره آنلاین: 65%</li>
+                                                <li>دوره هیبرید: 70%</li>
+                                                <li>دوره آنلاین: 75%</li>
+                                            </ul>
+                                        </div>
+                                        <label for="revenue">درصد سهم معلّم:</label>
+                                        <input class="form-control" type="number" name="revenue" id="revenue" value="{{old('revenue') ? old('revenue') : $course->revenue}}" max="100">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="card position-sticky fixed-top mt-3">
                         <div class="card-header bg-success">
                             <h5>
                                 <li class="mx-2 fa fa-save mx-2"></li>

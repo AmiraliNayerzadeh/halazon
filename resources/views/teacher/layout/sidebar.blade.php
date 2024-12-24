@@ -51,6 +51,19 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('panel/teacher/financial*') ? 'active' : '' }}" href="{{ route('teachers.financial.index') }}">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+                        <span class="fa fa-credit-card"></span>
+                    </div>
+                    <span class="nav-link-text me-1">
+                        مالی
+                    </span>
+                </a>
+            </li>
+
+
+
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('panel/teacher/profile*') ? 'active' : '' }}" href="{{ route('teachers.profile.edit') }}">

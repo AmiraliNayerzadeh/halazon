@@ -132,10 +132,10 @@
 <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
 
-<script src="/assets/admin/js/plugins/dropzone.min.js"></script>
+{{--<script src="/assets/admin/js/plugins/dropzone.min.js"></script>--}}
 
-<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
+{{--<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>--}}
+{{--<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>--}}
 
 
 <script src="/assets/admin/plugin/JalaliDatePicker-main/dist/jalalidatepicker.min.js"></script>
