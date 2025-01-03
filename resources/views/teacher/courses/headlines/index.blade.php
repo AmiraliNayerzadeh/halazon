@@ -25,8 +25,6 @@
 
         <div class="row">
             <div class="col-lg-9">
-
-
                 <div class="row">
                     <div class="card border-0">
 
@@ -59,14 +57,6 @@
                         </form>
 
                     </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -274,7 +264,20 @@
             <div class="col-lg-3">
 
                 <div class="card mb-3">
-                    <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
+                    <div class="card-header bg-light text-primary"><i class="fa fa-image mx-2"></i>تصویر پروفایل کلاس</div>
+                    <img class="img-fluid rounded p-3" src="{{$course->image}}" alt="{{$course->title}}">
+                </div>
+
+
+                <div class="card mb-3">
+                    <div class="card-header bg-light text-primary"><i class="fa fa-file-video mx-2"></i>ویدیو معرفی کلاس</div>
+                    <video class="p-3 rounded" width="100%" controls>
+                        <source src="{{ $course->video }}"
+                                type="video/mp4">
+                        مرورگر شما از تگ ویدیو
+                        پشتیبانی
+                        نمی‌کند.
+                    </video>
                 </div>
 
                 @include('teacher.courses.publishBox')
@@ -290,59 +293,6 @@
 
 
 
-        @section('script')
-
-            <script>
-                Dropzone.options.videoDropzone = {
-                    url: "{{ route('teachers.video.upload', $course) }}",
-                    maxFilesize: 800,
-                    acceptedFiles: '.mp4,.mov,.avi',
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    },
-                    dictDefaultMessage: "لطفاً ویدیوی خود را اینجا بکشید و رها کنید",
-                    init: function () {
-                        let submitButton = document.getElementById("submit-button");
-                        submitButton.disabled = true;
-
-                        this.on("sending", function (file, xhr, formData) {
-                            submitButton.disabled = true;
-                            submitButton.textContent = "در انتظار بارگذاری آپلود ویدیو...";
-
-
-                            xhr.upload.onprogress = function (event) {
-                                if (event.lengthComputable) {
-                                    const percent = (event.loaded / event.total) * 100;
-                                    file.previewElement.querySelector("[data-dz-uploadprogress]").style.width = percent + "%";
-                                    file.previewElement.querySelector("[data-dz-uploadprogress]").textContent = Math.round(percent) + "%";
-                                }
-                            };
-                        });
-
-                        this.on("success", function (file, response) {
-                            const videoUrl = response.url;
-
-                            // ذخیره لینک ویدیو در یک فیلد مخفی
-                            let videoInput = document.createElement('input');
-                            videoInput.type = 'hidden';
-                            videoInput.name = 'video_url';
-                            videoInput.value = videoUrl;
-                            document.getElementById('headlineForm').appendChild(videoInput);
-
-                            submitButton.disabled = false;
-                            submitButton.textContent = "ثبت";
-                        });
-
-                        this.on("error", function (file, response) {
-                            console.error('Error uploading file: ', response);
-                            submitButton.disabled = false;
-                            submitButton.textContent = "ثبت";
-                        });
-                    }
-                };
-            </script>
-
-        @endsection
 
 
 

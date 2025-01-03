@@ -3,7 +3,7 @@
         <div class="col-12">
 
             <div class="row">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-4 col-sm-6">
                     <div class="card  mb-4">
                         <div class="card-body p-3">
                             <div class="row">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6 mt-sm-0 mt-4">
+                <div class="col-lg-4 col-sm-6 mt-sm-0 mt-4">
                     <div class="card  mb-4">
                         <div class="card-body p-3">
                             <div class="row">
@@ -35,6 +35,30 @@
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">درامد تسویه نشده</p>
                                         <h5 class="font-weight-bolder mb-0">
                                             {{number_format($totalNotSettled)}} تومان
+
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                                        <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 col-sm-6 mt-sm-0 mt-4">
+                    <div class="card  mb-4">
+                        <div class="card-body p-3">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">تعداد فروش</p>
+                                        <h5 class="font-weight-bolder mb-0">
+                                            {{number_format(count($totalQty))}}
 
                                         </h5>
                                     </div>
@@ -58,7 +82,8 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
 
-                    @if(count($paidOrders))
+
+                    @if(count($totalQty))
                         <div class="table-responsive p-0">
                             <table class="table mb-0">
 

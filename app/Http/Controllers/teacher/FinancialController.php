@@ -26,6 +26,14 @@ class FinancialController extends Controller
         }])->latest()->get();
 
 
+        $totalQty = $paidOrders->flatMap(function($order) {
+            return $order->courseOrders;
+        });
+
+
+
+
+
         $totalRevenue = $paidOrders->flatMap(function($order) {
             return $order->courseOrders;
         })->sum(function($courseOrder) {
@@ -45,7 +53,7 @@ class FinancialController extends Controller
 
 
 
-        return view('teacher.financial.index' , compact('paidOrders' , 'totalRevenue' , 'totalNotSettled'));
+        return view('teacher.financial.index' , compact('paidOrders' , 'totalRevenue' , 'totalNotSettled' , 'totalQty'));
 
     }
 }

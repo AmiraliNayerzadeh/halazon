@@ -269,7 +269,20 @@
                 <div class="col-lg-3">
 
                     <div class="card mb-3">
-                        <img class="img-fluid rounded" src="{{$course->image}}" alt="{{$course->title}}">
+                        <div class="card-header bg-light text-primary"><i class="fa fa-image mx-2"></i>تصویر پروفایل کلاس</div>
+                        <img class="img-fluid rounded p-3" src="{{$course->image}}" alt="{{$course->title}}">
+                    </div>
+
+
+                    <div class="card mb-3">
+                        <div class="card-header bg-light text-primary"><i class="fa fa-file-video mx-2"></i>ویدیو معرفی کلاس</div>
+                        <video class="p-3 rounded" width="100%" controls>
+                            <source src="{{ $course->video }}"
+                                    type="video/mp4">
+                            مرورگر شما از تگ ویدیو
+                            پشتیبانی
+                            نمی‌کند.
+                        </video>
                     </div>
 
 

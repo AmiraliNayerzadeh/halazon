@@ -62,7 +62,7 @@
 
     <script>
         Dropzone.options.videoDropzone = {
-            url: "{{ route('admin.video.upload', $course) }}",
+            url: "{{ route('teachers.video.upload', $course) }}",
             maxFilesize: 800,
             acceptedFiles: '.mp4,.mov,.avi',
             headers: {

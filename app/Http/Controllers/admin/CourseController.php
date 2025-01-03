@@ -540,4 +540,13 @@ class CourseController extends Controller
     }
 
 
+    public function headlineDelete(Headline $headline)
+    {
+        $headline->deleteOrFail() ;
+        Alert::success("سر فصل با موفقیت حذف شد");
+        return back();
+
+    }
+
+
 }

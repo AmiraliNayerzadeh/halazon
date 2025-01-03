@@ -20,6 +20,7 @@ Route::post('/upload-video/{course}', [\App\Http\Controllers\S3Controller::class
 Route::get('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headline'])->name('headline.index');
 Route::post('/courses/headlines/{course}', [\App\Http\Controllers\admin\CourseController::class , 'headlineStore'])->name('headline.store');
 Route::put('/courses/headlines/{headline}', [\App\Http\Controllers\admin\CourseController::class , 'headlineUpdate'])->name('headline.update');
+Route::delete('/courses/headlines/{headline}', [\App\Http\Controllers\admin\CourseController::class , 'headlineDelete'])->name('headline.delete');
 Route::post('/courses/headline/upload-video', [\App\Http\Controllers\admin\CourseController::class, 'uploadVideo'])->name('headline.uploadVideo');
 
 
