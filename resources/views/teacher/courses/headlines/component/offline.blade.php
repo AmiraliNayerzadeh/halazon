@@ -5,7 +5,7 @@
             <label class="form-label" for="title">عنوان سرفصل:</label>
             <input class="form-control" type="text" name="title" id="title"
                    value="{{ old('title') }}"
-                   placeholder="مثال: آشنایی با تاریخچه ی ... ">
+                   placeholder="مثال: آشنایی با تاریخچه ی ... " required="true">
         </div>
     </div>
 

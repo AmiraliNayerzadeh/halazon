@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class S3Controller extends Controller
 {
 
-    public function uploadVideoNew(Request $request, Course $course)
+    public function uploadVideo(Request $request, Course $course)
     {
         set_time_limit(999);
 
@@ -41,6 +41,7 @@ class S3Controller extends Controller
             // مسیرهای FFMpeg و Ffprobe از env
             $ffmpegPath = env('FFMPEG_PATH');
             $ffprobePath = env('FFPROBE_PATH');
+
 
             // مسیر ویدیوی ورودی و خروجی
             $inputFilePath = storage_path("app/{$originalFilePath}");
@@ -75,8 +76,6 @@ class S3Controller extends Controller
                 ], 500);
             }
 
-            return response("done");
-
 
             // آپلود فایل خروجی در دیسک لیارا
             $path = Storage::disk('liara')->putFileAs($folder, new \Illuminate\Http\File($outputFilePath), $outputFileName);
@@ -100,7 +99,7 @@ class S3Controller extends Controller
 
 
 
-    public function uploadVideo(Request $request, Course $course)
+    public function uploadVideo_old(Request $request, Course $course)
     {
         $request->validate([
             'file' => 'required|mimes:mp4,mov,avi,m4v|max:819200'

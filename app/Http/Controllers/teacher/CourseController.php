@@ -549,6 +549,11 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
+        if ($course->type == "offline" && $request['video_url'] == null) {
+            alert()->error('خطا', "ویدیو شما بارگزاری نشد. از اتصال اینترنت خود اطمینان پیدا کنید.");
+            return back()->withInput();
+        }
+
 
         $request['slug'] = str_replace([' ', '‌'], '-', $request->title);
         $request['priority'] = $course->headlines()->count() + 1;
