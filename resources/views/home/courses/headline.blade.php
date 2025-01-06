@@ -10,7 +10,6 @@
         </div>
     </div>
 
-
     <div class="container mx-auto mt-1 ">
         <div class="p-2 rounded-lg">
 
@@ -27,13 +26,13 @@
 
                             <div class="mx-1 my-2 p-4 border-t border-dashed">
                                 <div class="grid grid-cols-12">
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <a class="px-1 sm:px-3 py-2 rounded bg-blue-200 text-blue-600 text-sm sm:text-base"
                                            href="{{$headline->video}}">
                                             <i class="fa fa-download"></i> دانلود
                                         </a>
                                     </div>
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <a class="px-1 sm:px-3 py-2 rounded bg-yellow-200 text-yellow-700  text-sm sm:text-base">
                                             <i class="fa fa-comment-alt"></i>
                                             {{count($headline->comments)}}

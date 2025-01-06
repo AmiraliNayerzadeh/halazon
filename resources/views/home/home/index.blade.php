@@ -10,7 +10,7 @@
                     <p class="mt-3 text-lg sm:text-lg">آهسته و پیوسته پیشرفت می‌کنیم.</p>
                     <div>
                         <li class="fa-solid fa-graduation-cap text-base text-primary ml-4"></li>
-                        <span class="text-main underline font-extrabold dec">+22</span>
+                        <span class="text-main underline font-extrabold dec">+{{$countCourse}}</span>
                         <span>کلاس فعال</span>
                     </div>
                     <div>
@@ -18,11 +18,7 @@
                         <span class="text-main underline font-extrabold dec">+{{$countTeacher}}</span>
                         <span>دبیر فعال</span>
                     </div>
-                    <div>
-                        <li class="fa-regular fa-star text-base text-primary ml-4"></li>
-                        <span class="text-main underline font-extrabold dec">+69</span>
-                        <span>کلاس برگزار شده</span>
-                    </div>
+
                     <div class="mt-24 flex">
                         <a class="bg-primary hover:bg-primary100 duration-500 p-3 font-extrabold text-sm rounded-3xl text-white "
                            href="{{route('login')}}"><i class="fa-solid fa-plus ml-3"></i>به ما بپیوندید</a>
@@ -108,24 +104,34 @@
     {{--Section 4--}}
     <div class="bg-main25 rounded-3xl container mx-auto">
         <h3 class="font-extrabold text-2xl sm:text-2xl text-center my-6 py-5">موضوعات و محورهای آموزشی منتخب</h3>
-        <div class="grid grid-cols-12">
-            @foreach($mainCategory as $category)
-                <div class="col-span-6 sm:col-span-2 my-6">
-                    <div class="flex justify-center items-center text-center">
-                        <div class="">
-                            <a href="{{route('category' , $category)}}">
-                                <img class="h-32"
-                                     src="{{!is_null($category->image) ? $category->image : '/assets/default-image.jpg'}}"
-                                     alt="{{$category->title}}">
-                                <span class="font-bold text-lg hover:text-main duration-500">{{$category->title}}</span>
-                            </a>
+
+        <div class="swiper" id="main">
+            <div class="swiper-wrapper">
+                @foreach($mainCategory as $category)
+                    <div class="swiper-slide">
+                        <div class="flex h-full w-full items-center justify-center">
+                            <div>
+                                <div class="flex justify-center">
+                                    <a class="my-2" href="{{route('category' , $category)}}"><img
+                                                class="h-28 w-28 rounded-full object-cover" src="{{$category->image}}"
+                                                alt="{{$category->title}}"></a>
+                                </div>
+                                <h3 class="text-center mt-2 "><a href="{{route('category' , $category)}}">{{$category->title}}</a></h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+
+            <div class="relative mt-10">
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
+
     </div>
     {{--End Section 4--}}
+
+
 
 
     {{--Section 5--}}

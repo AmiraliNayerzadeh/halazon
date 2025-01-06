@@ -20,8 +20,8 @@ class BlogController extends Controller
     {
         $this->seo()->setTitle("📚 مجله حلزون | یادگیری، رشد 🌱 و موفقیت 🚀 در یک قدمی شما");
         $this->seo()->setDescription('"در آرشیو مقالات سایت آموزشی کودکان حلزون، مجموعه‌ای از مقالات آموزشی و مفید برای والدین، مربیان و کودکان فراهم آمده است. از موضوعات تربیتی و روانشناسی کودک تا فعالیت‌های سرگرم‌کننده و آموزش‌های مناسب سنین مختلف، این آرشیو منبعی کامل برای رشد و توسعه کودکان شماست.');
-
         SEOMeta::setCanonical(route('blog.index'));
+        SEOMeta::setRobots('index, follow');
 
         $blogs = Blog::where('status', 1)->latest()->paginate(24);
         return view('home.blogs.index', compact('blogs'));
@@ -37,6 +37,9 @@ class BlogController extends Controller
 
         $this->seo()->setDescription($blog->meta_description);
 
+        SEOMeta::setRobots('index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+
+
         SEOMeta::setCanonical(route('blog.show', [$blog->categories->first()->slug, $blog->slug]));
 
 
@@ -47,6 +50,7 @@ class BlogController extends Controller
     public function category(Category $category)
     {
         $this->seo()->setTitle("مقاله های $category->title");
+        SEOMeta::setRobots('index, follow');
 
         $blogs = $category->blogs()->paginate(24);
         return view('home.blogs.category', compact('category', 'blogs'));

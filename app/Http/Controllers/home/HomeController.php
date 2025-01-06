@@ -24,12 +24,11 @@ class HomeController extends Controller
 
         $this->seo()->setTitle('پلتفرم آموزشی حلزون 🐌 | دوره‌های آنلاین و آفلاین برای کودک و نوجوان') ;
         $this->seo()->setDescription("پلتفرم آموزشی حلزون، ارائه‌دهنده دوره‌های آنلاین و آفلاین تخصصی برای کودکان و نوجوانان. با بهترین معلمان و محتوای آموزشی با کیفیت، یادگیری را به تجربه‌ای جذاب و موثر تبدیل کنید.") ;
-
-
         SEOMeta::setCanonical(route('home'));
+        SEOMeta::setRobots('index, follow');
 
 
-        $countTeacher = Cache::remember('countTeacher' , '720' , function () {
+        $countTeacher = Cache::remember('countTeacher' , 60*60 , function () {
             return count(User::where('is_teacher' , 1)->where('is_verify' , 1)->take(6)->get()) ;
         });
 
@@ -38,21 +37,18 @@ class HomeController extends Controller
         });
 
 
-
-
         $mainCategory = Cache::remember('mainCategory' , 10080 , function (){
             return  Category::where('parent_id' , null)->get();
         });
 
 
-
-        $courses = Cache::remember('lastCourse' ,'2880' , function (){
-            return Course::where('status', "منتشر شده")->where('type','online')->take(6)->get();
+        $courses = Cache::remember('lastCourse' ,60*60 , function (){
+            return Course::latest()->where('is_draft' , '0')->take(6)->get();
         });
 
 
         $teachers = Cache::remember('teacher' ,'720' , function (){
-            return User::where('is_teacher' , 1)->where('is_verify' , 1)->take(6)->get();
+            return User::latest()->where('is_teacher' , 1)->where('is_verify' , 1)->take(6)->get();
         });
 
 
@@ -61,9 +57,17 @@ class HomeController extends Controller
         });
 
 
+        $countCourse = Cache::remember('count-all-course' ,  60*120 , function () {
+           return count(Course::where('is_draft' , 0)->get());
+        });
+
+        $countTeacher = Cache::remember('count-all-teacher' , 60*120 , function (){
+           return User::where('is_verify' , 1)->where('is_teacher' , 1)->count();
+        });
 
 
-        return view('home.home.index' , compact('degrees' , 'mainCategory' , 'courses' , 'teachers' , 'countTeacher' , 'blogs'));
+
+        return view('home.home.index' , compact('degrees' , 'mainCategory' , 'courses' , 'teachers' , 'countTeacher' , 'blogs' , 'countCourse' , 'countTeacher'));
     }
 
 
