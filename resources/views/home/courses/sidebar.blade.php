@@ -158,7 +158,7 @@
             @elseif($course->type == 'offline')
                 <div class="flex items-center justify-center sm:sticky fixed ">
 
-                    @if(!(auth()->check() || auth()->user()->hasAccessToCourse($course->id)))
+                    @if(!(auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
 
                         <form class="w-full" action="{{route('cart.store')}}" method="post">
                             @csrf
