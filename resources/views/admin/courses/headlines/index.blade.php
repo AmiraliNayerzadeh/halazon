@@ -93,6 +93,11 @@
                                                             data-bs-target="#collapse{{$headline->id}}"
                                                             aria-expanded="false" aria-controls="collapseTwo">
                                                         {{$headline->title}}
+                                                        <small class="text-primary mx-2" >
+                                                            (ایجاد شده در:
+                                                            {{$headline->created_at}}
+                                                            )
+                                                        </small>
                                                     </button>
                                                     <!-- Button trigger modal -->
                                                     <button style="height: fit-content" type="button"
@@ -246,6 +251,7 @@
                                                                         <h5 class="modal-title" id="exampleModalLabel">
                                                                             حدف سر فصل
                                                                             <span class="text-danger">{{$headline->title}}</span>
+
                                                                         </h5>
                                                                     </div>
                                                                     <div>

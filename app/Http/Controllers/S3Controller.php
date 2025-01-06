@@ -13,9 +13,9 @@ use FFMpeg\Format\Video\X264;
 use Illuminate\Support\Str;
 
 
+
 class S3Controller extends Controller
 {
-
     public function uploadVideo(Request $request, Course $course)
     {
         set_time_limit(999);
@@ -84,92 +84,11 @@ class S3Controller extends Controller
     }
 
 
-    public function uploadVideoWithReveal(Request $request, Course $course)
-    {
-        set_time_limit(999);
-        // اعتبارسنجی فایل ورودی
-        $request->validate([
-            'file' => 'required|mimes:mp4,mov,avi,m4v|max:819200',
-        ]);
-
-        $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $folder = str_replace(' ', '-', $course->id);
-
-        // مسیر ذخیره اولیه فایل آپلود شده
-        $originalFilePath = $file->storeAs("/course/" . $folder, $fileName, 'local');
-
-        try {
-            // مسیرهای FFMpeg و Ffprobe از env
-            $ffmpegPath = env('FFMPEG_PATH');
-            $ffprobePath = env('FFPROBE_PATH');
-
-            // مسیر ویدیوی ورودی و خروجی
-            $inputFilePath = storage_path("app/{$originalFilePath}");
-            $outputFileName = 'final_video_' . $fileName;
-            $outputFilePath = storage_path("app/course/{$folder}/{$outputFileName}");
-
-            // مسیر واترمارک
-            $watermarkPath = public_path('assets/watermark.png');
-            $revealFilePath = public_path('assets/reveal-first-course.mp4');
-
-            // مسیر ویدیوهای ترکیبی
-            $intermediateFilePath = storage_path("app/course/{$folder}/watermarked_{$fileName}");
-            $concatListPath = storage_path("app/course/{$folder}/concat_list.txt");
-
-            // تنظیم ابعاد و اعمال واترمارک بر ویدیوی آپلود شده
-            $watermarkCommand = "{$ffmpegPath} -i {$inputFilePath} -i {$watermarkPath} -filter_complex \"[0:v]scale=w=1280:h=720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2[v];[v][1:v]overlay=W-w-3:H-h-3\" -c:v libx264 -crf 23 -preset veryfast -c:a aac -b:a 128k -movflags +faststart {$intermediateFilePath}";
-
-            exec($watermarkCommand . " 2>&1", $watermarkOutput, $watermarkResultCode);
-            if ($watermarkResultCode !== 0) {
-                Log::error("Watermark Command: " . $watermarkCommand);
-                Log::error("Command Output: " . implode("\n", $watermarkOutput));
-                return response()->json([
-                    'error' => 'Watermark processing failed. Output: ' . implode("\n", $watermarkOutput),
-                ], 500);
-            }
-
-            // ایجاد فایل لیست ویدیوها برای ادغام
-            file_put_contents($concatListPath, "file '{$revealFilePath}'\nfile '{$intermediateFilePath}'");
-
-            // ادغام ویدیوها با استفاده از concat
-            $concatCommand = "{$ffmpegPath} -f concat -safe 0 -i {$concatListPath} -c copy {$outputFilePath}";
-            exec($concatCommand . " 2>&1", $concatOutput, $concatResultCode);
-
-            if ($concatResultCode !== 0) {
-                Log::error("Concat Command: " . $concatCommand);
-                Log::error("Command Output: " . implode("\n", $concatOutput));
-                return response()->json([
-                    'error' => 'Video concatenation failed. Output: ' . implode("\n", $concatOutput),
-                ], 500);
-            }
-
-            // آپلود فایل خروجی در دیسک لیارا
-            $path = Storage::disk('liara')->putFileAs($folder, new \Illuminate\Http\File($outputFilePath), $outputFileName);
-
-            if ($path) {
-                $url = Storage::disk('liara')->url($path);
-
-                // پاک کردن فایل‌های لوکال
-                unlink($inputFilePath);
-                unlink($intermediateFilePath);
-                unlink($outputFilePath);
-                unlink($concatListPath);
-
-                return response()->json(['url' => $url], 200);
-            }
-        } catch (\Exception $e) {
-            Log::error("Exception: " . $e->getMessage());
-            return response()->json(['error' => 'Processing failed: ' . $e->getMessage()], 500);
-        }
-        return response()->json(['error' => 'File upload failed'], 500);
-    }
-
-
 
     public function uploadVideo2(Request $request, Course $course)
     {
         set_time_limit(999);
+
         // اعتبارسنجی فایل ورودی
         $request->validate([
             'file' => 'required|mimes:mp4,mov,avi,m4v|max:819200',

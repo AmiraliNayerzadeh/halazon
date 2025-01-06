@@ -169,7 +169,8 @@
                                         <i class="fa fa-circle-info text-info"></i>
                                     </a>
 
-                                    <input type="file" name="video" id="video" class="form-control" accept="image/*">
+                                    <input type="file" name="video" id="video" class="form-control" accept="video/mp4,video/quicktime">
+
 
                                 </div>
 
