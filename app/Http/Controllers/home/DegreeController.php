@@ -31,7 +31,7 @@ class DegreeController extends Controller
         $this->seo()->setTitle("مقطع $degree->title");
         SEOMeta::setCanonical(route('degrees.show' , $degree));
 
-        $courses = $degree->courses()->where('is_draft' , 'منتشر شده')->paginate(12) ;
+        $courses = $degree->courses()->where('is_draft' , 0)->paginate(12) ;
 
         return view('home.degrees.show' , compact('degree' , 'courses'));
     }

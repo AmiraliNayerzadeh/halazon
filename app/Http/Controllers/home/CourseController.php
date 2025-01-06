@@ -21,7 +21,7 @@ class CourseController extends Controller
         $this->seo()->setDescription("با دوره‌های آموزشی متنوع حلزون، یادگیری را برای کودکان، نوجوانان و جوانان به تجربه‌ای هیجان‌انگیز تبدیل کنید! آموزش‌های آنلاین و آفلاین شامل مهارت‌های هنری، علمی، ورزشی و رشد فردی، به صورت ویژه برای سنین مختلف طراحی شده‌اند. بهترین دوره‌ها برای رشد و پرورش استعدادها در حلزون!");
 
         $courses = Cache::remember('all_courses', 60 * 60, function () {
-            return Course::where('status', "منتشر شده")->paginate(16);
+            return Course::where('is_draft', 0)->paginate(16);
         });
 
 

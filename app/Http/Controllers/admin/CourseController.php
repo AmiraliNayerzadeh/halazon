@@ -110,13 +110,6 @@ class CourseController extends Controller
         }
 
 
-        if ($request['is_draft'] == 1) {
-            $request['status'] = 'پیش نویس';
-        } else {
-            $request['status'] = 'در انتظار تایید اولیه';
-        }
-
-
         /*Slug Handler*/
         if (!is_null($request['slug'])) {
             $request['slug'] = str_replace([' ', '‌'], '-', $request->slug);
@@ -236,11 +229,7 @@ class CourseController extends Controller
             return back()->withInput();
         }
 
-        if ($request['is_draft'] == 0) {
-            $request['status'] = 'پیش نویس';
-        }else {
-            $request['status'] = 'منتشر شده';
-        }
+
 
 
         /*Slug Handler*/

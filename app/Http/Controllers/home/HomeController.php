@@ -94,12 +94,9 @@ class HomeController extends Controller
         }
 
         Contact::create($request->all()) ;
-
-
         Alert::success("درخواست تماس شما با موفقیت ثبت شد. کارشناسان ما در اسرع وقت با شما تماس خواهند گرفت.");
 
         return back();
-
 
     }
 
@@ -114,7 +111,6 @@ class HomeController extends Controller
     {
         $this->seo()->setTitle("قوانین و مقررات حلزون");
         return view('home.landing.terms');
-
 
     }
     

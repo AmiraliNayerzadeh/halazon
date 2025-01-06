@@ -413,12 +413,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <button class="btn btn-warning w-100" name="is_draft" value="0" type="submit">ذخیره
+                                    <button class="btn btn-warning w-100" name="is_draft" value="1" type="submit">ذخیره
                                         پیش نویس
                                     </button>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button class="btn btn-success w-100" name="is_draft" value="1" type="submit">انتشار
+                                    <button class="btn btn-success w-100" name="is_draft" value="0" type="submit">انتشار
                                         دوره
                                     </button>
                                 </div>

@@ -102,7 +102,7 @@
                                     <td>{{$course->revenue}}%</td>
 
                                     <td>
-                                        @if($course->status == "پیش نویس")
+                                        @if($course->is_draft == 1)
                                             <bdi class="bdi rounded bg-warning">پیش نویس</bdi>
                                         @else
                                             <bdi class="bdi rounded bg-success">منتشر شده</bdi>
