@@ -156,7 +156,7 @@
                 @endforeach
 
             @elseif($course->type == 'offline')
-                <div class="flex items-center justify-center sm:sticky fixed ">
+                <div class="flex items-center justify-center ">
 
                     @if(!(auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
 
