@@ -139,7 +139,7 @@
         <div class="flex items-center justify-between mb-3 ">
             <h3 class="font-extrabold text-base sm:text-2xl  text-center  ">
                 <b class="text-primary">جدیدترین</b>
-                کلاس های آنلاین
+                کلاس ها
             </h3>
             <a class="text-main" href="{{route('course.index')}}">مشاهده همه
                 <i class="fa fa-angle-left"></i>

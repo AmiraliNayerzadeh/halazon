@@ -84,13 +84,16 @@
             </div>
 
 
-            <div class="flex  items-center  my-3 ">
-                <div class="flex items-center">
-                    <i class="ml-1 fa-regular fa-square-user"></i>
-                    <b class="ml-1">ظرفیت:</b>
-                    <span>{{$course->capacity}} نفر </span>
+            @if(!is_null($course->capacity))
+
+                <div class="flex  items-center  my-3 ">
+                    <div class="flex items-center">
+                        <i class="ml-1 fa-regular fa-square-user"></i>
+                        <b class="ml-1">ظرفیت:</b>
+                        <span>{{$course->capacity}} نفر </span>
+                    </div>
                 </div>
-            </div>
+            @endif
 
 
         </div>
@@ -155,7 +158,7 @@
             @elseif($course->type == 'offline')
                 <div class="flex items-center justify-center sm:sticky fixed ">
 
-                    @if(!(auth()->check() && auth()->user()->hasAccessToCourse($course->id)))
+                    @if(!(auth()->check() || auth()->user()->hasAccessToCourse($course->id)))
 
                         <form class="w-full" action="{{route('cart.store')}}" method="post">
                             @csrf
