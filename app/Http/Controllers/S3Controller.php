@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use FFMpeg\FFMpeg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use FFMpeg;
-use FFMpeg\Coordinate\TimeCode;
-use FFMpeg\Filters\Video\VideoFilters;
-use FFMpeg\Format\Video\X264;
 use Illuminate\Support\Str;
-
+use mysql_xdevapi\Exception;
 
 
 class S3Controller extends Controller
 {
+
+
     public function uploadVideo(Request $request, Course $course)
     {
         set_time_limit(999);
@@ -25,7 +24,7 @@ class S3Controller extends Controller
         ]);
 
         $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
+        $fileName = Str::slug(time() . '_' . $file->getClientOriginalName());
         $folder = str_replace(' ', '-', $course->id);
 
         $originalFilePath = $file->storeAs("/course/" . $folder, $fileName, 'local');
@@ -39,13 +38,28 @@ class S3Controller extends Controller
             $resizedFilePath = storage_path("app/course/{$folder}/resized_{$fileName}");
             $outputFilePath = storage_path("app/course/{$folder}/final_{$fileName}");
 
+            // بررسی اینکه فایل ورودی وجود دارد
+            if (!file_exists($inputFilePath)) {
+                return response()->json(['error' => 'Input file not found.'], 404);
+            }
+
             // تغییر ابعاد ویدیو و افزودن واترمارک
-            $resizeAndWatermarkCommand = "{$ffmpegPath} -i {$inputFilePath} -i {$watermarkPath} -filter_complex \"[0:v]scale=w=1280:h=720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2[v];[v][1:v]overlay=W-w-3:H-h-3\" -c:v libx264 -crf 23 -preset veryfast -c:a copy {$resizedFilePath}";
+            $resizeAndWatermarkCommand = "{$ffmpegPath} -i {$inputFilePath} -i {$watermarkPath} -filter_complex \"[0:v]scale=1280:720,setsar=1[p];[p][1:v]overlay=W-w-3:H-h-3\" -c:v libx264 -c:a copy {$resizedFilePath}";
+
             exec($resizeAndWatermarkCommand . " 2>&1", $resizeOutput, $resizeResultCode);
 
             if ($resizeResultCode !== 0) {
+                $errorDetails = [
+                    'error' => 'Resize and watermarking failed.',
+                    'command' => $resizeAndWatermarkCommand,
+                    'ffmpeg_output' => implode("\n", $resizeOutput),  // نمایش خطاها
+                    'exit_code' => $resizeResultCode,
+                ];
+
                 Log::error("Resize and Watermark Command: " . $resizeAndWatermarkCommand);
-                return response()->json(['error' => 'Resize and watermarking failed.'], 500);
+                Log::error("FFMPEG Error Output: " . implode("\n", $resizeOutput));  // نمایش خطاها
+
+                return response()->json($errorDetails, 500);
             }
 
             // ایجاد فایل لیست برای ادغام ویدیوها
@@ -60,6 +74,8 @@ class S3Controller extends Controller
                 Log::error("Concat Command: " . $concatCommand);
                 return response()->json(['error' => 'Video concatenation failed.'], 500);
             }
+
+//            return response("Done :)");
 
             // آپلود فایل نهایی روی دیسک لیارا
             $path = Storage::disk('liara')->putFileAs($folder, new \Illuminate\Http\File($outputFilePath), "final_{$fileName}");
@@ -82,7 +98,6 @@ class S3Controller extends Controller
 
         return response()->json(['error' => 'File upload failed'], 500);
     }
-
 
 
     public function uploadVideo2(Request $request, Course $course)
@@ -153,7 +168,6 @@ class S3Controller extends Controller
         }
         return response()->json(['error' => 'File upload failed'], 500);
     }
-
 
 
     public function uploadVideo_old(Request $request, Course $course)
