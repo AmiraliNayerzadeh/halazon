@@ -24,7 +24,7 @@ class S3Controller extends Controller
         ]);
 
         $file = $request->file('file');
-        $fileName = Str::slug(time() . '_' . $file->getClientOriginalName());
+        $fileName = time() . '_' . $file->getClientOriginalName();
         $folder = str_replace(' ', '-', $course->id);
 
         $originalFilePath = $file->storeAs("/course/" . $folder, $fileName, 'local');
@@ -37,11 +37,6 @@ class S3Controller extends Controller
             $watermarkPath = public_path('assets/watermark.png');
             $resizedFilePath = storage_path("app/course/{$folder}/resized_{$fileName}");
             $outputFilePath = storage_path("app/course/{$folder}/final_{$fileName}");
-
-            // بررسی اینکه فایل ورودی وجود دارد
-            if (!file_exists($inputFilePath)) {
-                return response()->json(['error' => 'Input file not found.'], 404);
-            }
 
             // تغییر ابعاد ویدیو و افزودن واترمارک
             $resizeAndWatermarkCommand = "{$ffmpegPath} -i {$inputFilePath} -i {$watermarkPath} -filter_complex \"[0:v]scale=1280:720,setsar=1[p];[p][1:v]overlay=W-w-3:H-h-3\" -c:v libx264 -c:a copy {$resizedFilePath}";
@@ -74,8 +69,6 @@ class S3Controller extends Controller
                 Log::error("Concat Command: " . $concatCommand);
                 return response()->json(['error' => 'Video concatenation failed.'], 500);
             }
-
-//            return response("Done :)");
 
             // آپلود فایل نهایی روی دیسک لیارا
             $path = Storage::disk('liara')->putFileAs($folder, new \Illuminate\Http\File($outputFilePath), "final_{$fileName}");
