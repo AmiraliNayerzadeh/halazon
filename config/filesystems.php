@@ -65,6 +65,17 @@ return [
             'bucket' => env('BUCKET_NAME'),
         ],
 
+        'arvan' => [
+            'driver' => 's3',
+            'endpoint' => env('ARVAN_ENDPOINT_URL'),
+            'key' => env('ARVAN_ACCESS_KEY'),
+            'secret' => env('ARVAN_SECRET_KEY'),
+            'region' => 'us-east-1' ,
+            'bucket' => env('ARVAN_BUCKET_NAME'),
+            'visibility' => 'public', // پیش‌فرض کردن دسترسی عمومی
+
+        ],
+
     ],
 
     /*
