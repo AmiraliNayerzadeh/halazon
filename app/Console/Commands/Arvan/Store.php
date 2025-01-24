@@ -42,7 +42,7 @@ class Store extends Command
                 $videoResult = $platform->store($head->video, $file_name ,  $description);
 
                 if (isset($videoResult['error'])) {
-                    return response()->json($videoResult, 500);
+                    $this->error("Error! Video Headline $head->id Dosent Move To ArvanCloud Video Result dosent Exsist");
                 } else {
                     $head->update([
                         'is_move_video' => 1 ,
