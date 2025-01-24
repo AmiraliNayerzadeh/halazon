@@ -17,6 +17,10 @@ class Headline extends Model
         'course_id' ,
         'slug' ,
         'is_free' ,
+        'is_move_video',
+        'arvan_video_id',
+        'arvan_video_url',
+        'arvan_video_player',
     ];
 
     public function course()

@@ -162,30 +162,22 @@
                                                                             @endif
 
                                                                             @if($course->type == 'offline')
-                                                                                @if($headline->video)
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="alert alert-warning text-white"
-                                                                                             role="alert">
-                                                                                            امکان تغییر ویدیو وجود ندارد.
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label>ویدیو:</label>
-                                                                                            <video width="100%" controls>
-                                                                                                <source src="{{ $headline->video }}"
-                                                                                                        type="video/mp4">
-                                                                                                مرورگر شما از تگ ویدیو پشتیبانی
-                                                                                                نمی‌کند.
-                                                                                            </video>
-                                                                                        </div>
-                                                                                    </div>
+
+
+                                                                                @if(is_null($headline->arvan_video_player))
+                                                                                    <video width="100%" controls>
+                                                                                        <source src="{{ $headline->video }}"
+                                                                                                type="video/mp4">
+                                                                                        مرورگر شما از تگ ویدیو
+                                                                                        پشتیبانی
+                                                                                        نمی‌کند.
+                                                                                    </video>
                                                                                 @else
-                                                                                    <div class="col-lg-12">
-                                                                                        <div class="alert alert-danger text-white"
-                                                                                             role="alert">
-                                                                                            ویدیویی برای این سرفصل وجود ندارد.
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    @include('.iFrameArvan' ,  ['video' => $headline->arvan_video_player])
                                                                                 @endif
+
+
+
                                                                             @endif
 
                                                                             <div class="col-lg-12">
@@ -230,15 +222,19 @@
                                                         </div>
                                                     @endif
 
-                                                    @if(!is_null($headline->video))
-
-                                                        <video class="img-fluid my-2" controls>
-                                                            <source src="{{$headline->video}}" type="video/mp4">
-                                                            <source src="{{$headline->video}}" type="video/ogg">
-                                                            Your browser does not support the video tag.
+                                                    @if(is_null($headline->arvan_video_player))
+                                                        <video width="100%" controls>
+                                                            <source src="{{ $headline->video }}"
+                                                                    type="video/mp4">
+                                                            مرورگر شما از تگ ویدیو
+                                                            پشتیبانی
+                                                            نمی‌کند.
                                                         </video>
-
+                                                    @else
+                                                        @include('.iFrameArvan' ,  ['video' => $headline->arvan_video_player])
                                                     @endif
+
+
                                                 </div>
                                             </div>
                                         </div>

@@ -90,9 +90,7 @@ class Token extends Model
 
     public function send()
     {
-
         $sessionType = 'login' ;
-
 
         if (!$this->code) {
             $this->code = $this->generateCode();

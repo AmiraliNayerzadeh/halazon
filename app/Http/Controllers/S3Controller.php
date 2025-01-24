@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ArvanVideoPlatform;
 use App\Models\Course;
+use App\Models\Headline;
 use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Filters\Video\VideoFilters;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -19,203 +22,26 @@ class S3Controller extends Controller
 {
 
 
-//    public function uploadVideorwerw(Request $request, Course $course)
-//    {
-//        set_time_limit(999);
-//
-//        $request->validate([
-//            'file' => 'required|mimes:mp4,mov,avi,m4v|max:819200',
-//        ]);
-//
-//        $file = $request->file('file');
-//        $fileName = time() . '_' . $file->getClientOriginalName();
-//        $folder = str_replace(' ', '-', $course->id);
-//
-//        $originalFilePath = $file->storeAs("/course/" . $folder, $fileName, 'local');
-//        $revealFilePath = public_path('assets/reveal-first-course.mp4');
-//
-//        try {
-//            $ffmpegPath = env('FFMPEG_PATH');
-//
-//            $inputFilePath = storage_path("app/{$originalFilePath}");
-//            $watermarkPath = public_path('assets/watermark.png');
-//            $resizedFilePath = storage_path("app/course/{$folder}/resized_{$fileName}");
-//            $outputFilePath = storage_path("app/course/{$folder}/final_{$fileName}");
-//
-//            // تغییر ابعاد ویدیو و افزودن واترمارک
-//            $resizeAndWatermarkCommand = "{$ffmpegPath} -i {$inputFilePath} -i {$watermarkPath} -filter_complex \"[0:v]scale=1280:720,setsar=1[p];[p][1:v]overlay=W-w-3:H-h-3\" -c:v libx264 -c:a copy {$resizedFilePath}";
-//
-//            exec($resizeAndWatermarkCommand . " 2>&1", $resizeOutput, $resizeResultCode);
-//
-//            if ($resizeResultCode !== 0) {
-//                $errorDetails = [
-//                    'error' => 'Resize and watermarking failed.',
-//                    'command' => $resizeAndWatermarkCommand,
-//                    'ffmpeg_output' => implode("\n", $resizeOutput),  // نمایش خطاها
-//                    'exit_code' => $resizeResultCode,
-//                ];
-//
-//                Log::error("Resize and Watermark Command: " . $resizeAndWatermarkCommand);
-//                Log::error("FFMPEG Error Output: " . implode("\n", $resizeOutput));  // نمایش خطاها
-//
-//                return response()->json($errorDetails, 500);
-//            }
-//
-//            // ایجاد فایل لیست برای ادغام ویدیوها
-//            $concatListPath = storage_path("app/course/{$folder}/concat_list.txt");
-//            file_put_contents($concatListPath, "file '{$revealFilePath}'\nfile '{$resizedFilePath}'");
-//
-//            // ترکیب ویدیو معرفی و ویدیو آپلود شده
-//            $concatCommand = "{$ffmpegPath} -f concat -safe 0 -i {$concatListPath} -c copy {$outputFilePath}";
-//            exec($concatCommand . " 2>&1", $concatOutput, $concatResultCode);
-//
-//            if ($concatResultCode !== 0) {
-//                Log::error("Concat Command: " . $concatCommand);
-//                return response()->json(['error' => 'Video concatenation failed.'], 500);
-//            }
-//
-//            // آپلود فایل نهایی روی دیسک لیارا
-//            $path = Storage::disk('liara')->putFileAs($folder, new \Illuminate\Http\File($outputFilePath), "final_{$fileName}");
-//
-//            if ($path) {
-//                $url = Storage::disk('liara')->url($path);
-//
-//                // پاک کردن فایل‌های موقت
-//                unlink($inputFilePath);
-//                unlink($resizedFilePath);
-//                unlink($concatListPath);
-//                unlink($outputFilePath);
-//
-//                return response()->json(['url' => $url], 200);
-//            }
-//        } catch (\Exception $e) {
-//            Log::error("Exception: " . $e->getMessage());
-//            return response()->json(['error' => 'Processing failed: ' . $e->getMessage()], 500);
-//        }
-//
-//        return response()->json(['error' => 'File upload failed'], 500);
-//    }
-
-
-    public function uploadVideo2(Request $request, Course $course)
-    {
-        set_time_limit(999);
-
-        // اعتبارسنجی فایل ورودی
-        $request->validate([
-            'file' => 'required|mimes:mp4,mov,avi,m4v|max:819200',
-        ]);
-
-        $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $folder = str_replace(' ', '-', $course->id);
-
-        // مسیر ذخیره اولیه فایل آپلود شده
-        $originalFilePath = $file->storeAs("/course/" . $folder, $fileName, 'local');
-
-        try {
-            // مسیرهای FFMpeg و Ffprobe از env
-            $ffmpegPath = env('FFMPEG_PATH');
-            $ffprobePath = env('FFPROBE_PATH');
-
-
-            // مسیر ویدیوی ورودی و خروجی
-            $inputFilePath = storage_path("app/{$originalFilePath}");
-            $outputFileName = 'watermarked_' . $fileName;
-            $outputFilePath = storage_path("app/course/{$folder}/{$outputFileName}");
-
-            // مسیر واترمارک
-            $watermarkPath = public_path('assets/watermark.png');
-
-            // تنظیم ابعاد و اعمال واترمارک با دستور FFMpeg
-            $command = "{$ffmpegPath} -i {$inputFilePath} -i {$watermarkPath} -filter_complex \"[0:v]scale=w=1280:h=720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2[v];[v][1:v]overlay=W-w-3:H-h-3\" -c:v libx264 -crf 23 -preset veryfast -c:a aac -b:a 128k -movflags +faststart {$outputFilePath}";
-
-
-            // اجرای دستور FFMpeg
-            exec($command . " 2>&1", $output, $resultCode);
-
-            // ثبت لاگ‌های خطا احتمالی
-            Log::error("FFMpeg Command: " . $command);
-            Log::error("Command Output: " . implode("\n", $output));
-            Log::error("Command Result Code: " . $resultCode);
-
-            // بررسی کد نتیجه اجرای دستور
-            if ($resultCode !== 0) {
-                return response()->json([
-                    'error' => 'Processing failed. Output: ' . implode("\n", $output),
-                ], 500);
-            }
-
-
-            // آپلود فایل خروجی در دیسک لیارا
-            $path = Storage::disk('liara')->putFileAs($folder, new \Illuminate\Http\File($outputFilePath), $outputFileName);
-
-            if ($path) {
-                $url = Storage::disk('liara')->url($path);
-
-                // پاک کردن فایل‌های لوکال
-                unlink($inputFilePath);
-                unlink($outputFilePath);
-
-                return response()->json(['url' => $url], 200);
-            }
-        } catch (\Exception $e) {
-            Log::error("Exception: " . $e->getMessage());
-            return response()->json(['error' => 'Processing failed: ' . $e->getMessage()], 500);
-        }
-        return response()->json(['error' => 'File upload failed'], 500);
-    }
-
-
-
-
     public function uploadVideo(Request $request, Course $course)
     {
+        $file = $request->file('file'); // اطمینان حاصل کنید که 'video' همان نام فیلد فرم است.
+        if ($file) {
+            // ذخیره فایل ویدیو در سرور
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $folder = $course->id;
+            $originalFilePath = $file->storeAs("/course/{$folder}", $fileName, 'arvan');
+            $videoUrl = Storage::disk('arvan')->url($originalFilePath);
 
-        $file = $request->file('file');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $folder = $course->id;
-        $originalFilePath = $file->storeAs("/course/" . $folder, $fileName, 'local');
+            return response()->json(['url' => $videoUrl], 200);
 
-
-        $newFolder =  'course/'.$folder ;
-        $newName = 'new_'.$fileName ;
-        $newFullPath = $newFolder."/".$newName ;
-
-        FFMpeg::fromDisk('local')
-            ->open($originalFilePath)
-            ->addFilter(function (VideoFilters $filters) {
-                $filters->resize(new \FFMpeg\Coordinate\Dimension(1280, 720));
-            })->addWatermark(function(WatermarkFactory $watermark) {
-                $watermark->fromDisk('local')
-                    ->open('watermark.png')
-                    ->right(25)
-                    ->bottom(25);
-            })
-            ->export()
-            ->toDisk('local')
-            ->inFormat(new \FFMpeg\Format\Video\X264)
-            ->addFilter(['-crf', '23', '-preset', 'fast'])
-            ->save($newFullPath);
-
-        $path = Storage::disk('arvan')->putFileAs(
-            $folder,
-            new \Illuminate\Http\File( storage_path('app/'.$newFullPath))
-            , $newName,
-        'public');
-
-        if ($path) {
-
-            $url = Storage::disk('arvan')->url($path);
-
-            unlink(storage_path('app/' . $originalFilePath));
-            unlink(storage_path('app/' . $newFullPath));
-
-            return response()->json(['url' => $url], 200);
         }
-
     }
 
+
+    public function sendToArvanVideoPlatform()
+    {
+
+    }
 
 
 }

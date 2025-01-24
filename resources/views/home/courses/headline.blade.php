@@ -1,5 +1,7 @@
 @extends('home.layouts.main.master')
 @section('content')
+
+
     <div class="container mx-auto p-2">
         <div class="p-2 mt-4 bg-white rounded-lg shadow ">
             <a href="{{route('course.show' , $course)}}" class="text-gray-400 text-xs">
@@ -19,10 +21,17 @@
 
                         @if(auth()->user()->hasAccessToCourse($course->id) || $headline->is_free == 1)
 
-                            <video class="rounded-lg " width="100%" controls poster="{{$course->image}}">
-                                <source src="{{ $headline->video }}" type="video/mp4">
-                                مرورگر شما از ویدیو پشتیبانی نمی‌کند.
-                            </video>
+
+                            @if(is_null($headline->arvan_video_player))
+                                <video class="rounded-lg " width="100%" controls poster="{{$course->image}}">
+                                    <source src="{{ $headline->video }}" type="video/mp4">
+                                    مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+                                </video>
+                            @else
+                                @include('.iFrameArvan' ,  ['video' => $headline->arvan_video_player])
+                            @endif
+
+
 
                             <div class="mx-1 my-2 p-4 border-t border-dashed">
                                 <div class="grid grid-cols-12">

@@ -41,6 +41,7 @@ Route::resource('/orders' , \App\Http\Controllers\admin\OrderController::class) 
 
 
 
+Route::get('/headline-arvan', [\App\Http\Controllers\S3Controller::class , 'sendToArvanVideoPlatform']);
 
 
 
