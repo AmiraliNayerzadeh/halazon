@@ -21,10 +21,9 @@ use function Clue\StreamFilter\fun;
 class S3Controller extends Controller
 {
 
-
     public function uploadVideo(Request $request, Course $course)
     {
-        $file = $request->file('file'); // اطمینان حاصل کنید که 'video' همان نام فیلد فرم است.
+        $file = $request->file('file');
         if ($file) {
             // ذخیره فایل ویدیو در سرور
             $fileName = time() . '_' . $file->getClientOriginalName();

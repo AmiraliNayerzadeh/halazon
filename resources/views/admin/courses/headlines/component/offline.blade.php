@@ -63,7 +63,7 @@
     <script>
         Dropzone.options.videoDropzone = {
             url: "{{ route('teachers.video.upload', $course) }}",
-            maxFilesize: 800,
+            maxFilesize: 1400,
             acceptedFiles: '.mp4,.mov,.avi',
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
