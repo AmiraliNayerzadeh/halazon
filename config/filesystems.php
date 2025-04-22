@@ -56,24 +56,14 @@ return [
             'throw' => false,
         ],
 
-        'liara' => [
-            'driver' => 's3',
-            'endpoint' => env('ENDPOINT_URL'),
-            'key' => env('ACCESS_KEY'),
-            'secret' => env('SECRET_KEY'),
-            'region' => env('DEFAULT_REGION'),
-            'bucket' => env('BUCKET_NAME'),
-        ],
-
         'arvan' => [
             'driver' => 's3',
-            'endpoint' => env('ARVAN_ENDPOINT_URL'),
-            'key' => env('ARVAN_ACCESS_KEY'),
-            'secret' => env('ARVAN_SECRET_KEY'),
+            'endpoint' => env('ARVAN_ENDPOINT_URL', 'https://s3.ir-thr-at1.arvanstorage.ir'),
+            'key' => env('ARVAN_ACCESS_KEY' , '18595c0a-aac4-4a05-8a05-468d56a41a05'),
+            'secret' => env('ARVAN_SECRET_KEY', '26fefc23c5edffbd4868888c5a9433072338d9ef428c40e9b4edce2a045bed9c'),
             'region' => 'us-east-1' ,
-            'bucket' => env('ARVAN_BUCKET_NAME'),
-            'visibility' => 'public', // پیش‌فرض کردن دسترسی عمومی
-
+            'bucket' => env('ARVAN_BUCKET_NAME' , 'halazooncourse'),
+            'visibility' => 'public',
         ],
 
     ],

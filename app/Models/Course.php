@@ -96,7 +96,6 @@ class Course extends Model
             'online' => 'آنلاین',
 
         ];
-
         return $translations[$this->type] ?? $this->type;
     }
 

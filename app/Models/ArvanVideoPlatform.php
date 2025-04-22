@@ -15,10 +15,15 @@ class ArvanVideoPlatform extends Model
 
     public function __construct()
     {
-        $this->apiKey = env('ARVAN_API_KEY', '712254c5-216a-5a99-bd30-552c2dd8c45b');
+        $this->apiKey = env('ARVAN_API_KEY', '2aa8e8c1-078a-539a-bf7e-31863580c223');
         $this->client = new Client() ;
-        $this->channel_id = "1494bb6d-3e2d-404d-8756-6825b4681b93";
-        $this->profile_id = "22eb27f1-f07e-461f-b568-f5dcef485461" ;
+
+//        $this->channel_id = "1494bb6d-3e2d-404d-8756-6825b4681b93";
+        $this->channel_id = "b433773d-f9cc-4237-9e84-3b404675a60f";
+
+
+//        $this->profile_id = "22eb27f1-f07e-461f-b568-f5dcef485461" ;
+        $this->profile_id = "bdf8e31b-f757-414f-94ed-193056d6fdda" ;
     }
 
     public function store($videoPath, $videoName , $description)
