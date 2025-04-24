@@ -64,6 +64,8 @@ return [
             'region' => 'us-east-1' ,
             'bucket' => env('ARVAN_BUCKET_NAME' , 'halazooncourse'),
             'visibility' => 'public',
+            'use_path_style_endpoint' => true,
+
         ],
 
     ],

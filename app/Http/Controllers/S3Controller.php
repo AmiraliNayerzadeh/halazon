@@ -25,16 +25,25 @@ class S3Controller extends Controller
     {
         $file = $request->file('file');
         if ($file) {
-            // ذخیره فایل ویدیو در سرور
+
             $fileName = time() . '_' . $file->getClientOriginalName();
             $folder = $course->id;
-            $originalFilePath = $file->storeAs("/course/{$folder}", $fileName, 'arvan');
+            $originalFilePath = "course/{$folder}/{$fileName}";
+
+            $stored = $file->storeAs("course/{$folder}", $fileName, 'arvan');
+
+            if (!$stored) {
+                return response()->json(['error' => 'فایل ذخیره نشد. لطفاً تنظیمات فضای ذخیره‌سازی را بررسی کنید.'], 500);
+            }
+
             $videoUrl = Storage::disk('arvan')->url($originalFilePath);
 
             return response()->json(['url' => $videoUrl], 200);
-
         }
+
+        return response()->json(['error' => 'فایل یافت نشد.'], 400);
     }
+
 
 
     public function sendToArvanVideoPlatform()
