@@ -65,6 +65,8 @@
             url: "{{ route('teachers.video.upload', $course) }}",
             maxFilesize: 1400,
             acceptedFiles: '.mp4,.mov,.avi',
+            maxFiles: 1,
+            addRemoveLinks: true,
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
