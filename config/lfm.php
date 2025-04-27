@@ -62,6 +62,8 @@ return [
                 'application/pdf',
                 'text/plain',
                 'video/mp4',
+                'video/mov',
+                'video/avi',
             ],
         ],
         'image' => [
@@ -78,6 +80,8 @@ return [
                 'image/png',
                 'image/gif',
                 'video/mp4',
+                'video/mov',
+                'video/avi',
 
             ],
         ],
