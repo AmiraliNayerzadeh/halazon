@@ -1,7 +1,7 @@
 <div class="p-1 ">
     <div>
         <a href="{{route('course.show' , $course)}}">
-            <img class="rounded-2xl h-28 sm:h-60 w-full" src="{{$course->image}}"
+            <img class="rounded-2xl h-28 h-auto  w-full" src="{{$course->image}}"
                  alt="{{$course->title}}">
         </a>
     </div>

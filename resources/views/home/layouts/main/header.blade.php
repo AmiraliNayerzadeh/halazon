@@ -66,7 +66,7 @@
             <nav id="collapseMenu"
                  class='w-full max-lg:hidden lg:!block max-lg:fixed max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
                 <button id="toggleClose" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
-                    <i class="fa fa-search w-4 fill-black"></i>
+                    <i class="fa fa-close w-4 fill-black"></i>
                 </button>
 
                 <ul class='lg:flex lg:justify-between gap-x-8 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
