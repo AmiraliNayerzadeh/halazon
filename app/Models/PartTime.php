@@ -13,6 +13,14 @@ class PartTime extends Model
         'status' ,
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($partTime) {
+            $partTime->schedules()->delete();
+        });
+    }
+
+
     public function course()
     {
         return $this->belongsTo(Course::class);

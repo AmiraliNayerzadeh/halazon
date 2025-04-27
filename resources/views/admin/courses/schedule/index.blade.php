@@ -97,71 +97,115 @@
                                                 </div>
 
                                             </div>
-                                            <div class="card-footer border">
-                                                <!-- Button trigger modal -->
-                                                <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#watchSchedule{{$parts->id}}">
-                                                    مشاهده کامل زمان بندی
-                                                </button>
-
-
-                                                <!-- Modal -->
+                                            <div class="card-footer border d-flex justify-content-between">
+                                                <div>
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#watchSchedule{{$parts->id}}">
+                                                        مشاهده کامل زمان بندی
+                                                    </button>
+                                                    <!-- Modal -->
                                                     <div class="modal fade" id="watchSchedule{{$parts->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
-                                                         role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header d-flex justify-content-between">
-                                                                <div>
-                                                                    <h5 class="modal-title" id="exampleModalLabel">
-                                                                        مشاهده کامل جزئیات {{$parts->title}}</h5>
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+                                                             role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            مشاهده کامل جزئیات {{$parts->title}}</h5>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button" class="btn-close text-dark"
+                                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div>
-                                                                    <button type="button" class="btn-close text-dark"
-                                                                            data-bs-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="table-responsive p-0">
-                                                                    <table class="table mb-0">
+                                                                <div class="card-body">
+                                                                    <div class="table-responsive p-0">
+                                                                        <table class="table mb-0">
 
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th>شناسه</th>
-                                                                            <th>روز</th>
-                                                                            <th>تاریخ</th>
-                                                                            <th>ساعت</th>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-
-                                                                        @foreach($parts->schedules as $schedules )
-
+                                                                            <thead>
                                                                             <tr>
-
-                                                                                <td>{{$schedules->id}}</td>
-                                                                                <td>{{$schedules->day->day_farsi}}</td>
-                                                                                <td>
-                                                                                    {{jdate()->forge($schedules->start_date)->toDateString()}}
-                                                                                </td>
-
-                                                                                <td>{{$schedules->start_time}}</td>
-
+                                                                                <th>شناسه</th>
+                                                                                <th>روز</th>
+                                                                                <th>تاریخ</th>
+                                                                                <th>ساعت</th>
                                                                             </tr>
-                                                                        @endforeach
+                                                                            </thead>
+                                                                            <tbody>
 
-                                                                        </tbody>
-                                                                    </table>
+                                                                            @foreach($parts->schedules as $schedules )
 
+                                                                                <tr>
+
+                                                                                    <td>{{$schedules->id}}</td>
+                                                                                    <td>{{$schedules->day->day_farsi}}</td>
+                                                                                    <td>
+                                                                                        {{jdate()->forge($schedules->start_date)->toDateString()}}
+                                                                                    </td>
+
+                                                                                    <td>{{$schedules->start_time}}</td>
+
+                                                                                </tr>
+                                                                            @endforeach
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
 
+                                                <div>
+                                                    <button type="button" class="btn bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#deleteSchedule{{$parts->id}}">
+                                                        <i class="fa fa-trash"></i>
+                                                        حذف
+                                                    </button>
+
+                                                    <div class="modal fade" id="deleteSchedule{{$parts->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                                        <div class="modal-dialog modal-dialog-centered"
+                                                             role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            حذف زمان بندی: {{$parts->title}}</h5>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button" class="btn-close text-dark"
+                                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <p>بعد از حذف امکان بازگردانی زمانبندی وجود نداره!</p>
+                                                                    <p class="text-danger">آیا از اینکه میخواهید دوره را حذف کنید، اطمینان دارید؟</p>
+                                                                </div>
+
+                                                                <div class="card-footer">
+                                                                    <form action="{{route('admin.schedules.delete' , $parts)}}" method="post">
+                                                                        @csrf
+                                                                        @method('delete')
+                                                                        <div class="d-flex justify-content-end">
+                                                                            <button class="btn btn-danger" type="submit">حذف</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

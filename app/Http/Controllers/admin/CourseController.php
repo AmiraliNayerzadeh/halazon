@@ -14,6 +14,7 @@ use App\Models\Question;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schedule;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -403,6 +404,14 @@ class CourseController extends Controller
         Alert::success("زمان بندی برای   $course->title با موفقیت ایجاد شد. ");
         return back();
 
+    }
+
+    public function scheduleDelete(PartTime $partTime)
+    {
+        $partTime->delete();
+
+        Alert::success("زمان بندی با موفقیت حذف شد.");
+        return redirect()->back();
     }
 
 
