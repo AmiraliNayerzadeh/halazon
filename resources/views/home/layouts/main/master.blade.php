@@ -33,7 +33,7 @@
 
 <body class="bg-zinc-50 ">
 
-    @include('.home.layouts.main.header')
+    @include('home.layouts.main.header')
         <section class="container sm:max-w-7xl mx-auto ">
             @yield('content')
         </section>
