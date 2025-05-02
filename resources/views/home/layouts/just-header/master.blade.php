@@ -8,6 +8,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="/assets/home/plugins/fontawesome/all.css">
+    <script type="text/javascript" src="https://s1.mediaad.org/serve/107258/retargeting.js"async></script>
 </head>
 <body class="h-screen">
 

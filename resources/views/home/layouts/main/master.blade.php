@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" href="/assets/home/plugins/fontawesome/pro/v5-font-face.css">
 
+    <script type="text/javascript" src="https://s1.mediaad.org/serve/107258/retargeting.js"async></script>
+
     @yield('style')
 
 
