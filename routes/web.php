@@ -46,6 +46,8 @@ Route::get('/degrees/', [\App\Http\Controllers\home\DegreeController::class, 'in
 Route::get('/degrees/{degree:slug}', [\App\Http\Controllers\home\DegreeController::class, 'show'])->name('degrees.show');
 
 
+Route::post('/lead' , [\App\Http\Controllers\home\HomeController::class, 'leadStore'])->name('lead.store');
+
 Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/comments', [ProfileController::class, 'comment'])->name('profile.comment');

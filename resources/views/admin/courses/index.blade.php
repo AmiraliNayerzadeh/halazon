@@ -39,7 +39,7 @@
                                     <select class="form-control" name="type" id="type">
                                         <option {{ request('type') == null ? 'selected' : '' }} value="">همه</option>
                                         <option {{ request('type') == "online" ? 'selected' : '' }} value="online">آنلاین</option>
-                                        <option {{ request('type') == "offline" ? 'selected' : '' }} value="offline"آفلاین></option>
+                                        <option {{ request('type') == "offline" ? 'selected' : '' }} value="offline">آفلاین</option>
                                     </select>
                                 </div>
                             </div>

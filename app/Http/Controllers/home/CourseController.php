@@ -20,15 +20,16 @@ class CourseController extends Controller
         $this->seo()->setTitle("دوره‌های آموزشی آنلاین و آفلاین برای کودکان، نوجوانان و جوانان | حلزون");
         $this->seo()->setDescription("با دوره‌های آموزشی متنوع حلزون، یادگیری را برای کودکان، نوجوانان و جوانان به تجربه‌ای هیجان‌انگیز تبدیل کنید! آموزش‌های آنلاین و آفلاین شامل مهارت‌های هنری، علمی، ورزشی و رشد فردی، به صورت ویژه برای سنین مختلف طراحی شده‌اند. بهترین دوره‌ها برای رشد و پرورش استعدادها در حلزون!");
 
-        $courses = Cache::remember('all_courses', 60 * 60, function () {
-            return Course::where('is_draft', 0)->paginate(16);
-        });
+        $page = request('page', 1); // اگر صفحه مشخص نشده، پیش‌فرض صفحه 1
+        $cacheKey = "courses_page_" . $page;
 
+        $courses = Cache::remember($cacheKey, 60 * 60, function () use ($page) {
+            return Course::where('is_draft', 0)->paginate(24, ['*'], 'page', $page);
+        });
 
         SEOMeta::setCanonical(route("course.index"));
 
         SEOMeta::setRobots('index, follow');
-
 
         return view('home.courses.index', compact('courses'));
 

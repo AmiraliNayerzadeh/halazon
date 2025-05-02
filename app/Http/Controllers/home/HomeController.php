@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\Lead;
 use App\Models\User;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
@@ -113,8 +114,29 @@ class HomeController extends Controller
         return view('home.landing.terms');
 
     }
-    
-    
-    
-    
+
+
+    public function leadStore(Request $request)
+    {
+        $valid = Validator::make($request->all() , [
+            'name' => ['required' , 'string' , 'min:2'] ,
+            'phone' => ['required'] ,
+            'degree' => ['required'] ,
+        ]);
+
+        if ($valid->fails()) {
+            Alert::error($valid->messages()->all()[0]);
+            return back()->withInput();
+        }
+
+        $lead = Lead::create($valid->validated());
+
+        Alert::success("اطلاعات شما با موفقیت ثبت شد و کارشناسان ما به زودی با شما تماس خواهند گرفت.");
+        return back();
+
+    }
+
+
+
+
 }
