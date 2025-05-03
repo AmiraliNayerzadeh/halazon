@@ -14,8 +14,11 @@ use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Kavenegar ;
+
 
 class HomeController extends Controller
 {
@@ -130,6 +133,24 @@ class HomeController extends Controller
         }
 
         $lead = Lead::create($valid->validated());
+
+
+        try{
+            $receptor = $request['phone'];
+            $token = 'عزیز';
+            $token2 = null;
+            $token3 = null;
+            $token20 = $request['name'];
+            $template= 'LeadOne';
+            $type = 'sms';
+            //Send null for tokens not defined in the template
+            //Pass token10 and token20 as parameter 6th and 7th
+            $result = Kavenegar::VerifyLookup($receptor, $token, $token2, $token3,$token20, $template, $type = null);
+        } catch (\Exception $exception){
+            Log::error($exception->getMessage());
+        }
+
+
 
         Alert::success("اطلاعات شما با موفقیت ثبت شد و کارشناسان ما به زودی با شما تماس خواهند گرفت.");
         return back();

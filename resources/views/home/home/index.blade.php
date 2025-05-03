@@ -3,33 +3,33 @@
 @section('content')
     <div class="mt-5 grid grid-cols-12 rounded-3xl container mx-auto"
          style="background: linear-gradient(90deg, rgba(81, 46, 136, 0.22) 27%, rgba(251, 137, 49, 0.22) 72.5%)">
-        <div class="col-span-12 sm:col-span-6 p-6 sm:p-20">
+        <div class="col-span-7 sm:col-span-6 p-6 sm:p-20">
             <div class="flex flex-wrap h-full items-center">
                 <div class="space-y-3 sm:space-y-5">
                     <h1 class="text-main font-extrabold text-lg sm:text-3xl ">پلتفرم آموزشی حلزون</h1>
-                    <p class="mt-3 text-lg sm:text-lg">آهسته و پیوسته پیشرفت می‌کنیم.</p>
-                    <div>
-                        <li class="fa-solid fa-graduation-cap text-base text-primary ml-4"></li>
+                    <p class="mt-3 text-xs sm:text-lg">آهسته و پیوسته پیشرفت می‌کنیم.</p>
+                    <div class="text-xs sm:text-base">
+                        <i class="fa-solid fa-graduation-cap text-base text-primary ml-4"></i>
                         <span class="text-main underline font-extrabold dec">+{{$countCourse}}</span>
                         <span>کلاس فعال</span>
                     </div>
-                    <div>
-                        <li class="fa-solid fa-chalkboard-user text-base text-primary ml-4"></li>
+                    <div class="text-xs sm:text-base">
+                        <i class="fa-solid fa-chalkboard-user text-base text-primary ml-4"></i>
                         <span class="text-main underline font-extrabold dec">+{{$countTeacher}}</span>
                         <span>دبیر فعال</span>
                     </div>
 
                     <div class="mt-24 flex">
-                        <a class="bg-primary hover:bg-primary100 duration-500 p-3 font-extrabold text-sm rounded-3xl text-white "
+                        <a class="bg-primary hover:bg-primary100 duration-500 p-2 sm:p-3 font-extrabold text-xs sm:text-sm rounded-3xl text-white "
                            href="{{route('login')}}"><i class="fa-solid fa-plus ml-3"></i>به ما بپیوندید</a>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-5 sm:col-span-6">
             <div class="flex w-full h-full items-center justify-center">
-                <img class="h-72 sm:h-[25rem]" src="/assets/home/image/Mainhalazoon.webp" alt="وب سایت آموزشی حلزون">
+                <img class="h-40 sm:h-[25rem]" src="/assets/home/image/Mainhalazoon.webp" alt="وب سایت آموزشی حلزون">
             </div>
         </div>
     </div>

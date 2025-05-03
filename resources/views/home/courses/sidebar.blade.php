@@ -113,11 +113,6 @@
                     <div class="my-5">
                         <span class="font-extrabold">{{$part->title}}</span>
 
-                        <div class="my-2">
-                            <bdi>روز های برگزاری:</bdi>
-                            <span class="text-main50">{{ implode(', ', $part->uniqueDays->values()->toArray()) }}</span>
-                        </div>
-
                         <div class="mt-2">
                             <bdi>تاریخ شروع:</bdi>
                             <span class="text-main50">{{jdate()->forge($part->schedules->first()->start_date)->toDateString()}}</span>
@@ -127,6 +122,13 @@
                             <bdi>تاریخ پایان:</bdi>
                             <span class="text-main50">{{jdate()->forge($part->schedules->last()->start_date)->toDateString()}}</span>
                         </div>
+
+                        <div class="my-2">
+                            <bdi>روز های برگزاری:</bdi>
+                            <span class="text-main50">{{ implode(', ', $part->uniqueDays->values()->toArray()) }}</span>
+                        </div>
+
+
 
 
                         <div class="flex justify-end">
