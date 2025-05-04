@@ -9,7 +9,7 @@
 
                     <li>
                         <i class="fa-regular fa-phone-volume"></i>
-                        <a class="hover:text-primary duration-200" href="tel:989374796092">09374796092</a>
+                        <a class="hover:text-primary duration-200" href="tel:989374796092">09224796092</a>
                     </li>
 
                     <li>
