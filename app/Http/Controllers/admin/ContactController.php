@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Lead;
 use Artesaos\SEOTools\Traits\SEOTools;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -43,10 +44,19 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         $contact->delete();
-
         Alert::success("درخواست با موفقیت حذف شد.");
-
         return back() ;
+    }
+
+    public function lead()
+    {
+        $this->seo()->setTitle("مخاطبان جذب شده یا لید");
+
+        $leads = Lead::latest()->paginate('20');
+
+        return view('admin.contacts.lead', compact('leads'));
 
     }
+
+
 }

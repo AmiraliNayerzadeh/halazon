@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\ContactController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -43,7 +44,7 @@ Route::resource('/contacts' , \App\Http\Controllers\admin\ContactController::cla
 
 Route::resource('/orders' , \App\Http\Controllers\admin\OrderController::class) ;
 
-
+Route::get('/lead', [ContactController::class , 'lead'])->name('lead.index');
 
 Route::get('/headline-arvan', [\App\Http\Controllers\S3Controller::class , 'sendToArvanVideoPlatform']);
 

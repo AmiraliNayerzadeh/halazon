@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h6>لیست درخواست تماس </h6>
+                    <h6>لیست مخاطبان جذب شده از کمپین ها </h6>
 
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -15,21 +15,24 @@
                                 <th>#</th>
                                 <th>نام</th>
                                 <th>شماره تماس</th>
+                                <th>مقطع</th>
+                                <th>سن</th>
                                 <th>ایمیل</th>
                                 <th>توضیحات</th>
-                                <th>حذف/ تغیر وضعیت</th>
+{{--                                <th>حذف/ تغیر وضعیت</th>--}}
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($contacts as $contact)
+                            @foreach($leads as $contact)
                                 <tr>
                                     <th>{{$contact->id}}</th>
                                     <th>{{$contact->name}}</th>
                                     <td>{{$contact->phone}}</td>
+                                    <td>{{$contact->degree}}</td>
+                                    <td>{{$contact->age}}</td>
                                     <td>{{$contact->email}}</td>
 
                                     <td>
-
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                                                 data-bs-target="#contact_{{$contact->id}}">
@@ -65,38 +68,6 @@
 
                                     </td>
 
-                                    <td class="d-flex">
-
-                                        @if($contact->status == 0)
-
-                                            <form class="mx-2" action="{{route('admin.contacts.update' , $contact)}}"
-                                                  method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <button class="btn btn-sm btn-outline-success" type="submit">
-                                                    <i class="fa fa-check"></i>
-                                                    بررسی شد
-                                                </button>
-                                            </form>
-
-
-                                            <form action="{{route('admin.contacts.destroy' , $contact)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-outline-danger" type="submit">
-                                                    <i class="fa fa-trash"></i>
-                                                    حذف
-                                                </button>
-                                            </form>
-
-                                        @else
-                                            امکان تغیر وجود ندارد.
-                                        @endif
-
-
-
-
-                                    </td>
                                 </tr>
                             @endforeach
 
@@ -106,7 +77,8 @@
                     </div>
                 </div>
             </div>
-            {{$contacts->links('vendor.pagination.bootstrap-5')}}
+
+            {{$leads->links('vendor.pagination.bootstrap-5')}}
 
         </div>
     @endsection
