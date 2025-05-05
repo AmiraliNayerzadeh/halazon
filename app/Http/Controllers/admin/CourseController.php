@@ -414,17 +414,47 @@ class CourseController extends Controller
         return redirect()->back();
     }
 
-    public function scheduleUpdate(Request $request, PartTime $partTime)
+
+    public function scheduleUpdate(Request $request, CourseSchedule $schedule)
     {
         $validator = Validator::make($request->all(), [
-            'day_id' => ['required' , 'exists:days,id'] ,
+            'day_id' => ['required', 'exists:days,id'],
             'start_time' => ['required'],
-            'start_date' => ['required'],
+            'start_date' => ['required', 'regex:/^[0-9]{4}\/[0-9]{2}\/[0-9]{2}$/'],
+
         ]);
 
-        $partTime->update([$validator->validate()]);
-    }
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
 
+        try {
+            // تبدیل تاریخ شمسی به میلادی
+            $jDate = Jalalian::fromFormat('Y/m/d', $request->start_date);
+            $gregorianDate = $jDate->toCarbon()->format('Y-m-d');
+
+            $schedule->update([
+                'day_id' => $request->day_id,
+                'start_time' => $request->start_time,
+                'start_date' => $gregorianDate,
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'برنامه با موفقیت آپدیت شد.',
+                'converted_date' => $gregorianDate // 2025-05-14
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'خطا در تبدیل تاریخ: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 
 
 

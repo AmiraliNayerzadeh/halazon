@@ -68,9 +68,11 @@
 
                                     <div class="col-lg-6">
                                         <div class="card border">
-                                            <div class="card-header border d-flex justify-content-between align-items-center">
+                                            <div
+                                                class="card-header border d-flex justify-content-between align-items-center">
                                                 <div><h6 class="text-primary">{{$parts->title}}</h6></div>
-                                                <div class="badge {{$parts->status == 0 ? 'bg-danger' : 'bg-success' }} ">
+                                                <div
+                                                    class="badge {{$parts->status == 0 ? 'bg-danger' : 'bg-success' }} ">
                                                     {{$parts->status == 0 ? 'تایید نشده' : 'تایید شده' }}
                                                 </div>
                                             </div>
@@ -100,28 +102,36 @@
                                             <div class="card-footer border d-flex justify-content-between">
                                                 <div>
                                                     <!-- Button trigger modal -->
-                                                    <button type="button" class="btn bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#watchSchedule{{$parts->id}}">
+                                                    <button type="button" class="btn bg-gradient-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#watchSchedule{{$parts->id}}">
                                                         مشاهده کامل زمان بندی
                                                     </button>
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="watchSchedule{{$parts->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="watchSchedule{{$parts->id}}"
+                                                         tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
 
-                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
-                                                             role="document">
+                                                        <div
+                                                            class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl"
+                                                            role="document">
                                                             <div class="modal-content">
-                                                                <div class="modal-header d-flex justify-content-between">
+                                                                <div
+                                                                    class="modal-header d-flex justify-content-between">
                                                                     <div>
                                                                         <h5 class="modal-title" id="exampleModalLabel">
                                                                             مشاهده کامل جزئیات {{$parts->title}}</h5>
                                                                     </div>
                                                                     <div>
-                                                                        <button type="button" class="btn-close text-dark"
-                                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                                        <button type="button"
+                                                                                class="btn-close text-dark"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-body">
+                                                                <div class="card-body overflow-y-scroll">
                                                                     <div class="table-responsive p-0">
                                                                         <table class="table mb-0">
 
@@ -131,21 +141,41 @@
                                                                                 <th>روز</th>
                                                                                 <th>تاریخ</th>
                                                                                 <th>ساعت</th>
+                                                                                <th>ثبت تغیر</th>
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
 
                                                                             @foreach($parts->schedules as $schedules )
-
                                                                                 <tr>
+                                                                                    <form id="scheduleUpdateForm-{{$schedules->id}}">
+                                                                                        <td>{{$schedules->id}}<input type="hidden" name="schedules_id" value="{{ $schedules->id }}"></td>
 
-                                                                                    <td>{{$schedules->id}}</td>
-                                                                                    <td>{{$schedules->day->day_farsi}}</td>
-                                                                                    <td>
-                                                                                        {{jdate()->forge($schedules->start_date)->toDateString()}}
-                                                                                    </td>
+                                                                                        <td>
+                                                                                            <select name="day_id" class="form-control ">
+                                                                                                @foreach(\App\Models\Day::all() as $day)
+                                                                                                <option {{$schedules->day_id == $day->id ?'selected' : ''}} value="{{$day->id}}">{{$day->day_farsi}}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </td>
 
-                                                                                    <td>{{$schedules->start_time}}</td>
+
+                                                                                        <td>
+                                                                                            <input data-jdp type="text" class="form-control" id="start_course"
+                                                                                                   name="start_date" value="{{jdate()->forge($schedules->start_date)->toDateString()}}"
+                                                                                                   autocomplete="off">
+                                                                                        </td>
+
+                                                                                        <td>
+                                                                                            <input class="form-control" type="time" name="start_time" value="{{$schedules->start_time}}">
+                                                                                        </td>
+
+
+                                                                                        <td>
+                                                                                            <button class="btn btn-sm btn-success" type="submit">ذخیره</button>
+                                                                                        </td>
+                                                                                    </form>
+                                                                                    <div id="responseMessage"></div>
 
                                                                                 </tr>
                                                                             @endforeach
@@ -163,39 +193,52 @@
 
 
                                                 <div>
-                                                    <button type="button" class="btn bg-gradient-danger" data-bs-toggle="modal" data-bs-target="#deleteSchedule{{$parts->id}}">
+                                                    <button type="button" class="btn bg-gradient-danger"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteSchedule{{$parts->id}}">
                                                         <i class="fa fa-trash"></i>
                                                         حذف
                                                     </button>
 
-                                                    <div class="modal fade" id="deleteSchedule{{$parts->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="deleteSchedule{{$parts->id}}"
+                                                         tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
 
                                                         <div class="modal-dialog modal-dialog-centered"
                                                              role="document">
                                                             <div class="modal-content">
-                                                                <div class="modal-header d-flex justify-content-between">
+                                                                <div
+                                                                    class="modal-header d-flex justify-content-between">
                                                                     <div>
                                                                         <h5 class="modal-title" id="exampleModalLabel">
                                                                             حذف زمان بندی: {{$parts->title}}</h5>
                                                                     </div>
                                                                     <div>
-                                                                        <button type="button" class="btn-close text-dark"
-                                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                                        <button type="button"
+                                                                                class="btn-close text-dark"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <p>بعد از حذف امکان بازگردانی زمانبندی وجود نداره!</p>
-                                                                    <p class="text-danger">آیا از اینکه میخواهید دوره را حذف کنید، اطمینان دارید؟</p>
+                                                                    <p>بعد از حذف امکان بازگردانی زمانبندی وجود
+                                                                        نداره!</p>
+                                                                    <p class="text-danger">آیا از اینکه میخواهید دوره را
+                                                                        حذف کنید، اطمینان دارید؟</p>
                                                                 </div>
 
                                                                 <div class="card-footer">
-                                                                    <form action="{{route('admin.schedules.delete' , $parts)}}" method="post">
+                                                                    <form
+                                                                        action="{{route('admin.schedules.delete' , $parts)}}"
+                                                                        method="post">
                                                                         @csrf
                                                                         @method('delete')
                                                                         <div class="d-flex justify-content-end">
-                                                                            <button class="btn btn-danger" type="submit">حذف</button>
+                                                                            <button class="btn btn-danger"
+                                                                                    type="submit">حذف
+                                                                            </button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -279,13 +322,15 @@
             <div class="col-lg-3">
 
                 <div class="card mb-3">
-                    <div class="card-header bg-light text-primary"><i class="fa fa-image mx-2"></i>تصویر پروفایل کلاس</div>
+                    <div class="card-header bg-light text-primary"><i class="fa fa-image mx-2"></i>تصویر پروفایل کلاس
+                    </div>
                     <img class="img-fluid rounded p-3" src="{{$course->image}}" alt="{{$course->title}}">
                 </div>
 
 
                 <div class="card mb-3">
-                    <div class="card-header bg-light text-primary"><i class="fa fa-file-video mx-2"></i>ویدیو معرفی کلاس</div>
+                    <div class="card-header bg-light text-primary"><i class="fa fa-file-video mx-2"></i>ویدیو معرفی کلاس
+                    </div>
                     <video class="p-3 rounded" width="100%" controls>
                         <source src="{{ $course->video }}"
                                 type="video/mp4">
@@ -312,12 +357,51 @@
 
                 $(document).ready(function () {
                     $('.select2').select2({
-
                         theme: 'bootstrap-5'
-
                     });
                 });
             </script>
+
+
+<script>
+    $(document).ready(function() {
+        $('[id^="scheduleUpdateForm"]').on('submit', function(e) {
+            e.preventDefault();
+            let formData = new FormData(this);
+            let formId = $(this).attr('id');
+            let partTimeId = formId.split('-')[1];
+
+            $.ajax({
+                url: '/admin/courses/schedules/' + partTimeId,
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'X-HTTP-Method-Override': 'PUT'
+                },
+                success: function(response) {
+                    $('#responseMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+                        let errorMessages = '<div class="alert alert-danger"><ul>';
+                        $.each(errors, function(key, value) {
+                            errorMessages += '<li>' + value[0] + '</li>';
+                        });
+                        errorMessages += '</ul></div>';
+                        $('#responseMessage').html(errorMessages);
+                    } else {
+                        $('#responseMessage').html('<div class="alert alert-danger">خطایی رخ داده است.</div>');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 
         @endsection
 
