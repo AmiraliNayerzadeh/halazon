@@ -2,7 +2,8 @@
 
     <div class="rounded-2xl border border-main100 shadow space-y-4 mb-3 sticky top-0 ">
         <div class="flex items-center justify-center bg-main25 py-4 rounded-t-2xl ">
-            <span class="font-extrabold text-lg text-main100">{{$course->type == 'offline'  ? 'کلاس ضبط شده' : 'کلاس آنلاین'}}</span>
+            <span
+                class="font-extrabold text-lg text-main100">{{$course->type == 'offline'  ? 'کلاس ضبط شده' : 'کلاس آنلاین'}}</span>
         </div>
 
         <div class="p-3 border-b border-b-main ">
@@ -112,23 +113,31 @@
 
                     <div class="my-5">
                         <span class="font-extrabold">{{$part->title}}</span>
+                        <div class="mt-2">
+                            <bdi>زمان جلسه ها:</bdi>
+                            <span class="text-main50">
+                            {{ \Carbon\Carbon::parse($part->schedules->first()->start_time)->format('H:i') }}
+تا
+                             {{ \Carbon\Carbon::parse($part->schedules->first()->start_time)->addMinutes($course->minutes)->format('H:i') }}
+                            </span>
+                        </div>
 
                         <div class="mt-2">
                             <bdi>تاریخ شروع:</bdi>
-                            <span class="text-main50">{{jdate()->forge($part->schedules->first()->start_date)->toDateString()}}</span>
+                            <span
+                                class="text-main50">{{jdate()->forge($part->schedules->first()->start_date)->toDateString()}}</span>
                         </div>
 
                         <div class="mt-2">
                             <bdi>تاریخ پایان:</bdi>
-                            <span class="text-main50">{{jdate()->forge($part->schedules->last()->start_date)->toDateString()}}</span>
+                            <span
+                                class="text-main50">{{jdate()->forge($part->schedules->last()->start_date)->toDateString()}}</span>
                         </div>
 
                         <div class="my-2">
                             <bdi>روز های برگزاری:</bdi>
                             <span class="text-main50">{{ implode(', ', $part->uniqueDays->values()->toArray()) }}</span>
                         </div>
-
-
 
 
                         <div class="flex justify-end">
@@ -141,13 +150,15 @@
                                     @method('POST')
                                     <input type="hidden" name="course" value="{{ $course->id }}">
                                     <input type="hidden" name="part" value="{{ $part->id }}">
-                                    <button class="mx-2 px-3 py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
-                                            type="submit">ثبت نام
+                                    <button
+                                        class="mx-2 px-3 py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
+                                        type="submit">ثبت نام
                                     </button>
                                 </form>
 
                             @else
-                                <div class="mx-2 px-3 py-2 border bg-green-300 border-green-600 shadow  rounded-lg hover:bg-green-400 duration-500">
+                                <div
+                                    class="mx-2 px-3 py-2 border bg-green-300 border-green-600 shadow  rounded-lg hover:bg-green-400 duration-500">
                                     ثبت نام کرده اید
                                 </div>
 
@@ -166,13 +177,15 @@
                             @csrf
                             @method('POST')
                             <input type="hidden" name="course" value="{{ $course->id }}">
-                            <button class=" my-2 w-full  py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
-                                    type="submit">ثبت نام
+                            <button
+                                class=" my-2 w-full  py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
+                                type="submit">ثبت نام
                             </button>
                         </form>
                     @else
-                        <button class=" my-2 w-full  py-2 border bg-green-300 border-green-600 shadow  rounded-lg  hover:bg-green-400 duration-500"
-                                type="button">ثبت نام کرده اید
+                        <button
+                            class=" my-2 w-full  py-2 border bg-green-300 border-green-600 shadow  rounded-lg  hover:bg-green-400 duration-500"
+                            type="button">ثبت نام کرده اید
                         </button>
                     @endif
                 </div>
@@ -186,8 +199,9 @@
                         @method('POST')
                         <input type="hidden" name="type" value="{{get_class($course)}}">
                         <input type="hidden" name="id" value="{{$course->id}}">
-                        <button class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
-                                type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
+                        <button
+                            class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
+                            type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
                         </button>
                     </form>
 
@@ -197,8 +211,9 @@
                         @method('DELETE')
                         <input type="hidden" name="type" value="{{get_class($course)}}">
                         <input type="hidden" name="id" value="{{$course->id}}">
-                        <button class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
-                                type="submit"><i class="fa fa-heart-broken ml-1"></i>حذف از علاقه مندی
+                        <button
+                            class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
+                            type="submit"><i class="fa fa-heart-broken ml-1"></i>حذف از علاقه مندی
                         </button>
                     </form>
                 @endif
@@ -209,8 +224,9 @@
                     @method('POST')
                     <input type="hidden" name="type" value="{{get_class($course)}}">
                     <input type="hidden" name="id" value="{{$course->id}}">
-                    <button class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
-                            type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
+                    <button
+                        class="my-2 w-full  py-2 border border-red-500 shadow text-red-500 rounded-lg hover:bg-red-200 duration-500"
+                        type="submit"><i class="fa fa-heart ml-1"></i>افزودن علاقه مندی
                     </button>
                 </form>
             @endguest
@@ -226,7 +242,8 @@
 @endphp
 
 @if($agent->isMobile())
-    <div class="sm:static fixed bottom-0 left-0 right-0 z-50 bg-gray-200 shadow shadow-main100 p-3 border-t border-gray-200 flex items-center justify-center">
+    <div
+        class="sm:static fixed bottom-0 left-0 right-0 z-50 bg-gray-200 shadow shadow-main100 p-3 border-t border-gray-200 flex items-center justify-center">
 
         <div class="grid grid-cols-12 w-full ">
             <div class="col-span-6">
@@ -266,13 +283,15 @@
                             @csrf
                             @method('POST')
                             <input type="hidden" name="course" value="{{ $course->id }}">
-                            <button class="my-2 w-full py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
-                                    type="submit">ثبت نام
+                            <button
+                                class="my-2 w-full py-2 border border-main shadow text-main rounded-lg hover:bg-main25 duration-500"
+                                type="submit">ثبت نام
                             </button>
                         </form>
                     @else
-                        <button class="my-2 w-full py-2 border bg-green-300 border-green-600 shadow rounded-lg hover:bg-green-400 duration-500"
-                                type="button">ثبت نام کرده اید
+                        <button
+                            class="my-2 w-full py-2 border bg-green-300 border-green-600 shadow rounded-lg hover:bg-green-400 duration-500"
+                            type="button">ثبت نام کرده اید
                         </button>
                     @endif
 

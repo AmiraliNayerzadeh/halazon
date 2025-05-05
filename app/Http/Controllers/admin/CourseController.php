@@ -414,6 +414,19 @@ class CourseController extends Controller
         return redirect()->back();
     }
 
+    public function scheduleUpdate(Request $request, PartTime $partTime)
+    {
+        $validator = Validator::make($request->all(), [
+            'day_id' => ['required' , 'exists:days,id'] ,
+            'start_time' => ['required'],
+            'start_date' => ['required'],
+        ]);
+
+        $partTime->update([$validator->validate()]);
+    }
+
+
+
 
     /**
      * Remove the specified resource from storage.

@@ -15,6 +15,7 @@ Route::resource('/courses' , \App\Http\Controllers\admin\CourseController::class
 Route::get('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseController::class , 'schedule'])->name('schedules.index');
 Route::post('/courses/schedules/{course}', [\App\Http\Controllers\admin\CourseController::class , 'scheduleStore'])->name('schedules.store');
 Route::delete('/courses/schedules/{partTime}' ,  [\App\Http\Controllers\admin\CourseController::class , 'scheduleDelete'])->name('schedules.delete');
+Route::put('/courses/schedules/{partTime}' ,  [\App\Http\Controllers\admin\CourseController::class , 'scheduleUpdate'])->name('schedules.update');
 
 Route::post('/upload-video/{course}', [\App\Http\Controllers\S3Controller::class, 'uploadVideo'])->name('video.upload');
 
